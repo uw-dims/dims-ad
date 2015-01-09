@@ -110,6 +110,7 @@ entities such as systems, configuration items, and users. If part or all of
 this information is contained in Interface Design Descriptions (IDDs), in
 section 5 of the SDD, or elsewhere, these sources may be referenced.
 
+.. interfaceiddiagrams:
 
 Interface identification and diagrams
 -------------------------------------
@@ -123,6 +124,8 @@ requirements on interfacing entities) and which are being developed or
 modified (thus having interface requirements imposed on them). One or more
 interface diagrams shall be provided, as appropriate, to depict the
 interfaces.
+
+.. projectid_A:
 
 (Project unique identifier of interface)
 ----------------------------------------
@@ -159,6 +162,7 @@ data elements):
             * DoD standard data element name
 
             * Technical name (e.g., variable or field name in code or database)
+
             * Abbreviation or synonymous names
 
         * Data type (alphanumeric, integer, etc.)
@@ -181,13 +185,13 @@ data elements):
 
  	* Names/identifiers
 
- 	* Project-unique identifier
+            * Project-unique identifier
 
-        * Non-technical (natural language) name
+            * Non-technical (natural language) name
 
-        * Technical name (e.g., record or data structure name in code or database)
+            * Technical name (e.g., record or data structure name in code or database)
 
-        * Abbreviations or synonymous names
+            * Abbreviations or synonymous names
 
 
     * Data elements in the assembly and their structure (number, order, grouping)
