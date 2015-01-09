@@ -7,14 +7,22 @@ DIMS Architecture Design
 .. toctree::
    :maxdepth: 2
 
+   scope
+   referenceddocs
+   systemwidedecisions
+   dimsarchitecturaldesign
+   dimsdetaileddesign
+   requirementstraceability
+   notes
+   appendices
 
 Contact
--------
+~~~~~~~
 
 .. sectionauthor:: Dave Dittrich (@davedittrich) <dittrich @ u.washington.edu>
 
 License
--------
+~~~~~~~
 
 .. include:: <isonum.txt>
 
