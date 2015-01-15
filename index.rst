@@ -5,6 +5,7 @@ DIMS Architecture Design
 ========================
 
 .. toctree::
+   :numbered:
    :maxdepth: 2
 
    scope
