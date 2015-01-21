@@ -23,14 +23,8 @@ activities.
 
 #. H\. Khurana, J. Basney, M. Bakht, M. Freemon, V. Welch, and R. Butler. Palantir: A Framework for Collaborative Incident Response and Investigation. In IDtrust ’09: Proceedings of the 8th Symposium on Identity and Trust on the Internet, pages 38–51, New York, NY, USA, April 2009. ACM. http://middleware.internet2.edu/idtrust/2009/papers/05-khurana-palantir.pdf
  
-#. R\. S. C. Ieong. FORZA - Digital forensics investigation framework that incorporate legal issues. Digital Investigation,
- 3(Supplement-1):29–36,
- 2006. http://www.dfrws.org/2006/proceedings/4-Ieong.pdf
+#. R\. S. C. Ieong. FORZA - Digital forensics investigation framework that incorporate legal issues. Digital Investigation, 3(Supplement-1):29–36, 2006. http://www.dfrws.org/2006/proceedings/4-Ieong.pdf
 
-#. Mandiant. Using Indicators of Compromise to Find Evil and Fight
- Crime, August
- 2011. http://www.us-cert.gov/GFIRST/presentations/2011/Using_Indicators_of_Compromise.pdf
+#. Mandiant. Using Indicators of Compromise to Find Evil and Fight Crime, August 2011. http://www.us-cert.gov/GFIRST/presentations/2011/Using_Indicators_of_Compromise.pdf
 
-#. The Mitre Corporation. Standarizing Cyber Threat Intelligence
- Information with the Structured Threat Information eXpression (STIX),
- 2012. http://makingsecuritymeasurable.mitre.org/docs/STIX-Whitepaper.pdf
+#. The Mitre Corporation. Standarizing Cyber Threat Intelligence Information with the Structured Threat Information eXpression (STIX), 2012. http://makingsecuritymeasurable.mitre.org/docs/STIX-Whitepaper.pdf
