@@ -129,6 +129,85 @@ than forcing the analyst to do a lot of work manipulating files,
 processing their contents, and manually entering data into report
 generation front ends in web based portals.
 
+.. _PRISEMInitialDeploymentAndFlows:
+
+.. figure:: images/cos-hw-deployment-v3.png
+
+   PRISEM Initial Deployment and Flows
+
+Figure :ref:`PRISEMInitialDeploymentAndFlows` depicts the high-level
+data flow relationships for the Security Information Event Management
+(SIEM) system and Botnets detector subsystem used in the PRISEM
+project as it was initially deployed in 2009. The City of Seattle (the
+first and to this date largest participant organization) has multiple
+security devices sending event logs into the system.  It also
+generates NetFlow V5 records that are processed by real-time
+detectors, and archived for historical query capability. The logs are
+collected one site, then forwarded to the central SIEM for processing
+at the University of Washington.
+
+
+Figure 4 depicts a prototypical NetFlow collection and
+archiving model. The PRISEM system uses a slightly modified version of
+this model. Unlike the diagram in Figure 4, the PRISEM system
+processes NetFlow records as they enter the `NetFlow Collector` in
+the center of the diagram, sending copies to the Botnets system
+detectors. One of the processes receiving these records performs the
+storage task, however it converts the NetFlow V5 records to SiLK
+format before storing them. The SiLK tool suite is then used to
+process these historic logs (e.g., performing historic queries).
+
+.. _OpsTrustArchitectureDiagram:
+
+.. figure:: images/ops-trust-system-architecture.png
+
+   Ops-Trust Architecture Diagram
+
+Figure :ref:`OpsTrustArchitectureDiagram` shows the basic architecture
+of the Ops-Trust portal system. This system is a combination of a
+web-based portal, a wiki for information archiving, an email server,
+and DNS and LDAP services tied to OpenID authentication services to
+provide single-signon capability. All of these services are provided
+via four separate virtual machines, co-resident in a single 1U server
+that is backed up off-site. The instance depicted in
+:ref:`OpsTrustArchitectureDiagram` is hosted on Ops-Trust hardware. A
+development instance will be set up at the UW for DIMS development,
+and potentially multiple local test instances will be set up for
+PRISEM users (and possibly also Agora members, currently running in
+the multiple hundreds of individuals) to beta-test DIMS features.
+
+
+.. _OpsTrustMemberPage:
+
+.. figure:: images/ops-trust-memberpage.png
+
+   Ops-Trust Member Information Page
+
+The Ops-Trust portal stores attributes about each member. Figure :ref:`OpsTrustMemberPage` shows the
+account for the PI, which includes: user UUID; home time zone; nearest
+airport (to facilitate contact and meet-ups when one is on travel);
+how to contact via email, postal mail, SMS, IM, and phone; and current
+PGP encryption key. The portal lets you sign up for email lists, and
+switch between "trust groups". After signing up for (and
+optionally being approved for membership) email lists, the user is
+included on list email routed through the mail server, and granted
+access to the appropriate section of the wiki.
+
+
+The DIMS system will take advantage of the foundation of services
+provide by this portal in several ways. It will use it as a means of
+storing more information about users, the network assets they protect,
+the policies and mechanisms for anonymizing and filtering data based
+on TLP tagging, etc. It will also use it as a mechanism to distribute
+data to users as needed (e.g., alerts about email threads that pertain
+to the network assets they protect, providing a means to download
+OpenVPN certificates and SSH keys, as a mechanism for storing and
+organizing data associated with incidents and campaigns they are
+dealing with, etc.) The ability to manage encrypted communications and
+multiple email lists facilitates trusted communication and offers a
+basis for sending structured threat information in encrypted form,
+directly from one user to another, or from a user to all members of a
+list.
 
 Document overview
 -----------------

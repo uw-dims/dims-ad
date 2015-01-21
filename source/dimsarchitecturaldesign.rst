@@ -4,12 +4,124 @@
 DIMS architectural design
 =========================
 
-This section shall be divided into the following paragraphs to describe the DIMS architectural design. If part or all of the design depends upon system states or modes, this dependency shall be indicated. If design information falls into more than one paragraph, it may be presented once and referenced from the other paragraphs. Design conventions needed to understand the design shall be presented or referenced.
+This section shall be divided into the following paragraphs to describe the DIMS architectural design. If part or all of the design depends upon system states or modes, this dependency shall be indicated. If design information falls into more than one paragraph, it may be presented once and referenced from the other paragraphs. Design conventions needed to understand the design shall be presented or referenced.b
 
-.. dimscomponents:
+.. _PRISEMHardwareLayoutDiagram:
+
+.. figure:: images/PRISEM-hardware-layout-diagram.png
+
+   PRISEM Hardware Layout Diagram.
+
+
+
+Figure :ref:`PRISEMHardwareLayoutDiagram` shows the physical hardware
+configuration for PRISEM system components in the server rack located
+in the UW Tower IT data center. Green boxes are those used for PRISEM
+(and now for some DIMS) related systems, while white and gray boxes
+are either unused or occupied by other resources. Some of the physical
+hardware (e.g., the systems labeled "IBM" and "Eclipse") are obsolete
+and are being replaced by virtual machines to be housed in newly added
+hardware located in slots 7+8. (The VLAN switch labeled "CoS" will
+also be replaced in the near future with the D-Link VLAN switch below
+it.) Hardware supporting the DIMS project has not yet been purchased,
+though space has been reserved for it in the same rack to facilitate
+high-speed network access behind the PRISEM firewall and OpenVPN
+servers. (See other Figures for PRISEM + DIMS Architecture
+descriptions).
+
+The principal PRISEM hardware consists of Dell PowerEdge servers. Two
+PowerEdge 1950 (pink.seattle.gov and floyd.prisem.washington.edu) are
+used for log collection, NetFlow processing, and the CIF database. Two
+Dell R720 (zion.prisem.washington.edu and money.prisem.washington.edu)
+servers are used for the Log Matrix Threat Center and Log Center
+servers. Both zion and money are replacements for the original Dell
+R710 servers purchased at the start of the project in 2008. Virtual
+machines are run on a Dell PowerEdge R715 server, with 128GB RAM,
+2x12-Core 1.8GHz AMD Opteron processors, and 12 – 1TB drives in a RAID
+5 array.
+
+Physical networking is provided by 1 GigE switches, some configured to
+support virtual LAN (VLAN) isolation. (One is a D-Link xStack Managed
+24-Port Gigabit L2+ 1/10-GigE switch, another a D-Link DXS-3227 1-GigE
+managed switch). One VLAN provides an isolated network for
+inter-system communication behind a vendor-supported stateful firewall
+and OpenVPN server for remote access. Another VLAN provides
+internet-routable connections in front of the firewall. At present,
+only IPv4 is supported for network connectivity
+
+
+The DIMS system will conform with the hardware/software separation
+used by the Ops-Trust and PRISEM systems, which pre-date the DIMS
+project. In both of these projects, some separation of services across
+physical and/or virtual machines is done for various reasons of
+performance, scalability, speed, ease of administration, conformance
+with operating system version dependencies, etc. DIMS components will
+be separate (where appropriate) for similar reasons, and integrated as
+much as possible by combining similar services in order to minimize
+the total number of physical and/or virtual machines in use. For
+example, if there are three domain name servers, they can be combined
+into one server that handles multiple domains.
+
+ .. dimscomponents:
 
 DIMS components
 ---------------
+
+SIEM event correlation server
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The PRISEM system uses a Log Matrix "Threat Center" system, hosted on
+a high-end Dell server with multiple cores, large RAM capacity, an SSD
+drive to accelerate database activities, and 2TB RAID 1 array for disk
+fault tolerance. This system runs CentOS 6.4.
+
+
+SIEM log archive server
+^^^^^^^^^^^^^^^^^^^^^^^
+
+The PRISEM system uses a Log Matrix "Log Center" system, hosted on a
+high-end Dell server with multiple cores, and 9TB RAID 5 array disk
+fault tolerance. This system runs CentOS 5.10 (due to compatibility
+issues with the Vertica database).
+
+Virtual machine management server
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The PRISEM system uses a Dell PowerEdge R715 for virtual machine hosting.
+
+
+AMQP broker
+^^^^^^^^^^^
+
+The PRISEM system uses a virtual machine running RabbitMQ for AMQP
+broker services.
+
+
+Collective Intelligence Framework (CIF) server
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The PRISEM system is using a CIF v0.1 database on physical hardware
+(Dell PowerEdge 1950). This system will be replaced with a virtual
+machine running CIF v1.0 (or newer).
+
+ID management and authentication server
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The Ops-Trust and DIMS projects are using OpenID and LemonLDAP (though
+in slightly different ways). The intention is to combine these into a
+single pair of OpenID/LDAP servers.
+
+Domain name server
+^^^^^^^^^^^^^^^^^^
+
+The Ops-Trust system runs its own DNS server for all system components
+in a single-purpose VM. The PRISEM project is currently using static
+host tables and DNSMasq in slightly different ways (depending on
+whether access is from the open internet, or through the OpenVPN
+tunnel). It is anticipated that a split-DNS configuration, using the
+same server as the Ops-Trust infrastructure, will be used in the long
+run to get consistent DNS response regardless of access method used.
+
 
 This paragraph shall:
 
