@@ -122,6 +122,34 @@ tunnel). It is anticipated that a split-DNS configuration, using the
 same server as the Ops-Trust infrastructure, will be used in the long
 run to get consistent DNS response regardless of access method used.
 
+Virtual private network tunnel server(s)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The PRISEM project has an OpenVPN server for remote access to the
+backdoor VLAN. This allows access to the AMQP broker, and direct
+access to the MySQL databases used by Log Matrix. (The vendor
+maintains their own Cisco managed VPN/firewall for access from their
+internal network).
+
+Internal Communications Architecture 
+------------------------------------
+
+In this section, describe the overall communications within the
+system; for example, LANs, buses, etc. Include the communications
+architecture(s) being implemented, such as X.25, Token Ring,
+etc. Provide a diagram depicting the communications path(s) between
+the system and subsystem modules. If appropriate, use subsections to
+address each architecture being employed.
+
+The DIMS system will be built on top of the legacy PRISEM
+system. PRISEM has interfaces to some of its services that integrate
+an instance of the Collective Intelligence Framework (CIF) database
+for IP-based reputation watchlists and historic attacker context, an
+archive of historic event logs, and remotely stored network flow data
+in SiLK format. The logical architecture that integrates these systems
+is a combination of message bus (using AMQP), SSH tunneled file and/or
+command line access, or HTTPS web interfaces and RESTful API.
+
 
 This paragraph shall:
 
