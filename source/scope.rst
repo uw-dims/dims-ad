@@ -59,6 +59,8 @@ System overview
 .. _DimsSystemOverview:
 
 .. figure:: images/Overview-DIMS-system.png
+   :width: 70%
+   :align: center
 
    Overview of DIMS System.
 
@@ -101,6 +103,8 @@ up the global fabric of the internet.
 .. _DataFlowsBetweenStakeholders:
 
 .. figure:: images/stix-dataflows-v1.png
+   :width: 70%
+   :align: center
 
    Data Flows Between Stakeholders
 
@@ -137,6 +141,8 @@ generation front ends in web based portals.
 .. _PRISEMInitialDeploymentAndFlows:
 
 .. figure:: images/cos-hw-deployment-v3.png
+   :width: 70%
+   :align: center
 
    PRISEM Initial Deployment and Flows
 
@@ -165,6 +171,8 @@ process these historic logs (e.g., performing historic queries).
 .. _OpsTrustArchitectureDiagram:
 
 .. figure:: images/ops-trust-system-architecture.png
+   :width: 70%
+   :align: center
 
    Ops-Trust Architecture Diagram
 
@@ -185,6 +193,8 @@ the multiple hundreds of individuals) to beta-test DIMS features.
 .. _OpsTrustMemberPage:
 
 .. figure:: images/ops-trust-memberpage.png
+   :width: 90%
+   :align: center
 
    Ops-Trust Member Information Page
 
