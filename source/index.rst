@@ -20,7 +20,8 @@ DIMS Architecture Design
 Contact
 ~~~~~~~
 
-.. sectionauthor:: Dave Dittrich (@davedittrich) <dittrich @ u.washington.edu>
+.. sectionauthor:: Dave Dittrich <dittrich @ u.washington.edu>
+.. sectionauthor:: Stuart Maclean <stuart @ apl.washington.edu>
 
 License
 ~~~~~~~
