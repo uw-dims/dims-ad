@@ -1,13 +1,15 @@
+.. referenceddocs:
+
 ====================
 Referenced documents
 ====================
 
-.. referenceddocs:
+.. note:: TBD
 
-This section shall list the number, title, revision, and date of all
-documents referenced in this document. This section shall also identify the
-source for all documents not available through normal Government stocking
-activities.
+   This section shall list the number, title, revision, and date of all
+   documents referenced in this document. This section shall also identify the
+   source for all documents not available through normal Government stocking
+   activities.
 
 #. D\. Dittrich. PRISEM Analyst’s Handbook, December 2013.
 

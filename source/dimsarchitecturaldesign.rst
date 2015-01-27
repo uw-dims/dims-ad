@@ -4,7 +4,15 @@
 DIMS architectural design
 =========================
 
-This section shall be divided into the following paragraphs to describe the DIMS architectural design. If part or all of the design depends upon system states or modes, this dependency shall be indicated. If design information falls into more than one paragraph, it may be presented once and referenced from the other paragraphs. Design conventions needed to understand the design shall be presented or referenced.b
+.. note:: TBD
+
+   This section shall be divided into the following paragraphs to
+   describe the DIMS architectural design. If part or all of the design
+   depends upon system states or modes, this dependency shall be
+   indicated. If design information falls into more than one paragraph,
+   it may be presented once and referenced from the other
+   paragraphs. Design conventions needed to understand the design shall
+   be presented or referenced.
 
 .. _PRISEMHardwareLayoutDiagram:
 
@@ -228,42 +236,48 @@ This paragraph shall:
 Concept of execution
 --------------------
 
-This paragraph shall describe the concept of execution among the software
-units. It shall include diagrams and descriptions showing the dynamic
-relationship of the software units, that is, how they will interact during
-DIMS operation, including, as applicable, flow of execution control, data
-flow, dynamically controlled sequencing, state transition diagrams, timing
-diagrams, priorities among units, handling of interrupts, timing/sequencing
-relationships, exception handling, concurrent execution, dynamic
-allocation/deallocation, dynamic creation/deletion of objects, processes,
-tasks, and other aspects of dynamic behavior.
+.. note:: TBD
+
+   This paragraph shall describe the concept of execution among the software
+   units. It shall include diagrams and descriptions showing the dynamic
+   relationship of the software units, that is, how they will interact during
+   DIMS operation, including, as applicable, flow of execution control, data
+   flow, dynamically controlled sequencing, state transition diagrams, timing
+   diagrams, priorities among units, handling of interrupts, timing/sequencing
+   relationships, exception handling, concurrent execution, dynamic
+   allocation/deallocation, dynamic creation/deletion of objects, processes,
+   tasks, and other aspects of dynamic behavior.
 
 .. interfacedesign:
 
 Interface design
 ----------------
 
-This paragraph shall be divided into the following subparagraphs to describe
-the interface characteristics of the software units. It shall include both
-interfaces among the software units and their interfaces with external
-entities such as systems, configuration items, and users. If part or all of
-this information is contained in Interface Design Descriptions (IDDs), in
-section 5 of the SDD, or elsewhere, these sources may be referenced.
+.. note:: TBD
+
+   This paragraph shall be divided into the following subparagraphs to describe
+   the interface characteristics of the software units. It shall include both
+   interfaces among the software units and their interfaces with external
+   entities such as systems, configuration items, and users. If part or all of
+   this information is contained in Interface Design Descriptions (IDDs), in
+   section 5 of the SDD, or elsewhere, these sources may be referenced.
 
 .. interfaceiddiagrams:
 
 Interface identification and diagrams
 -------------------------------------
 
-This paragraph shall state the project-unique identifier assigned to each
-interface and shall identify the interfacing entities (software units,
-systems, configuration items, users, etc.) by name, number, version, and
-documentation references, as applicable. The identification shall state which
-entities have fixed interface characteristics (and therefore impose interface
-requirements on interfacing entities) and which are being developed or
-modified (thus having interface requirements imposed on them). One or more
-interface diagrams shall be provided, as appropriate, to depict the
-interfaces.
+.. note:: TBD
+
+   This paragraph shall state the project-unique identifier assigned to each
+   interface and shall identify the interfacing entities (software units,
+   systems, configuration items, users, etc.) by name, number, version, and
+   documentation references, as applicable. The identification shall state which
+   entities have fixed interface characteristics (and therefore impose interface
+   requirements on interfacing entities) and which are being developed or
+   modified (thus having interface requirements imposed on them). One or more
+   interface diagrams shall be provided, as appropriate, to depict the
+   interfaces.
 
 .. projectid_A:
 
