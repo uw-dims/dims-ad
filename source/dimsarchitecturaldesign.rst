@@ -14,6 +14,29 @@ DIMS architectural design
    paragraphs. Design conventions needed to understand the design shall
    be presented or referenced.
 
+.. _DIMSSystemArchitecture:
+
+.. figure:: images/dims-system-architecture-v2.png
+
+   DIMS Integrated System Architecture.
+
+Figure :ref:`DIMSSystemArchitecture` illustrates the combined systems
+of the PRISEM project, the Ops-Trust portal, and the DIMS back end. As
+much as possible, the DIMS architecture will be overlaid on top of, or
+merged into, similar components from these existing systems. For
+example, it is not necessary to run three DNS servers for each
+project, when one can handle multiple systems and possibly even
+multiple domains. These can thus be collapsed into one server for
+DNS. The same is true for LDAP and OpenID authentication (Ops-Trust
+and DIMS are both designed to use these services) and there is only
+need for one AMQP message bus server, one mail server, and one
+database for security data. All access will be centralized through the
+OpenVPN server, with certificates and encryption keys provided to the
+user via the modified Ops-Trust portal.
+
+System Hardware Architecture
+----------------------------
+
 .. _PRISEMHardwareLayoutDiagram:
 
 .. figure:: images/PRISEM-hardware-layout-diagram.png
@@ -72,8 +95,22 @@ into one server that handles multiple domains.
 
  .. dimscomponents:
 
-DIMS components
----------------
+System Software Architecture
+----------------------------
+
+The DIMS system will conform with the hardware/software separation
+used by the Ops- Trust and PRISEM systems, which pre-date the DIMS
+project. In both of these projects, some separation of services across
+physical and/or virtual machines is done for various reasons of
+performance, scalability, speed, ease of administration, conformance
+with operating system version dependencies, etc. DIMS components will
+be separate (where appropriate) for similar reasons, and integrated as
+much as possible by combining similar services in order to minimize
+the total number of physical and/or virtual machines in use.  For
+example, if there are three domain name servers, they can be combined
+into one server that handles multiple domains.
+
+
 
 SIEM event correlation server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -142,12 +179,14 @@ internal network).
 Internal Communications Architecture 
 ------------------------------------
 
-In this section, describe the overall communications within the
-system; for example, LANs, buses, etc. Include the communications
-architecture(s) being implemented, such as X.25, Token Ring,
-etc. Provide a diagram depicting the communications path(s) between
-the system and subsystem modules. If appropriate, use subsections to
-address each architecture being employed.
+.. note::
+
+   In this section, describe the overall communications within the
+   system; for example, LANs, buses, etc. Include the communications
+   architecture(s) being implemented, such as X.25, Token Ring,
+   etc. Provide a diagram depicting the communications path(s) between
+   the system and subsystem modules. If appropriate, use subsections to
+   address each architecture being employed.
 
 The DIMS system will be built on top of the legacy PRISEM
 system. PRISEM has interfaces to some of its services that integrate
