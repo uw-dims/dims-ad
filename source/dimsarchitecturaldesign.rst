@@ -301,6 +301,182 @@ Interface design
    this information is contained in Interface Design Descriptions (IDDs), in
    section 5 of the SDD, or elsewhere, these sources may be referenced.
 
+
+File and Database Design
+------------------------
+
+
+.. _PRISEMDataVolumes:
+
+.. figure:: images/PRISEM-data-volumes.png
+   :width: 70%
+   :align: center
+
+   PRISEM Data Volumes
+
+
+
+Figure :ref:`PRISEMDataVolumes` lists the database and non-database
+data sources used by the PRISEM system, along with the approximate
+timespan over which those records are kept.
+
+Database Management System Files
+--------------------------------
+
+There is an approximate average of 20M events per day collected by the
+ThreatCenter database server (zion.prisem.washington.edu), which is
+configured with a 48-hour data retention window. These records are
+kept in a database optimized for continuous correlation.  The
+normalized records (which include the original raw event log) are
+stored in over 167,000 discrete read-optimized Vertica database files
+on the LogCenter server (money.prisem.washington.edu).  The Collective
+Intelligence Framework database (v0.1) keeps its data in a Postgress
+database. This database is used to pull feeds from remote sites, and
+to generate feeds for use by the Botnets system’s watchlist
+detectors. At regular periods during the day, the CIF database has
+some tables copied into a read-optimized MySQL database known as
+Sphinx for accelerated discrete queries. (It is the Sphinx database
+that is used by the cifbulk RPC service).
+
+Non-Database Management System Files
+--------------------------------
+
+Network flow records are stored locally at the City of Seattle
+(pink.seattle.gov) in SiLK format. The disk capacity of 1TB is capable
+of holding just over 2 years of flow data in over 258,000 discrete
+SiLK data files. (SiLK is a highly-optimized fixed length binary
+format that is quite efficient for post-processing without needing a
+database management system.)
+
+
+Human-Machine Interface
+-----------------------
+
+The raw inputs to PRISEM fall into three primary buckets: event logs
+from security devices in text form, which are normalized as they are
+processed by the SIEM; Network flow records that are received as
+NetFlow V5 records processed in real time and discarded, but a copy is
+converted to SiLK format and saved for historic query capability;
+reputation data pulled from various feeds and stored in a Collective
+Intelligence Framework (CIF) database. Various ad-hoc formats of
+“indicators of compromise” or “observables” are received from outside
+parties, which are primarily processed by hand (this includes
+indicators received from federal government sources, for example Joint
+Indicator Bulletins (JIBs) from the Federal Bureau of Investigation).
+
+.. _CiscoFWSM:
+
+.. figure:: images/CiscoFWSM.png
+   :width: 70%
+   :align: center
+
+   Cisco FWSM Event Log (Redacted)
+
+Examples of standard security device logs can be seen in Figure
+:ref:`CiscoFWSM` (Cisco Firewall Security Manager, or FWSM), Figure
+:ref:`Netscreen` (Netscreen Firewall), Figure :ref:`TippingPoint`
+(Tipping Point Intrusion Prevention System, or IPS), and Figure
+:ref:`WebSense` (Websense web filter). These examples are redacted,
+but show representative content that is used for correlation (e.g.,
+source and destination IP addresses, ports, protocols, etc.)
+
+.. _Netscreen:
+
+.. figure:: images/Netscreen.png
+   :width: 70%
+   :align: center
+
+   Netscreen Event Log (Redacted)
+
+.. _TippingPoint:
+
+.. figure:: images/TippingPoint.png
+   :width: 70%
+   :align: center
+
+   Tipping Point Logs (Redacted)
+
+.. _WebSense:
+
+.. figure:: images/WebSense.png
+   :width: 70%
+   :align: center
+
+   WebSense Log Sample (Redacted)
+
+Figure :ref:`BotnetsSyslog` illustrates what events logged by the
+Botnets system detectors look like. All of these examples are for
+“watchlist” detectors that simply trigger when they see a connection
+to/from a host on the watchlist. Each detector has its own ID (e.g,
+“CIFList” in the first entry), followed by the ranking score for that
+detector (“@8” in this case for the CIFList detector). This is used in
+the calculation of score for ranking significance of events in the
+SIEM. Also shown are the IP addresses of the internal hosts involved
+in the alerted activity, as well as the IP addresses of the systems on
+the watchlists.
+
+.. _BotnetsSyslog:
+
+.. figure:: images/Botnets-syslog.png
+   :width: 70%
+   :align: center
+
+   Botnets System Event Log (Redacted)
+
+.. _HistoricEventLogs:
+
+.. figure:: images/HistoricEventLog.png
+   :width: 70%
+   :align: center
+
+   Example Historic Event Log Data (Redacted)
+
+Figure :ref:`HistoricEventLogs` shows three records returned from a
+search of historic event logs from the Log Matrix SEIM log
+archive. These records have been anonymized to conceal the specific IP
+addresses and domain names of the sources (Seattle Children’s Hospital
+and the Port of Tacoma, in this case). Notice that the schema used by
+this vendor includes both destination IP address and destination port,
+but only includes source IP address (not source port) making certain
+queries of the database impossible. For example, attempting to find
+records related to malware that uses fixed source port for flooding
+could not be directly queried, requiring extraction of the
+“description” field (i.e., the original raw event) and parsing to
+identify related records. A solution to this would be to extract all
+of the data from the database and store it in a more flexible
+database.
+
+Indirectly related to the previous data sources is meta-data that
+allows classification, filtering, and anonymization, based on
+organizational units for networks and sites. Figure
+:ref:`ParticipantMapping` illustrates how top level domains and/or
+CIDR blocks for a subset of PRISEM participants are mapped to their
+Site ID strings and chosen anonymization strings (i.e., the label that
+participant would like to use to mask their internal IP addresses and
+host names in reports that are shared outside the trust group.) Their
+use in identification of “Friend or Foe” is described in the Concept
+of Operations document. (Such a cross- organizational correlation
+result using the full map as suggested in Figure
+:ref:`ParticipantMapping` can be seen in Figure TODO 21 in the Outputs
+section.)
+
+.. _ParticipantMapping:
+
+.. figure:: images/ParticipantMapping.png
+   :width: 70%
+   :align: center
+
+   Partial Participant ID Mapping
+
+.. _NetworkFlowReport:
+
+.. figure:: images/ExampleNetworkFlowReport.png
+   :width: 70%
+   :align: center
+
+   Example Network Flow Report (Anonymized Targets)
+
+
 .. interfaceiddiagrams:
 
 Interface identification and diagrams
