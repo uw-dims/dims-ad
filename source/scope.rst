@@ -21,7 +21,7 @@ Distributed Incident Management System (DIMS) architecture. Its
 purpose is to provide the reader with an overview of the major system
 components of the existing Public Regional Information Security Event
 Management (PRISEM) system, the Operational Security Trust (Ops-Trust)
-portal system, and the components of the DIMS `dashboard‘ front-end
+portal system, and the components of the DIMS 'dashboard' front-end
 and data processing back end that integrate these two existing
 systems.
 
@@ -29,8 +29,8 @@ systems.
 As the DIMS system relies upon and integrates multiple existing and
 future open source software components, it is being developed using an
 Agile programming development methodology (as opposed to the classic
-`waterfall‘ development methodology with its sequential processes.)
-This document, therefore, is a `living document‘ that will be updated
+'waterfall' development methodology with its sequential processes.)
+This document, therefore, is a 'living document' that will be updated
 as the project proceeds and as cyclic input/feedback from users and
 testers is received. Sections to be addressed in future releases of
 this document are listed as TBA.
