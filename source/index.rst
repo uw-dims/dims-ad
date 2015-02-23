@@ -16,6 +16,7 @@ DIMS Architecture Design
    requirementstraceability
    notes
    appendices
+   tobeintegrated
 
 Contact
 ~~~~~~~
