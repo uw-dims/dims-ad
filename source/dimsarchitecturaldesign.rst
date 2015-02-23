@@ -14,6 +14,29 @@ DIMS architectural design
    paragraphs. Design conventions needed to understand the design shall
    be presented or referenced.
 
+.. _DIMSSystemArchitecture:
+
+.. figure:: images/dims-system-architecture-v2.png
+
+   DIMS Integrated System Architecture.
+
+Figure :ref:`DIMSSystemArchitecture` illustrates the combined systems
+of the PRISEM project, the Ops-Trust portal, and the DIMS back end. As
+much as possible, the DIMS architecture will be overlaid on top of, or
+merged into, similar components from these existing systems. For
+example, it is not necessary to run three DNS servers for each
+project, when one can handle multiple systems and possibly even
+multiple domains. These can thus be collapsed into one server for
+DNS. The same is true for LDAP and OpenID authentication (Ops-Trust
+and DIMS are both designed to use these services) and there is only
+need for one AMQP message bus server, one mail server, and one
+database for security data. All access will be centralized through the
+OpenVPN server, with certificates and encryption keys provided to the
+user via the modified Ops-Trust portal.
+
+System Hardware Architecture
+----------------------------
+
 .. _PRISEMHardwareLayoutDiagram:
 
 .. figure:: images/PRISEM-hardware-layout-diagram.png
@@ -72,8 +95,22 @@ into one server that handles multiple domains.
 
  .. dimscomponents:
 
-DIMS components
----------------
+System Software Architecture
+----------------------------
+
+The DIMS system will conform with the hardware/software separation
+used by the Ops- Trust and PRISEM systems, which pre-date the DIMS
+project. In both of these projects, some separation of services across
+physical and/or virtual machines is done for various reasons of
+performance, scalability, speed, ease of administration, conformance
+with operating system version dependencies, etc. DIMS components will
+be separate (where appropriate) for similar reasons, and integrated as
+much as possible by combining similar services in order to minimize
+the total number of physical and/or virtual machines in use.  For
+example, if there are three domain name servers, they can be combined
+into one server that handles multiple domains.
+
+
 
 SIEM event correlation server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -142,12 +179,14 @@ internal network).
 Internal Communications Architecture 
 ------------------------------------
 
-In this section, describe the overall communications within the
-system; for example, LANs, buses, etc. Include the communications
-architecture(s) being implemented, such as X.25, Token Ring,
-etc. Provide a diagram depicting the communications path(s) between
-the system and subsystem modules. If appropriate, use subsections to
-address each architecture being employed.
+.. note::
+
+   In this section, describe the overall communications within the
+   system; for example, LANs, buses, etc. Include the communications
+   architecture(s) being implemented, such as X.25, Token Ring,
+   etc. Provide a diagram depicting the communications path(s) between
+   the system and subsystem modules. If appropriate, use subsections to
+   address each architecture being employed.
 
 The DIMS system will be built on top of the legacy PRISEM
 system. PRISEM has interfaces to some of its services that integrate
@@ -261,6 +300,182 @@ Interface design
    entities such as systems, configuration items, and users. If part or all of
    this information is contained in Interface Design Descriptions (IDDs), in
    section 5 of the SDD, or elsewhere, these sources may be referenced.
+
+
+File and Database Design
+------------------------
+
+
+.. _PRISEMDataVolumes:
+
+.. figure:: images/PRISEM-data-volumes.png
+   :width: 70%
+   :align: center
+
+   PRISEM Data Volumes
+
+
+
+Figure :ref:`PRISEMDataVolumes` lists the database and non-database
+data sources used by the PRISEM system, along with the approximate
+timespan over which those records are kept.
+
+Database Management System Files
+--------------------------------
+
+There is an approximate average of 20M events per day collected by the
+ThreatCenter database server (zion.prisem.washington.edu), which is
+configured with a 48-hour data retention window. These records are
+kept in a database optimized for continuous correlation.  The
+normalized records (which include the original raw event log) are
+stored in over 167,000 discrete read-optimized Vertica database files
+on the LogCenter server (money.prisem.washington.edu).  The Collective
+Intelligence Framework database (v0.1) keeps its data in a Postgress
+database. This database is used to pull feeds from remote sites, and
+to generate feeds for use by the Botnets system’s watchlist
+detectors. At regular periods during the day, the CIF database has
+some tables copied into a read-optimized MySQL database known as
+Sphinx for accelerated discrete queries. (It is the Sphinx database
+that is used by the cifbulk RPC service).
+
+Non-Database Management System Files
+--------------------------------
+
+Network flow records are stored locally at the City of Seattle
+(pink.seattle.gov) in SiLK format. The disk capacity of 1TB is capable
+of holding just over 2 years of flow data in over 258,000 discrete
+SiLK data files. (SiLK is a highly-optimized fixed length binary
+format that is quite efficient for post-processing without needing a
+database management system.)
+
+
+Human-Machine Interface
+-----------------------
+
+The raw inputs to PRISEM fall into three primary buckets: event logs
+from security devices in text form, which are normalized as they are
+processed by the SIEM; Network flow records that are received as
+NetFlow V5 records processed in real time and discarded, but a copy is
+converted to SiLK format and saved for historic query capability;
+reputation data pulled from various feeds and stored in a Collective
+Intelligence Framework (CIF) database. Various ad-hoc formats of
+“indicators of compromise” or “observables” are received from outside
+parties, which are primarily processed by hand (this includes
+indicators received from federal government sources, for example Joint
+Indicator Bulletins (JIBs) from the Federal Bureau of Investigation).
+
+.. _CiscoFWSM:
+
+.. figure:: images/CiscoFWSM.png
+   :width: 70%
+   :align: center
+
+   Cisco FWSM Event Log (Redacted)
+
+Examples of standard security device logs can be seen in Figure
+:ref:`CiscoFWSM` (Cisco Firewall Security Manager, or FWSM), Figure
+:ref:`Netscreen` (Netscreen Firewall), Figure :ref:`TippingPoint`
+(Tipping Point Intrusion Prevention System, or IPS), and Figure
+:ref:`WebSense` (Websense web filter). These examples are redacted,
+but show representative content that is used for correlation (e.g.,
+source and destination IP addresses, ports, protocols, etc.)
+
+.. _Netscreen:
+
+.. figure:: images/Netscreen.png
+   :width: 70%
+   :align: center
+
+   Netscreen Event Log (Redacted)
+
+.. _TippingPoint:
+
+.. figure:: images/TippingPoint.png
+   :width: 70%
+   :align: center
+
+   Tipping Point Logs (Redacted)
+
+.. _WebSense:
+
+.. figure:: images/WebSense.png
+   :width: 70%
+   :align: center
+
+   WebSense Log Sample (Redacted)
+
+Figure :ref:`BotnetsSyslog` illustrates what events logged by the
+Botnets system detectors look like. All of these examples are for
+“watchlist” detectors that simply trigger when they see a connection
+to/from a host on the watchlist. Each detector has its own ID (e.g,
+“CIFList” in the first entry), followed by the ranking score for that
+detector (“@8” in this case for the CIFList detector). This is used in
+the calculation of score for ranking significance of events in the
+SIEM. Also shown are the IP addresses of the internal hosts involved
+in the alerted activity, as well as the IP addresses of the systems on
+the watchlists.
+
+.. _BotnetsSyslog:
+
+.. figure:: images/Botnets-syslog.png
+   :width: 70%
+   :align: center
+
+   Botnets System Event Log (Redacted)
+
+.. _HistoricEventLogs:
+
+.. figure:: images/HistoricEventLog.png
+   :width: 70%
+   :align: center
+
+   Example Historic Event Log Data (Redacted)
+
+Figure :ref:`HistoricEventLogs` shows three records returned from a
+search of historic event logs from the Log Matrix SEIM log
+archive. These records have been anonymized to conceal the specific IP
+addresses and domain names of the sources (Seattle Children’s Hospital
+and the Port of Tacoma, in this case). Notice that the schema used by
+this vendor includes both destination IP address and destination port,
+but only includes source IP address (not source port) making certain
+queries of the database impossible. For example, attempting to find
+records related to malware that uses fixed source port for flooding
+could not be directly queried, requiring extraction of the
+“description” field (i.e., the original raw event) and parsing to
+identify related records. A solution to this would be to extract all
+of the data from the database and store it in a more flexible
+database.
+
+Indirectly related to the previous data sources is meta-data that
+allows classification, filtering, and anonymization, based on
+organizational units for networks and sites. Figure
+:ref:`ParticipantMapping` illustrates how top level domains and/or
+CIDR blocks for a subset of PRISEM participants are mapped to their
+Site ID strings and chosen anonymization strings (i.e., the label that
+participant would like to use to mask their internal IP addresses and
+host names in reports that are shared outside the trust group.) Their
+use in identification of “Friend or Foe” is described in the Concept
+of Operations document. (Such a cross- organizational correlation
+result using the full map as suggested in Figure
+:ref:`ParticipantMapping` can be seen in Figure TODO 21 in the Outputs
+section.)
+
+.. _ParticipantMapping:
+
+.. figure:: images/ParticipantMapping.png
+   :width: 70%
+   :align: center
+
+   Partial Participant ID Mapping
+
+.. _NetworkFlowReport:
+
+.. figure:: images/ExampleNetworkFlowReport.png
+   :width: 70%
+   :align: center
+
+   Example Network Flow Report (Anonymized Targets)
+
 
 .. interfaceiddiagrams:
 

@@ -158,15 +158,74 @@ collected one site, then forwarded to the central SIEM for processing
 at the University of Washington.
 
 
-Figure 4 depicts a prototypical NetFlow collection and
-archiving model. The PRISEM system uses a slightly modified version of
-this model. Unlike the diagram in Figure 4, the PRISEM system
-processes NetFlow records as they enter the `NetFlow Collector` in
-the center of the diagram, sending copies to the Botnets system
-detectors. One of the processes receiving these records performs the
-storage task, however it converts the NetFlow V5 records to SiLK
-format before storing them. The SiLK tool suite is then used to
-process these historic logs (e.g., performing historic queries).
+.. _Netflow-Architecture:
+
+.. figure:: images/Netflow-Architecture.png
+   :width: 70%
+   :align: center
+
+   Netflow Architecture
+
+Figure :ref:`Netflow-Architecture` depicts a prototypical NetFlow
+collection and archiving model. The PRISEM system uses a slightly
+modified version of this model. Unlike the diagram in Figure 4, the
+PRISEM system processes NetFlow records as they enter the `NetFlow
+Collector` in the center of the diagram, sending copies to the Botnets
+system detectors. One of the processes receiving these records
+performs the storage task, however it converts the NetFlow V5 records
+to SiLK format before storing them. The SiLK tool suite is then used
+to process these historic logs (e.g., performing historic queries).
+
+.. _Botnets-Architecture:
+
+.. figure:: images/Botnets-Architecture.png
+   :width: 70%
+   :align: center
+
+   Botnets System High-Level Architecture
+
+Figure :ref:`Botnets-Architecture` shows the high-level architecture
+of the Botnets network flow-based behavioral detector system. One or
+more NetFlow V5 feeds are combined into a single feed, which
+duplicates each NetFlow record and fans them out in to N different
+detectors. Each detector maintains its own state and sends out alerts
+when appropriate via SNMP, standard output to users in realtime, or to
+the Unix syslog service. (In Figure 5, syslog events are sent to a
+remote syslog server and processed by ZenOSS, an open source IT
+monitoring system. In the PRISEM system, all detectors alert via
+syslog, which are processed by the Log Matrix Threat Center
+application.)
+
+
+.. _PRISEM-Architecture:
+
+.. figure:: images/prisem-system-architecture-v1.png
+   :width: 70%
+   :align: center
+
+   PRISEM Architecture
+
+Figure :ref:`PRISEM-Architecture` shows the central system
+architecture of the PRISEM system. Shown in green are the Security
+Information Event Management (SIEM) system and event log archive in
+the bottom right. The box in the upper right depicts an instance of
+the network flow monitoring (“Botnets” detector system) and SiLK data
+archiving, which is typically housed on-site at participant networks
+due to sensitivity of network flow data. A central instance of the
+Collective Intelligence Framework (CIF) v0.1 database provides
+historic information about known malicious activity, which is used to
+pull watchlists that the Botnets detectors use for behavioral
+detection. A virtual machine server provides processing and AMQP
+broker functions to integrate data from multiple sources and correlate
+it across participating organizations, and optionally anonymize or
+filter any data prior to sharing. At present, a vendor-proprietary
+portal provides the graphical user interface front-end for
+participants, with the primary PRISEM systems residing behind a
+vendor-supported firewall, with command line utilities and AMQP access
+provided via an OpenVPN server for secure access. The DIMS dashboard
+will front-end this portal and support additional capabilities that
+are available on the PRISEM back-end via the AMQP broker (See Figure
+TODO-26 and Figure TODO-27).
 
 .. _OpsTrustArchitectureDiagram:
 
