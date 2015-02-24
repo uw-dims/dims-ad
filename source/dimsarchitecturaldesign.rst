@@ -40,6 +40,8 @@ System Hardware Architecture
 .. _PRISEMHardwareLayoutDiagram:
 
 .. figure:: images/PRISEM-hardware-layout-diagram.png
+   :width: 70%
+   :align: center
 
    PRISEM Hardware Layout Diagram.
 
