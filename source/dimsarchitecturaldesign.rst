@@ -176,7 +176,7 @@ access to the MySQL databases used by Log Matrix. (The vendor
 maintains their own Cisco managed VPN/firewall for access from their
 internal network).
 
-Internal Communications Architecture 
+Internal Communications Architecture
 ------------------------------------
 
 .. note::
@@ -197,78 +197,80 @@ in SiLK format. The logical architecture that integrates these systems
 is a combination of message bus (using AMQP), SSH tunneled file and/or
 command line access, or HTTPS web interfaces and RESTful API.
 
+.. note:: TBD
 
-This paragraph shall:
+    This paragraph shall:
 
-    * Identify the software units that make up the DIMS. Each software unit
-      shall be assigned a project-unique identifier.
+        * Identify the software units that make up the DIMS. Each software unit
+          shall be assigned a project-unique identifier.
 
-.. note::
+    .. note::
 
-    A software unit is an element in the design of a DIMS; for example, a
-    major subdivision of a DIMS, a component of that subdivision, a class,
-    object, module, function, routine, or database. Software units may occur
-    at different levels of a hierarchy and may consist of other software
-    units. Software units in the design may or may not have a one-to-one
-    relationship with the code and data entities (routines, procedures,
-    databases, data files, etc.) that implement them or with the computer
-    files containing those entities. A database may be treated as a DIMS or
-    as a software unit. The SDD may refer to software units by any name(s)
-    consistent with the design methodology being used. 
+        A software unit is an element in the design of a DIMS; for example, a
+        major subdivision of a DIMS, a component of that subdivision, a class,
+        object, module, function, routine, or database. Software units may occur
+        at different levels of a hierarchy and may consist of other software
+        units. Software units in the design may or may not have a one-to-one
+        relationship with the code and data entities (routines, procedures,
+        databases, data files, etc.) that implement them or with the computer
+        files containing those entities. A database may be treated as a DIMS or
+        as a software unit. The SDD may refer to software units by any name(s)
+        consistent with the design methodology being used.
+
+    ..
+
+        * Show the static (such as "consists of") relationship(s) of the software
+          units. Multiple relationships may be presented, depending on the
+          selected software design methodology (for example, in an
+          object-oriented design, this paragraph may present the class and object
+          structures as well as the module and process architectures of the
+          DIMS).
+
+        * State the purpose of each software unit and identify the DIMS
+          requirements and DIMS-wide design decisions allocated to it.
+          (Alternatively, the allocation of requirements may be provided in 6.a.)
+
+        * Identify each software unit's development status/type (such as new
+          development, existing design or software to be reused as is, existing
+          design or software to be reengineered, software to be developed for
+          reuse, software planned for Build N, etc.) For existing design or
+          software, the description shall provide identifying information, such
+          as name, version, documentation references, library, etc.
+
+        * Describe the DIMS's (and as applicable, each software unit's) planned
+          utilization of computer hardware resources (such as processor capacity,
+          memory capacity, input/output device capacity, auxiliary storage
+          capacity, and communications/network equipment capacity). The
+          description shall cover all computer hardware resources included in
+          resource utilization requirements for the DIMS, in system-level
+          resource allocations affecting the DIMS, and in resource utilization
+          measurement planning in the Software Development Plan. If all
+          utilization data for a given computer hardware resource are presented
+          in a single location, such as in one SDD, this paragraph may reference
+          that source. Included for each computer hardware resource shall be:
+
+            * The DIMS requirements or system-level resource allocations being
+              satisfied
+
+            * The assumptions and conditions on which the utilization data are
+              based (for example, typical usage, worst-case usage, assumption of
+              certain events)
+
+            * Any special considerations affecting the utilization (such as use
+              of virtual memory, overlays, or multiprocessors or the impacts of
+              operating system overhead, library software, or other
+              implementation overhead)
+
+            * The units of measure used (such as percentage of processor
+              capacity, cycles per second, bytes of memory, kilobytes per second)
+
+            * The level(s) at which the estimates or measures will be made (such
+              as software unit, DIMS, or executable program)
+
+        * Identify the program library in which the software that implements each
+          software unit is to be placed
 
 ..
-
-    * Show the static (such as "consists of") relationship(s) of the software
-      units. Multiple relationships may be presented, depending on the
-      selected software design methodology (for example, in an
-      object-oriented design, this paragraph may present the class and object
-      structures as well as the module and process architectures of the
-      DIMS).
-
-    * State the purpose of each software unit and identify the DIMS
-      requirements and DIMS-wide design decisions allocated to it.
-      (Alternatively, the allocation of requirements may be provided in 6.a.)
-
-    * Identify each software unit's development status/type (such as new
-      development, existing design or software to be reused as is, existing
-      design or software to be reengineered, software to be developed for
-      reuse, software planned for Build N, etc.) For existing design or
-      software, the description shall provide identifying information, such
-      as name, version, documentation references, library, etc.
-
-    * Describe the DIMS's (and as applicable, each software unit's) planned
-      utilization of computer hardware resources (such as processor capacity,
-      memory capacity, input/output device capacity, auxiliary storage
-      capacity, and communications/network equipment capacity). The
-      description shall cover all computer hardware resources included in
-      resource utilization requirements for the DIMS, in system-level
-      resource allocations affecting the DIMS, and in resource utilization
-      measurement planning in the Software Development Plan. If all
-      utilization data for a given computer hardware resource are presented
-      in a single location, such as in one SDD, this paragraph may reference
-      that source. Included for each computer hardware resource shall be:
-
-        * The DIMS requirements or system-level resource allocations being
-          satisfied
-
-        * The assumptions and conditions on which the utilization data are
-          based (for example, typical usage, worst-case usage, assumption of
-          certain events)
-
-        * Any special considerations affecting the utilization (such as use
-          of virtual memory, overlays, or multiprocessors or the impacts of
-          operating system overhead, library software, or other
-          implementation overhead)
-
-        * The units of measure used (such as percentage of processor
-          capacity, cycles per second, bytes of memory, kilobytes per second)
-
-        * The level(s) at which the estimates or measures will be made (such
-          as software unit, DIMS, or executable program)
-
-    * Identify the program library in which the software that implements each
-      software unit is to be placed
-
 
 .. conceptofexecution:
 
@@ -499,30 +501,32 @@ Interface identification and diagrams
 (Project unique identifier of interface)
 ----------------------------------------
 
-This paragraph (beginning with 4.3.2) shall identify an interface by project
-unique identifier, shall briefly identify the interfacing entities, and shall
-be divided into subparagraphs as needed to describe the interface
-characteristics of one or both of the interfacing entities. If a given
-interfacing entity is not covered by this SDD (for example, an external
-system) but its interface characteristics need to be mentioned to describe
-interfacing entities that are, these characteristics shall be stated as
-assumptions or as "When [the entity not covered] does this, [the entity that
-is covered] will . . . ." This paragraph may reference other documents (such
-as data dictionaries, standards for protocols, and standards for user
-interfaces) in place of stating the information here. The design description
-shall include the following, as applicable, presented in any order suited to
-the information to be provided, and shall note any differences in these
-characteristics from the point of view of the interfacing entities (such as
-different expectations about the size, frequency, or other characteristics of
-data elements):
+.. note:: TBD
 
-    * Priority assigned to the interface by the interfacing entity(ies)
+    This paragraph (beginning with 4.3.2) shall identify an interface by project
+    unique identifier, shall briefly identify the interfacing entities, and shall
+    be divided into subparagraphs as needed to describe the interface
+    characteristics of one or both of the interfacing entities. If a given
+    interfacing entity is not covered by this SDD (for example, an external
+    system) but its interface characteristics need to be mentioned to describe
+    interfacing entities that are, these characteristics shall be stated as
+    assumptions or as "When [the entity not covered] does this, [the entity that
+    is covered] will . . . ." This paragraph may reference other documents (such
+    as data dictionaries, standards for protocols, and standards for user
+    interfaces) in place of stating the information here. The design description
+    shall include the following, as applicable, presented in any order suited to
+    the information to be provided, and shall note any differences in these
+    characteristics from the point of view of the interfacing entities (such as
+    different expectations about the size, frequency, or other characteristics of
+    data elements):
 
-    * Type of interface (such as real-time data transfer, storage-and-retrieval of data, etc.) to be implemented
+        * Priority assigned to the interface by the interfacing entity(ies)
 
-    * Characteristics of individual data elements that the interfacing entity(ies) will provide, store, send, access, receive, etc., such as:
+        * Type of interface (such as real-time data transfer, storage-and-retrieval of data, etc.) to be implemented
 
-        * Names/identifiers
+        * Characteristics of individual data elements that the interfacing entity(ies) will provide, store, send, access, receive, etc., such as:
+
+            * Names/identifiers
 
             * Project-unique identifier
 
@@ -534,81 +538,83 @@ data elements):
 
             * Abbreviation or synonymous names
 
-        * Data type (alphanumeric, integer, etc.)
+            * Data type (alphanumeric, integer, etc.)
 
-        * Size and format (such as length and punctuation of a character string)
+            * Size and format (such as length and punctuation of a character string)
 
-        * Units of measurement (such as meters, dollars, nanoseconds)
+            * Units of measurement (such as meters, dollars, nanoseconds)
 
-        * Range or enumeration of possible values (such as 0-99)
+            * Range or enumeration of possible values (such as 0-99)
 
-        * Accuracy (how correct) and precision (number of significant digits)
+            * Accuracy (how correct) and precision (number of significant digits)
 
-        * Priority, timing, frequency, volume, sequencing, and other constraints, such as whether the data element may be updated and whether business rules apply
+            * Priority, timing, frequency, volume, sequencing, and other constraints, such as whether the data element may be updated and whether business rules apply
+
+            * Security and privacy constraints
+
+            * Sources (setting/sending entities) and recipients (using/receiving entities)
+
+        * Characteristics of data element assemblies (records, messages, files, arrays, displays, reports, etc.) that the interfacing entity(ies) will provide, store, send, access, receive, etc., such as:
+
+     	* Names/identifiers
+
+                * Project-unique identifier
+
+                * Non-technical (natural language) name
+
+                * Technical name (e.g., record or data structure name in code or database)
+
+                * Abbreviations or synonymous names
+
+
+        * Data elements in the assembly and their structure (number, order, grouping)
+
+        * Medium (such as disk) and structure of data elements/assemblies on the medium
+
+        * Visual and auditory characteristics of displays and other outputs (such as colors, layouts, fonts, icons and other display elements, beeps, lights)
+
+        * Relationships among assemblies, such as sorting/access characteristics
+
+        * Priority, timing, frequency, volume, sequencing, and other constraints, such as whether the assembly may be updated and whether business rules apply
 
         * Security and privacy constraints
 
         * Sources (setting/sending entities) and recipients (using/receiving entities)
 
-    * Characteristics of data element assemblies (records, messages, files, arrays, displays, reports, etc.) that the interfacing entity(ies) will provide, store, send, access, receive, etc., such as:
+        * Characteristics of communication methods that the interfacing entity(ies) will use for the interface, such as:
 
- 	* Names/identifiers
+            * Project-unique identifier(s)
 
-            * Project-unique identifier
+            * Communication links/bands/frequencies/media and their characteristics
 
-            * Non-technical (natural language) name
+            * Message formatting
 
-            * Technical name (e.g., record or data structure name in code or database)
+            * Flow control (such as sequence numbering and buffer allocation)
 
-            * Abbreviations or synonymous names
+            * Data transfer rate, whether periodic/aperiodic, and interval between transfers
 
+            * Routing, addressing, and naming conventions
 
-    * Data elements in the assembly and their structure (number, order, grouping)
+            * Transmission services, including priority and grade
 
-    * Medium (such as disk) and structure of data elements/assemblies on the medium
+            * Safety/security/privacy considerations, such as encryption, user authentication, compartmentalization, and auditing
 
-    * Visual and auditory characteristics of displays and other outputs (such as colors, layouts, fonts, icons and other display elements, beeps, lights)
+        * Characteristics of protocols that the interfacing entity(ies) will use for the interface, such as:
 
-    * Relationships among assemblies, such as sorting/access characteristics
+            * Project-unique identifier(s)
 
-    * Priority, timing, frequency, volume, sequencing, and other constraints, such as whether the assembly may be updated and whether business rules apply
+            * Priority/layer of the protocol
 
-    * Security and privacy constraints
+            * Packeting, including fragmentation and reassembly, routing, and addressing
 
-    * Sources (setting/sending entities) and recipients (using/receiving entities)
+            * Legality checks, error control, and recovery procedures
 
-    * Characteristics of communication methods that the interfacing entity(ies) will use for the interface, such as:
+            * Synchronization, including connection establishment, maintenance, termination
 
-        * Project-unique identifier(s)
+            * Status, identification, and any other reporting features
 
-        * Communication links/bands/frequencies/media and their characteristics
+        * Other characteristics, such as physical compatibility of the
+          interfacing entity(ies) (dimensions, tolerances, loads, voltages, plug
+          compatibility, etc.)
 
-        * Message formatting
-
-        * Flow control (such as sequence numbering and buffer allocation)
-
-        * Data transfer rate, whether periodic/aperiodic, and interval between transfers
-
-        * Routing, addressing, and naming conventions
-
-        * Transmission services, including priority and grade
-
-        * Safety/security/privacy considerations, such as encryption, user authentication, compartmentalization, and auditing
-
-    * Characteristics of protocols that the interfacing entity(ies) will use for the interface, such as:
-
-        * Project-unique identifier(s)
-
-        * Priority/layer of the protocol
-
-        * Packeting, including fragmentation and reassembly, routing, and addressing
-
-        * Legality checks, error control, and recovery procedures
-
-        * Synchronization, including connection establishment, maintenance, termination
-
-        * Status, identification, and any other reporting features
-
-    * Other characteristics, such as physical compatibility of the
-      interfacing entity(ies) (dimensions, tolerances, loads, voltages, plug
-      compatibility, etc.)
+..
