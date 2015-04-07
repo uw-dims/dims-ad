@@ -7,15 +7,6 @@ Scope
 Identification
 --------------
 
-.. note:: TBD
-
-    This paragraph shall contain a full identification of the system and the
-    software to which this document applies, including, as applicable,
-    identification number(s), title(s), abbreviation(s), version number(s), and
-    release number(s).
-
-..
-
 This document describes the proposed high-level design of the
 Distributed Incident Management System (DIMS) architecture. Its
 purpose is to provide the reader with an overview of the major system
@@ -43,27 +34,15 @@ the reader is familiar with the underlying motivations for the system
 as described in the Concept of Operations and Functional Requirements
 document.
 
-System overview
----------------
-
-.. note:: TBD
-
-    This paragraph shall briefly state the purpose of the system and the
-    software to which this document applies. It shall describe the general
-    nature of the system and software; summarize the history of system
-    development, operation, and maintenance; identify the project sponsor,
-    acquirer, user, developer, and support agencies; identify current and
-    planned operating sites; and list other relevant documents.
-
-
 .. _DimsSystemOverview:
 
 .. figure:: images/Overview-DIMS-system.png
    :width: 70%
    :align: center
 
-   Overview of DIMS System.
+   Overview of DIMS System
 
+..
 
 Figure :ref:`DimsSystemOverview` depicts a high-level diagram of the
 system architecture for the DIMS system. DIMS provides a user
@@ -108,6 +87,8 @@ up the global fabric of the internet.
 
    Data Flows Between Stakeholders
 
+..
+
 Figure :ref:`DataFlowsBetweenStakeholders` depicts the data flows
 between a subset of the stakeholders who will be using the DIMS
 software system. The solid lines depict data that has the highest
@@ -146,6 +127,8 @@ generation front ends in web based portals.
 
    PRISEM Initial Deployment and Flows
 
+..
+
 Figure :ref:`PRISEMInitialDeploymentAndFlows` depicts the high-level
 data flow relationships for the Security Information Event Management
 (SIEM) system and Botnets detector subsystem used in the PRISEM
@@ -166,6 +149,8 @@ at the University of Washington.
 
    Netflow Architecture
 
+..
+
 Figure :ref:`Netflow-Architecture` depicts a prototypical NetFlow
 collection and archiving model. The PRISEM system uses a slightly
 modified version of this model. Unlike the diagram in Figure 4, the
@@ -183,6 +168,8 @@ to process these historic logs (e.g., performing historic queries).
    :align: center
 
    Botnets System High-Level Architecture
+
+..
 
 Figure :ref:`Botnets-Architecture` shows the high-level architecture
 of the Botnets network flow-based behavioral detector system. One or
@@ -204,6 +191,8 @@ application.)
    :align: center
 
    PRISEM Architecture
+
+..
 
 Figure :ref:`PRISEM-Architecture` shows the central system
 architecture of the PRISEM system. Shown in green are the Security
@@ -235,6 +224,8 @@ TODO-26 and Figure TODO-27).
 
    Ops-Trust Architecture Diagram
 
+..
+
 Figure :ref:`OpsTrustArchitectureDiagram` shows the basic architecture
 of the Ops-Trust portal system. This system is a combination of a
 web-based portal, a wiki for information archiving, an email server,
@@ -248,7 +239,6 @@ and potentially multiple local test instances will be set up for
 PRISEM users (and possibly also Agora members, currently running in
 the multiple hundreds of individuals) to beta-test DIMS features.
 
-
 .. _OpsTrustMemberPage:
 
 .. figure:: images/ops-trust-memberpage.png
@@ -256,6 +246,8 @@ the multiple hundreds of individuals) to beta-test DIMS features.
    :align: center
 
    Ops-Trust Member Information Page
+
+..
 
 The Ops-Trust portal stores attributes about each member. Figure :ref:`OpsTrustMemberPage` shows the
 account for the PI, which includes: user UUID; home time zone; nearest
@@ -286,7 +278,7 @@ list.
 Document overview
 -----------------
 
-.. note:: TBD
+.. todo::
 
     This paragraph shall summarize the purpose and contents of this document
     and shall describe any security or privacy considerations associated with

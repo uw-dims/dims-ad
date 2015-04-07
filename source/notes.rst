@@ -1,11 +1,14 @@
-=====
+.. _notes:
+
 Notes
 =====
 
-This section shall contain any general information that aids in understanding
-this document (e.g., background information, glossary, rationale). This
-section shall include an alphabetical listing of all acronyms, abbreviations,
-and their meanings as used in this document and a list of any terms and
-definitions needed to understand this document.
+.. todo::
 
+    This section shall contain any general information that aids in
+    understanding this document (e.g., background information, glossary,
+    rationale). This section shall include an alphabetical listing of all
+    acronyms, abbreviations, and their meanings as used in this document and a
+    list of any terms and definitions needed to understand this document.
 
+..

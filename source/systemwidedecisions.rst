@@ -1,10 +1,9 @@
 .. systemwidedecisions:
 
-============================
 System-wide design decisions
 ============================
 
-.. note:: TBD
+.. todo::
 
    This section shall be divided into paragraphs as needed to present DIMS-wide
    design decisions, that is, decisions about the DIMS's behavioral design (how
@@ -22,25 +21,27 @@ System-wide design decisions
 
 
       * Design decisions regarding inputs the DIMS will accept and outputs it
-	will produce, including interfaces with other systems, HWCIs, DIMSs, and
-	users (4.3.x of this DID identifies topics to be considered in this
-	description). If part or all of this information is given in Interface
-	Design Descriptions (IDDs), they may be referenced.
+        will produce, including interfaces with other systems, HWCIs, DIMSs,
+        and users (4.3.x of this DID identifies topics to be considered in this
+        description). If part or all of this information is given in Interface
+        Design Descriptions (IDDs), they may be referenced.
 
       * Design decisions on DIMS behavior in response to each input or
-	condition, including actions the DIMS will perform, response times and
-	other performance characteristics, description of physical systems
-	modeled, selected equations/algorithms/rules, and handling of unallowed
-	inputs or conditions.
+        condition, including actions the DIMS will perform, response times and
+        other performance characteristics, description of physical systems
+        modeled, selected equations/algorithms/rules, and handling of unallowed
+        inputs or conditions.
 
       * Design decisions on how databases/data files will appear to the user
-	(4.3.x of this DID identifies topics to be considered in this
-	description). If part or all of this information is given in Database
-	Design Descriptions (DBDDs), they may be referenced.
+        (4.3.x of this DID identifies topics to be considered in this
+        description). If part or all of this information is given in Database
+        Design Descriptions (DBDDs), they may be referenced.
 
       * Selected approach to meeting safety, security, and privacy
-	requirements.
+        requirements.
 
       * Other DIMS-wide design decisions made in response to requirements, such
-	as selected approach to providing required flexibility, availability,
-	and maintainability.
+        as selected approach to providing required flexibility, availability,
+        and maintainability.
+
+..

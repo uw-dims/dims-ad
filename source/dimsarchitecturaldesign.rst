@@ -1,10 +1,9 @@
 .. dimsarchitecturaldesign:
 
-=========================
 DIMS architectural design
 =========================
 
-.. note:: TBD
+.. todo::
 
    This section shall be divided into the following paragraphs to
    describe the DIMS architectural design. If part or all of the design
@@ -14,11 +13,17 @@ DIMS architectural design
    paragraphs. Design conventions needed to understand the design shall
    be presented or referenced.
 
+..
+
 .. _DIMSSystemArchitecture:
 
 .. figure:: images/dims-system-architecture-v2.png
+   :width: 70%
+   :align: center
 
    DIMS Integrated System Architecture.
+
+..
 
 Figure :ref:`DIMSSystemArchitecture` illustrates the combined systems
 of the PRISEM project, the Ops-Trust portal, and the DIMS back end. As
@@ -34,18 +39,21 @@ database for security data. All access will be centralized through the
 OpenVPN server, with certificates and encryption keys provided to the
 user via the modified Ops-Trust portal.
 
-System Hardware Architecture
-----------------------------
-
-.. _PRISEMHardwareLayoutDiagram:
+.. _prisemhardwarelayout:
 
 .. figure:: images/PRISEM-hardware-layout-diagram.png
    :width: 70%
    :align: center
 
-   PRISEM Hardware Layout Diagram.
+   System Hardware Architecture
+
+..
 
 
+.. _PRISEMHardwareLayoutDiagram:
+
+PRISEM Hardware Layout Diagram
+------------------------------
 
 Figure :ref:`PRISEMHardwareLayoutDiagram` shows the physical hardware
 configuration for PRISEM system components in the server rack located
@@ -95,7 +103,7 @@ the total number of physical and/or virtual machines in use. For
 example, if there are three domain name servers, they can be combined
 into one server that handles multiple domains.
 
- .. dimscomponents:
+.. _dimscomponents:
 
 System Software Architecture
 ----------------------------
@@ -111,7 +119,6 @@ much as possible by combining similar services in order to minimize
 the total number of physical and/or virtual machines in use.  For
 example, if there are three domain name servers, they can be combined
 into one server that handles multiple domains.
-
 
 
 SIEM event correlation server
@@ -181,7 +188,7 @@ internal network).
 Internal Communications Architecture
 ------------------------------------
 
-.. note::
+.. todo::
 
    In this section, describe the overall communications within the
    system; for example, LANs, buses, etc. Include the communications
@@ -189,6 +196,8 @@ Internal Communications Architecture
    etc. Provide a diagram depicting the communications path(s) between
    the system and subsystem modules. If appropriate, use subsections to
    address each architecture being employed.
+
+..
 
 The DIMS system will be built on top of the legacy PRISEM
 system. PRISEM has interfaces to some of its services that integrate
@@ -199,27 +208,28 @@ in SiLK format. The logical architecture that integrates these systems
 is a combination of message bus (using AMQP), SSH tunneled file and/or
 command line access, or HTTPS web interfaces and RESTful API.
 
-.. note:: TBD
+.. todo::
 
     This paragraph shall:
 
         * Identify the software units that make up the DIMS. Each software unit
           shall be assigned a project-unique identifier.
 
-    .. note::
+          .. note::
 
-        A software unit is an element in the design of a DIMS; for example, a
-        major subdivision of a DIMS, a component of that subdivision, a class,
-        object, module, function, routine, or database. Software units may occur
-        at different levels of a hierarchy and may consist of other software
-        units. Software units in the design may or may not have a one-to-one
-        relationship with the code and data entities (routines, procedures,
-        databases, data files, etc.) that implement them or with the computer
-        files containing those entities. A database may be treated as a DIMS or
-        as a software unit. The SDD may refer to software units by any name(s)
-        consistent with the design methodology being used.
+              A software unit is an element in the design of a DIMS; for
+              example, a major subdivision of a DIMS, a component of that
+              subdivision, a class, object, module, function, routine, or
+              database. Software units may occur at different levels of a
+              hierarchy and may consist of other software units. Software units
+              in the design may or may not have a one-to-one relationship with
+              the code and data entities (routines, procedures, databases, data
+              files, etc.) that implement them or with the computer files
+              containing those entities. A database may be treated as a DIMS or
+              as a software unit. The SDD may refer to software units by any
+              name(s) consistent with the design methodology being used.
 
-    ..
+          ..
 
         * Show the static (such as "consists of") relationship(s) of the software
           units. Multiple relationships may be presented, depending on the
@@ -274,12 +284,12 @@ command line access, or HTTPS web interfaces and RESTful API.
 
 ..
 
-.. conceptofexecution:
+.. _conceptofexecution:
 
 Concept of execution
 --------------------
 
-.. note:: TBD
+.. todo::
 
    This paragraph shall describe the concept of execution among the software
    units. It shall include diagrams and descriptions showing the dynamic
@@ -291,12 +301,14 @@ Concept of execution
    allocation/deallocation, dynamic creation/deletion of objects, processes,
    tasks, and other aspects of dynamic behavior.
 
-.. interfacedesign:
+..
+
+.. _interfacedesign:
 
 Interface design
 ----------------
 
-.. note:: TBD
+.. todo::
 
    This paragraph shall be divided into the following subparagraphs to describe
    the interface characteristics of the software units. It shall include both
@@ -305,10 +317,10 @@ Interface design
    this information is contained in Interface Design Descriptions (IDDs), in
    section 5 of the SDD, or elsewhere, these sources may be referenced.
 
+..
 
 File and Database Design
 ------------------------
-
 
 .. _PRISEMDataVolumes:
 
@@ -318,6 +330,7 @@ File and Database Design
 
    PRISEM Data Volumes
 
+..
 
 
 Figure :ref:`PRISEMDataVolumes` lists the database and non-database
@@ -343,7 +356,7 @@ Sphinx for accelerated discrete queries. (It is the Sphinx database
 that is used by the cifbulk RPC service).
 
 Non-Database Management System Files
---------------------------------
+------------------------------------
 
 Network flow records are stored locally at the City of Seattle
 (pink.seattle.gov) in SiLK format. The disk capacity of 1TB is capable
@@ -376,6 +389,8 @@ Indicator Bulletins (JIBs) from the Federal Bureau of Investigation).
 
    Cisco FWSM Event Log (Redacted)
 
+..
+
 Examples of standard security device logs can be seen in Figure
 :ref:`CiscoFWSM` (Cisco Firewall Security Manager, or FWSM), Figure
 :ref:`Netscreen` (Netscreen Firewall), Figure :ref:`TippingPoint`
@@ -392,6 +407,8 @@ source and destination IP addresses, ports, protocols, etc.)
 
    Netscreen Event Log (Redacted)
 
+..
+
 .. _TippingPoint:
 
 .. figure:: images/TippingPoint.png
@@ -400,6 +417,8 @@ source and destination IP addresses, ports, protocols, etc.)
 
    Tipping Point Logs (Redacted)
 
+..
+
 .. _WebSense:
 
 .. figure:: images/WebSense.png
@@ -407,6 +426,8 @@ source and destination IP addresses, ports, protocols, etc.)
    :align: center
 
    WebSense Log Sample (Redacted)
+
+..
 
 Figure :ref:`BotnetsSyslog` illustrates what events logged by the
 Botnets system detectors look like. All of these examples are for
@@ -427,6 +448,8 @@ the watchlists.
 
    Botnets System Event Log (Redacted)
 
+..
+
 .. _HistoricEventLogs:
 
 .. figure:: images/HistoricEventLog.png
@@ -434,6 +457,8 @@ the watchlists.
    :align: center
 
    Example Historic Event Log Data (Redacted)
+
+..
 
 Figure :ref:`HistoricEventLogs` shows three records returned from a
 search of historic event logs from the Log Matrix SEIM log
@@ -472,6 +497,8 @@ section.)
 
    Partial Participant ID Mapping
 
+..
+
 .. _NetworkFlowReport:
 
 .. figure:: images/ExampleNetworkFlowReport.png
@@ -480,13 +507,14 @@ section.)
 
    Example Network Flow Report (Anonymized Targets)
 
+..
 
-.. interfaceiddiagrams:
+.. _interfaceiddiagrams:
 
 Interface identification and diagrams
 -------------------------------------
 
-.. note:: TBD
+.. todo::
 
    This paragraph shall state the project-unique identifier assigned to each
    interface and shall identify the interfacing entities (software units,
@@ -503,7 +531,7 @@ Interface identification and diagrams
 (Project unique identifier of interface)
 ----------------------------------------
 
-.. note:: TBD
+.. todo::
 
     This paragraph (beginning with 4.3.2) shall identify an interface by project
     unique identifier, shall briefly identify the interfacing entities, and shall

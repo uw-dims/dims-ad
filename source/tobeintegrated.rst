@@ -4,7 +4,9 @@
 To be integrated
 ================
 
-.. note:: TBD -- dittrich Sat Feb 21 16:46:17 PST 2015
+.. todo::
+
+    dittrich Sat Feb 21 16:46:17 PST 2015
 
     This section was taken from ``http://foswiki.prisem.washington.edu/bin/edit/Development/ELK``
     It is being integrated into this and/or other Sphinx documents.
@@ -97,7 +99,8 @@ collection infrastructure.
 Ansible role
 ------------
 
-.. note: TBD
+.. todo::
+
    The following describes the former monolithic installation of all ELK
    components in a single Ansible playbook. We have subsequently split them
    out into separate roles for each of the components to more easily distributed

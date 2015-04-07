@@ -1,6 +1,5 @@
 .. dimsdetaileddesign:
 
-====================
 DIMS detailed design
 ====================
 
@@ -72,7 +71,7 @@ control, single- signon, etc., include:
   generate data, reports, query results, etc., the ability to tag this
   data to keep it organized should easily be at hand.
 
-.. note:: TBD
+.. todo::
 
    This section shall be divided into the following paragraphs to describe each
    software unit of the CSCI. If part of all of the design depends upon system
@@ -85,7 +84,7 @@ control, single- signon, etc., include:
    manipulate databases, may be described here or in Database Design Descriptions (DBDDs).
 
 Internal Communications Detailed Design
-------------------------
+---------------------------------------
 
 .. _MessageBus:
 
@@ -124,7 +123,7 @@ wish to consume them.
 (Project-unique identifier of a software unit, or designator of a group of software units)
 ------------------------------------------------------------------------------------------
 
-.. note:: TBD
+.. todo::
 
    This paragraph shall identify a software unit by project-unique identifier and
    shall describe the unit. The description shall include the following
