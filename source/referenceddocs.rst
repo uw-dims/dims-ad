@@ -11,11 +11,13 @@ Referenced documents
    source for all documents not available through normal Government stocking
    activities.
 
+#. :ref:`DIMS System Requirements <dimssr:dimssystemrequirements>`
+
+#. :ref:`dimsocd:dimsoperationalconceptdescription`
+
 #. D\. Dittrich. PRISEM Analyst’s Handbook, December 2013.
 
 #. D\. Dittrich. PRISEM System Administration Handbook, December 2013.
-
-#. D\. Dittrich. System Requirements and Concept of Operations for From Local to Global Awareness: A Distributed Incident Management Ssystem (DIMS), March 2014.
 
 #. W\. Gragido. Understanding Indicators of Compromise (IOC) Part I, October 2012. http://blogs.rsa.com/will-gragido/understanding-indicators-of-compromise-ioc-part-i/
 
