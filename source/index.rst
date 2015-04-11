@@ -1,5 +1,7 @@
 .. DIMS Architecture Design documentation master file.
 
+.. _dimsarchitecturedesign:
+
 ========================
 DIMS Architecture Design
 ========================
