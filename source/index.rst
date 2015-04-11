@@ -2,9 +2,9 @@
 
 .. _dimsarchitecturedesign:
 
-========================
-DIMS Architecture Design
-========================
+====================================
+DIMS Architecture Design v |version|
+====================================
 
 .. toctree::
    :numbered:
