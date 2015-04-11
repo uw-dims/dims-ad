@@ -21,7 +21,7 @@ DIMS architectural design
    :width: 70%
    :align: center
 
-   DIMS Integrated System Architecture.
+   DIMS Integrated System Architecture
 
 ..
 
