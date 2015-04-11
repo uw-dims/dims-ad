@@ -344,6 +344,10 @@ epub_exclude_files = ['search.html']
 # If false, no index is generated.
 #epub_use_index = True
 
-
-# Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'http://docs.python.org/': None}
+intersphinx_cache_limit = -1   # days to keep the cached inventories (0 == forever)
+intersphinx_mapping = {
+        'dimssr': ('http://u12-dev-svr-1.prisem.washington.edu:8080/docs/develop/html/dims-sr',
+                    ('../../dims-sr/build/html/objects.inv',None)),
+        'dimsocd': ('http://u12-dev-svr-1.prisem.washington.edu:8080/docs/develop/html/dims-ocd',
+                    ('../../dims-ocd/build/html/objects.inv',None))
+}
