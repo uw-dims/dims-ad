@@ -3,7 +3,7 @@
 .. _dimsarchitecturedesign:
 
 ====================================
-DIMS Architecture Design v |version|
+DIMS Architecture Design v |release|
 ====================================
 
 .. toctree::
