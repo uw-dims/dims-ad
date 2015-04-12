@@ -4,9 +4,14 @@
 Referenced documents
 ====================
 
-#. :ref:`DIMS System Requirements <dimssr:dimssystemrequirements>`
+#. :ref:`dimssr:dimssystemrequirements`
 
 #. :ref:`dimsocd:dimsoperationalconceptdescription`
+
+#. HSHQDC-13-C-B0013, "From Local to Gobal Awareness: A Distributed Incident Management System," Draft contract, Section C - Statement of Work (marked up version)
+
+#. MIL-STD-498, Military Standard Software Development and Documentation,
+   AMSC No. N7069, Dec. 1994.
 
 #. D\. Dittrich. PRISEM Analyst’s Handbook, December 2013.
 
