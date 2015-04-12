@@ -7,7 +7,8 @@ Scope
 Identification
 --------------
 
-This document describes the proposed high-level design of the
+This Architecture Design document (version |release|) describes
+the proposed high-level design of the
 Distributed Incident Management System (DIMS) architecture. Its
 purpose is to provide the reader with an overview of the major system
 components of the existing Public Regional Information Security Event
