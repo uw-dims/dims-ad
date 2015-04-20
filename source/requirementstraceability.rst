@@ -1,8 +1,8 @@
+.. requirementstraceability:
+
 =========================
 Requirements traceability
 =========================
-
-.. requirementstraceability:
 
 Requirements traceability
 -------------------------
