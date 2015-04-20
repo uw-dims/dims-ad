@@ -4,6 +4,8 @@
 Scope
 =====
 
+.. _identification:
+
 Identification
 --------------
 
@@ -17,16 +19,11 @@ portal system, and the components of the DIMS 'dashboard' front-end
 and data processing back end that integrate these two existing
 systems.
 
-
-As the DIMS system relies upon and integrates multiple existing and
-future open source software components, it is being developed using an
-Agile programming development methodology (as opposed to the classic
-'waterfall' development methodology with its sequential processes.)
-This document, therefore, is a 'living document' that will be updated
-as the project proceeds and as cyclic input/feedback from users and
-testers is received. Sections to be addressed in future releases of
-this document are listed as TBA.
-
+DIMS is funded by the Department of Homeland Security under contract HSHQDC-
+13-C-B0013. For more information, see the documents
+:ref:`dimsocd:dimsoperationalconceptdescription`,
+:ref:`dimssr:dimssystemrequirements`, and other documents
+referenced in Section :ref:`referenceddocs`.
 
 The scope of this document is limited to description of the
 architectural elements, data types (and their sources, volumes, and
@@ -34,6 +31,18 @@ retention periods), data flows, user interfaces, etc. It is assumed
 the reader is familiar with the underlying motivations for the system
 as described in the Concept of Operations and Functional Requirements
 document.
+
+.. _documentoverview:
+
+Document overview
+-----------------
+
+The structure of this document has been adapted principally from MIL-STD-498
+(see Section :ref:`referenceddocs`). Following this section are:
+
++ Section :ref:`referenceddocs` lists related documents.
+
+
 
 .. _DimsSystemOverview:
 
