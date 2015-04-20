@@ -39,57 +39,13 @@ database for security data. All access will be centralized through the
 OpenVPN server, with certificates and encryption keys provided to the
 user via the modified Ops-Trust portal.
 
-.. _prisemhardwarelayout:
 
-.. figure:: images/PRISEM-hardware-layout-diagram.png
-   :width: 70%
-   :align: center
+.. todo::
 
-   System Hardware Architecture
+   Moved hardware layout from here. May need some transition
+   text here.
 
 ..
-
-
-.. _PRISEMHardwareLayoutDiagram:
-
-PRISEM Hardware Layout Diagram
-------------------------------
-
-Figure :ref:`PRISEMHardwareLayoutDiagram` shows the physical hardware
-configuration for PRISEM system components in the server rack located
-in the UW Tower IT data center. Green boxes are those used for PRISEM
-(and now for some DIMS) related systems, while white and gray boxes
-are either unused or occupied by other resources. Some of the physical
-hardware (e.g., the systems labeled "IBM" and "Eclipse") are obsolete
-and are being replaced by virtual machines to be housed in newly added
-hardware located in slots 7+8. (The VLAN switch labeled "CoS" will
-also be replaced in the near future with the D-Link VLAN switch below
-it.) Hardware supporting the DIMS project has not yet been purchased,
-though space has been reserved for it in the same rack to facilitate
-high-speed network access behind the PRISEM firewall and OpenVPN
-servers. (See other Figures for PRISEM + DIMS Architecture
-descriptions).
-
-The principal PRISEM hardware consists of Dell PowerEdge servers. Two
-PowerEdge 1950 (pink.seattle.gov and floyd.prisem.washington.edu) are
-used for log collection, NetFlow processing, and the CIF database. Two
-Dell R720 (zion.prisem.washington.edu and money.prisem.washington.edu)
-servers are used for the Log Matrix Threat Center and Log Center
-servers. Both zion and money are replacements for the original Dell
-R710 servers purchased at the start of the project in 2008. Virtual
-machines are run on a Dell PowerEdge R715 server, with 128GB RAM,
-2x12-Core 1.8GHz AMD Opteron processors, and 12 – 1TB drives in a RAID
-5 array.
-
-Physical networking is provided by 1 GigE switches, some configured to
-support virtual LAN (VLAN) isolation. (One is a D-Link xStack Managed
-24-Port Gigabit L2+ 1/10-GigE switch, another a D-Link DXS-3227 1-GigE
-managed switch). One VLAN provides an isolated network for
-inter-system communication behind a vendor-supported stateful firewall
-and OpenVPN server for remote access. Another VLAN provides
-internet-routable connections in front of the firewall. At present,
-only IPv4 is supported for network connectivity
-
 
 The DIMS system will conform with the hardware/software separation
 used by the Ops-Trust and PRISEM systems, which pre-date the DIMS
@@ -302,6 +258,7 @@ Concept of execution
    tasks, and other aspects of dynamic behavior.
 
 ..
+
 
 .. _interfacedesign:
 
