@@ -139,7 +139,7 @@ generation front ends in web based portals.
 .. _PRISEMInitialDeploymentAndFlows:
 
 .. figure:: images/cos-hw-deployment-v3.png
-   :width: 70%
+   :width: 60%
    :align: center
 
    PRISEM Initial Deployment and Flows
@@ -161,7 +161,7 @@ at the University of Washington.
 .. _Netflow-Architecture:
 
 .. figure:: images/Netflow-Architecture.png
-   :width: 70%
+   :width: 50%
    :align: center
 
    Netflow Architecture
@@ -204,7 +204,7 @@ application.)
 .. _PRISEM-Architecture:
 
 .. figure:: images/prisem-system-architecture-v1.png
-   :width: 70%
+   :width: 60%
    :align: center
 
    PRISEM Architecture
@@ -236,7 +236,7 @@ TODO-26 and Figure TODO-27).
 .. _OpsTrustArchitectureDiagram:
 
 .. figure:: images/ops-trust-system-architecture.png
-   :width: 70%
+   :width: 60%
    :align: center
 
    Ops-Trust Architecture Diagram
