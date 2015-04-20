@@ -15,16 +15,6 @@ DIMS architectural design
 
 ..
 
-.. _DIMSSystemArchitecture:
-
-.. figure:: images/dims-system-architecture-v2.png
-   :width: 70%
-   :align: center
-
-   DIMS Integrated System Architecture
-
-..
-
 Figure :ref:`DIMSSystemArchitecture` illustrates the combined systems
 of the PRISEM project, the Ops-Trust portal, and the DIMS back end. As
 much as possible, the DIMS architecture will be overlaid on top of, or
@@ -39,6 +29,15 @@ database for security data. All access will be centralized through the
 OpenVPN server, with certificates and encryption keys provided to the
 user via the modified Ops-Trust portal.
 
+.. _DIMSSystemArchitecture:
+
+.. figure:: images/dims-system-architecture-v2.png
+   :width: 70%
+   :align: center
+
+   DIMS Integrated System Architecture
+
+..
 
 .. todo::
 
@@ -257,6 +256,105 @@ Concept of execution
    allocation/deallocation, dynamic creation/deletion of objects, processes,
    tasks, and other aspects of dynamic behavior.
 
+..
+
+The problem of event collection, correlation, and alerting, is quite common.
+Nearly every anti-virus vendor, managed security service provider, major internet
+platform provider, or multi-national enterprise, shares similar problems with
+processing event data. They are nearly all looking at the same type of
+architecture to handle the high data volumes and flow rates associated with
+large, high-bandwidth networks.
+
+A common combination of tools used to process and index large volumes of event
+logs is the combination of *Elasticsearch*, *Logstash*, and *Kibana*, or the
+"ELK stack" for short.  The developers of the ELK stack refer to it [#ES]_ as
+"an end-to-end stack that delivers actionable insights in real-time from almost
+any type of structured and unstructured data source." Elasticsearch provides
+flexible storage of data and flexible search of data. Logstash is used to parse
+the data, and then it sends it to Elasticsearch. Kibana then takes the parsed
+data from Elasticsearch and presents it through a browser in an easy-to-view
+way.  Kibana's dashboards are customizable in a variety of ways to we can
+better dissect and view the data.
+
++ Elasticsearch
+
+.. _Architecture behind our new Search and Explore experience: https://developers.soundcloud.com/blog/architecture-behind-our-new-search-and-explore-experience
+.. _How HipChat Stores And Indexes Billions Of Messages Using ElasticSearch And Redis: http://highscalability.com/blog/2014/1/6/how-hipchat-stores-and-indexes-billions-of-messages-using-el.html
+.. _Using elasticsearch and logstash to serve billions of searchable events for customers: http://www.elasticsearch.org/blog/using-elasticsearch-and-logstash-to-serve-billions-of-searchable-events-for-customers/
+.. _Example configuration of Elasticsearch: https://github.com/aol/moloch#example-configuration
+.. _Moloch network flow monitoring tool: https://github.com/aol/moloch
+.. _How to use Elasticsearch with Python: http://snippets.aktagon.com/snippets/611-how-to-use-elasticsearch-with-python
+.. _Security Analysts Discuss SIEM’S -- Elasticsearch/Logstash/Kibana vs ARCSight, Splunk, and more: http://skizzlesec.com/2014/06/08/security-analysts-discuss-siems-elasticsearchlogstashkibana-vs-arcsight-splunk-and-more/
+.. _Scaling an ELK stack at bol.com: http://www.slideshare.net/renzotoma39/scaling-an-elk-stack-at-bolcom-39412550
+
+
+    + `Architecture behind our new Search and Explore experience`_ (where "our" is Soundcloud... see "final box-diagram")
+    + `How HipChat Stores And Indexes Billions Of Messages Using ElasticSearch And Redis`_
+    + `Using elasticsearch and logstash to serve billions of searchable events for customers`_
+    + `Example configuration of Elasticsearch`_ for AOL's `Moloch network flow monitoring tool`_
+    + `How to use Elasticsearch with Python`_
+    + `Security Analysts Discuss SIEM’S -- Elasticsearch/Logstash/Kibana vs ARCSight, Splunk, and more`_
+    + `Scaling an ELK stack at bol.com`_
+
++ Logstash
+
+.. _What is Logstash?: http://logstash.net/docs/1.4.2/learn
+.. _Github logstash/cookbook: https://github.com/logstash/cookbook
+
+    + `What is Logstash?`_
+    + `Github logstash/cookbook`_
+
++ Kibana
+
+.. _Creating an Advanced Kibana Dashboard Using a Script: http://blog.trifork.com/2014/05/20/advanced-kibana-dashboard/
+.. _Templates and Scripts: http://www.elasticsearch.org/guide/en/kibana/current/templated-and-scripted-dashboards.html
+.. _Command Line Load Dashboard: https://github.com/elasticsearch/kibana/issues/333
+
+    + `Creating an Advanced Kibana Dashboard Using a Script`_
+    + `Templates and Scripts`_
+    + `Command Line Load Dashboard`_
+
+.. _Mozilla Defense Platform: https://media.readthedocs.org/pdf/mozdef/latest/mozdef.pdf
+.. _MozDef: https://github.com/jeffbryner/MozDef
+.. _Bsides PDX 2014 presenation on MozDef: http://jeffbryner.com/bsidespdx2014/
+.. _MozDef\: You've collected your security logs, now what?: https://air.mozilla.org/intern-presentations-11/
+.. _accompanying slides: http://anthony-verez.fr/mozdef/
+
+The ELK stack has been used to process hundreds of millions to billions of
+events per day. Mozilla uses it as part of the `Mozilla Defense Platform`_, or
+`MozDef`_. (See Figure :ref:`mozdefdataflows` for the data flow diagram for the
+`Mozilla Defense Platform`_, or `MozDef`_.
+See also Jeff Bryner's `Bsides PDX 2014 presenation on MozDef`_
+and Anthony Verez' presenation `MozDef\: You've collected your security logs,
+now what?`_ and `accompanying slides`_.) The company Mailgun has described how
+they are `Using elasticsearch and logstash to serve billions of searchable
+events for customers`_.  (For an order of magnitude comparison, the PRISEM
+system currently collects between 30-60 million events per day, not the
+billions described in this reference.)
+
+.. _mozdefdataflows:
+
+.. figure:: images/MozDef-flows.png
+   :width: 90%
+   :align: center
+
+   MozDef data flows
+
+..
+
+Figure :ref:`logstashandmetrics` (source [#metrics]_) shows how the event log
+collection process works in terms of data flows between sources and ELK stack
+components. The DIMS system is designed to sit on top of such an event
+collection infrastructure.
+
+.. _logstashandmetrics:
+
+.. figure:: images/logstash-and-metrics.png
+   :width: 90%
+   :align: center
+
+   Logstash and Metrics
+   
 ..
 
 
@@ -605,3 +703,11 @@ Interface identification and diagrams
           compatibility, etc.)
 
 ..
+
+.. _Mozilla Defense Platform: https://media.readthedocs.org/pdf/mozdef/latest/mozdef.pdf
+.. _MozDef: https://github.com/jeffbryner/MozDef
+
+.. rubric:: Footnotes
+
+.. [#metrics] http://www.semicomplete.com/presentations/logstash-hmmm
+.. [#ES] http://www.elasticsearch.org/overview
