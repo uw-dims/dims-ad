@@ -229,6 +229,9 @@ List of Acronyms
        Event Information Management, Security Event Monitoring, causing some to
        pronounce it as "sim-sem".)
 
+   SITREP
+       SITuational awareness REPort
+
    SLTT
        State, Local, Territorial, and Tribal (classification of non-federal
        government entities)
