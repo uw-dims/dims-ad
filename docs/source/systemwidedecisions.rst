@@ -5,44 +5,49 @@ System-wide design decisions
 
 .. todo::
 
-   This section shall be divided into paragraphs as needed to present DIMS-wide
-   design decisions, that is, decisions about the DIMS's behavioral design (how
-   it will behave, from a user's point of view, in meeting its requirements,
-   ignoring internal implementation) and other decisions affecting the selection
-   and design of the software units that make up the DIMS. If all such decisions
-   are explicit in the DIMS requirements or are deferred to the design of the
-   DIMS's software units, this section shall so state. Design decisions that
-   respond to requirements designated critical, such as those for safety,
-   security, or privacy, shall be placed in separate subparagraphs. If a design
-   decision depends upon system states or modes, this dependency shall be
-   indicated. Design conventions needed to understand the design shall be
-   presented or referenced. Examples of DIMS-wide design decisions are the
-   following:
+    .. note::
+
+        This section shall be divided into paragraphs as needed to present
+        DIMS-wide design decisions, that is, decisions about the DIMS's
+        behavioral design (how it will behave, from a user's point of view, in
+        meeting its requirements, ignoring internal implementation) and other
+        decisions affecting the selection and design of the software units that
+        make up the DIMS. If all such decisions are explicit in the DIMS
+        requirements or are deferred to the design of the DIMS's software
+        units, this section shall so state. Design decisions that respond to
+        requirements designated critical, such as those for safety, security,
+        or privacy, shall be placed in separate subparagraphs. If a design
+        decision depends upon system states or modes, this dependency shall be
+        indicated. Design conventions needed to understand the design shall be
+        presented or referenced. Examples of DIMS-wide design decisions are the
+        following:
 
 
-      * Design decisions regarding inputs the DIMS will accept and outputs it
-        will produce, including interfaces with other systems, HWCIs, DIMSs,
-        and users (4.3.x of this DID identifies topics to be considered in this
-        description). If part or all of this information is given in Interface
-        Design Descriptions (IDDs), they may be referenced.
+        * Design decisions regarding inputs the DIMS will accept and outputs it
+          will produce, including interfaces with other systems, HWCIs, DIMSs,
+          and users (4.3.x of this DID identifies topics to be considered in this
+          description). If part or all of this information is given in Interface
+          Design Descriptions (IDDs), they may be referenced.
+  
+        * Design decisions on DIMS behavior in response to each input or
+          condition, including actions the DIMS will perform, response times and
+          other performance characteristics, description of physical systems
+          modeled, selected equations/algorithms/rules, and handling of unallowed
+          inputs or conditions.
+  
+        * Design decisions on how databases/data files will appear to the user
+          (4.3.x of this DID identifies topics to be considered in this
+          description). If part or all of this information is given in Database
+          Design Descriptions (DBDDs), they may be referenced.
+  
+        * Selected approach to meeting safety, security, and privacy
+          requirements.
+  
+        * Other DIMS-wide design decisions made in response to requirements, such
+          as selected approach to providing required flexibility, availability,
+          and maintainability.
 
-      * Design decisions on DIMS behavior in response to each input or
-        condition, including actions the DIMS will perform, response times and
-        other performance characteristics, description of physical systems
-        modeled, selected equations/algorithms/rules, and handling of unallowed
-        inputs or conditions.
-
-      * Design decisions on how databases/data files will appear to the user
-        (4.3.x of this DID identifies topics to be considered in this
-        description). If part or all of this information is given in Database
-        Design Descriptions (DBDDs), they may be referenced.
-
-      * Selected approach to meeting safety, security, and privacy
-        requirements.
-
-      * Other DIMS-wide design decisions made in response to requirements, such
-        as selected approach to providing required flexibility, availability,
-        and maintainability.
+    ..
 
 ..
 
@@ -51,19 +56,21 @@ System-wide design decisions
 Background on Existing Core Components
 --------------------------------------
 
-Figure :ref:`DimsSystemOverview` depicts a high-level diagram of the
-system architecture for the DIMS system. DIMS provides a user
-interface layer on the front end, as well as a data processing layer
-on the back end, that integrates with two existing systems.
+To understand what the DIMS system is intended to provide, it is important to
+understand its role in the context of distributed and collaborative incident
+response. DIMS leverages the capabilities of several existing systems each
+provide key functions necessary for incident response, but are not presently
+designed to work together. Integrating these capabilities will result in an
+increase in the capacity to respond.
 
-The first is the Security Information Event Management (SIEM) system
-at the core of the PRISEM project, and the technologies associated
-with it to perform behavioral detection of malicious activity from
-network flow data and support forensic analysis of historic data to
-respond and recover from attacks that evade detective mechanisms. This
-system collects and processes security related events and network flow
-data and supports a collective approach to responding and recovering
-from security events.
+.. Building DIMS from open source components will keep the cost of
+.. acquisition and operation to a reasonable level that is
+.. sustainable by SLTT government entities who are cash-strapped,
+.. resource-limited, yet critical to providing services to the
+.. general public who are their consituents.
+
+Figure :ref:`DimsSystemOverview` depicts a high-level diagram of the dataflows
+between DIMS and related system.
 
 .. _DimsSystemOverview:
 
@@ -75,26 +82,43 @@ from security events.
 
 ..
 
+DIMS provides a user interface layer on the front end, as well as a data
+processing layer on the back end, that integrates with several existing
+systems.
 
-The second system is the Ops-Trust portal system, used by a community
-of several hundred computer security professionals with operational
-and research roles in industry, government, and academia. This system
-is primarily designed to facilitate trust group maintenance and
-communication to deal with emerging threats and events of
-international scope.
++ The first is the Security Information Event Management (SIEM) system at the
+  core of the PRISEM project, and the technologies associated with it to
+  perform behavioral detection of malicious activity from network flow data and
+  support forensic analysis of historic data to respond and recover from
+  attacks that evade detective mechanisms. This system collects and processes
+  security related events and network flow data and supports a collective
+  approach to responding and recovering from security events.
 
++ The second system is the Ops-Trust portal system, used by a community of
+  several hundred computer security professionals with operational and research
+  roles in industry, government, and academia. This system is primarily
+  designed to facilitate trust group maintenance and communication to deal with
+  emerging threats and events of international scope.
 
-The DIMS software will bring these two systems together into a
-collaborative environment for shared analysis and shared response of
-shared threats, both within a regional trust community, as well as
-across multiple such trust communities in other regions. Through
-vertical sharing of indicators of compromise from US-CERT to the
-regional level, and lateral sharing across regional entities, the
-objective is to scale actionable information sharing to state, local,
-territorial, and tribal (SLTT) government entities across the United
-States, and extend the sharing to international trust groups who make
-up the global fabric of the internet.
++ The third are the suite of "big data" style open source unstructured data
+  storage, log processing, log visualization, and other tools that are part of
+  the ELK stack, MozDef, and CIF.
+  
++ Additional tools that can be used for visualization can be similarly
+  integrated (such as Mal4s), by building them into the system deployment
+  infrastructure like any other components used in DIMS. This type of
+  `framework` model, if generalized, allows any of a number of open source
+  security tools to be made available to the incident responder.
 
+The DIMS software system will bring these systems together into a collaborative
+environment for shared analysis and shared response of shared threats, both
+within a regional trust community, as well as across multiple such trust
+communities in other regions.  Through vertical sharing of indicators of
+compromise from US-CERT to the regional level, and lateral sharing across
+regional entities, the objective is to scale actionable information sharing to
+state, local, territorial, and tribal (SLTT) government entities across the
+United States, and extend the sharing to international trust groups who make up
+the global fabric of the internet.
 
 .. _DataFlowsBetweenStakeholders:
 
@@ -116,7 +140,7 @@ lower levels of trust, and may be transmitted only in redacted form
 (possibly tagged with TLP indicators for the least restricted
 sharing). The type of data shared may be structured IOC and
 Observables in STIX format, Course of Action information in either PDF
-or structured format, `Situational Awareness Reports` (SITREP)
+or structured format, `Situational Awareness Report` (:term:`SITREP`)
 documents that describe observed campaign level activity at a high
 level, possibly with structure data containing IOCs or Observables to
 assist recipients in searching for related activity, and incident
@@ -126,7 +150,7 @@ will be shared in most use cases: high-frequency, high-volume,
 automated data feeds of `reputation` data and IOCs/Observables coming
 from analytic and research groups; low-frequency, low-volume, manually
 triggered bundles of IOCs/Observables, Course of Action information,
-and/or high-level Situational Awareness Reports (SITREPs) for specific
+and/or high-level SITREPs for specific
 incident-level up to campaign-level activity. The DIMS software,
 layered on top of the Ops-Trust portal system, will facilitate
 production of these reports and transmission/reception of structure
@@ -135,16 +159,6 @@ files to pre-process data for an analyst to consume when ready, rather
 than forcing the analyst to do a lot of work manipulating files,
 processing their contents, and manually entering data into report
 generation front ends in web based portals.
-
-.. _PRISEMInitialDeploymentAndFlows:
-
-.. figure:: images/cos-hw-deployment-v3.png
-   :width: 60%
-   :align: center
-
-   PRISEM Initial Deployment and Flows
-
-..
 
 Figure :ref:`PRISEMInitialDeploymentAndFlows` depicts the high-level
 data flow relationships for the Security Information Event Management
@@ -157,14 +171,13 @@ detectors, and archived for historical query capability. The logs are
 collected one site, then forwarded to the central SIEM for processing
 at the University of Washington.
 
+.. _PRISEMInitialDeploymentAndFlows:
 
-.. _Netflow-Architecture:
-
-.. figure:: images/Netflow-Architecture.png
+.. figure:: images/cos-hw-deployment-v3.png
    :width: 50%
    :align: center
 
-   Netflow Architecture
+   PRISEM Initial Deployment and Flows
 
 ..
 
@@ -178,13 +191,14 @@ performs the storage task, however it converts the NetFlow V5 records
 to SiLK format before storing them. The SiLK tool suite is then used
 to process these historic logs (e.g., performing historic queries).
 
-.. _Botnets-Architecture:
 
-.. figure:: images/Botnets-Architecture.png
-   :width: 70%
+.. _Netflow-Architecture:
+
+.. figure:: images/Netflow-Architecture.png
+   :width: 50%
    :align: center
 
-   Botnets System High-Level Architecture
+   Netflow Architecture
 
 ..
 
@@ -200,14 +214,13 @@ monitoring system. In the PRISEM system, all detectors alert via
 syslog, which are processed by the Log Matrix Threat Center
 application.)
 
+.. _Botnets-Architecture:
 
-.. _PRISEM-Architecture:
-
-.. figure:: images/prisem-system-architecture-v1.png
-   :width: 60%
+.. figure:: images/Botnets-Architecture.png
+   :width: 70%
    :align: center
 
-   PRISEM Architecture
+   Botnets System High-Level Architecture
 
 ..
 
@@ -233,13 +246,13 @@ will front-end this portal and support additional capabilities that
 are available on the PRISEM back-end via the AMQP broker (See Figure
 TODO-26 and Figure TODO-27).
 
-.. _OpsTrustArchitectureDiagram:
+.. _PRISEM-Architecture:
 
-.. figure:: images/ops-trust-system-architecture.png
+.. figure:: images/prisem-system-architecture-v1.png
    :width: 60%
    :align: center
 
-   Ops-Trust Architecture Diagram
+   PRISEM Architecture
 
 ..
 
@@ -256,13 +269,13 @@ and potentially multiple local test instances will be set up for
 PRISEM users (and possibly also Agora members, currently running in
 the multiple hundreds of individuals) to beta-test DIMS features.
 
-.. _OpsTrustMemberPage:
+.. _OpsTrustArchitectureDiagram:
 
-.. figure:: images/ops-trust-memberpage.png
-   :width: 90%
+.. figure:: images/ops-trust-system-architecture.png
+   :width: 60%
    :align: center
 
-   Ops-Trust Member Information Page
+   Ops-Trust Architecture Diagram
 
 ..
 
@@ -276,6 +289,15 @@ optionally being approved for membership) email lists, the user is
 included on list email routed through the mail server, and granted
 access to the appropriate section of the wiki.
 
+.. _OpsTrustMemberPage:
+
+.. figure:: images/ops-trust-memberpage.png
+   :width: 70%
+   :align: center
+
+   Ops-Trust Member Information Page
+
+..
 
 The DIMS system will take advantage of the foundation of services
 provide by this portal in several ways. It will use it as a means of
