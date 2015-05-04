@@ -1,6 +1,5 @@
-.. tobeintegrated:
+.. _tobeintegrated:
 
-================
 To be integrated
 ================
 

@@ -1,6 +1,5 @@
-.. requirementstraceability:
+.. _requirementstraceability:
 
-=========================
 Requirements traceability
 =========================
 

@@ -1,6 +1,5 @@
-.. referenceddocs:
+.. _referenceddocs:
 
-====================
 Referenced documents
 ====================
 

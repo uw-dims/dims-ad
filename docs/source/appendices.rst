@@ -1,8 +1,7 @@
-==========
+.. _appendices:
+
 Appendices
 ==========
-
-.. appendices:
 
 .. todo::
 

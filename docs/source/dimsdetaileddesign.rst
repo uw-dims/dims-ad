@@ -1,4 +1,4 @@
-.. dimsdetaileddesign:
+.. _dimsdetaileddesign:
 
 DIMS detailed design
 ====================

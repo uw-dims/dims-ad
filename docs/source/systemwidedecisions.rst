@@ -1,4 +1,4 @@
-.. systemwidedecisions:
+.. _systemwidedecisions:
 
 System-wide design decisions
 ============================

@@ -1,6 +1,5 @@
-.. scope:
+.. _scope:
 
-=====
 Scope
 =====
 

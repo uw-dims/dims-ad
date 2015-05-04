@@ -1,4 +1,4 @@
-.. dimsarchitecturaldesign:
+.. _dimsarchitecturaldesign:
 
 DIMS architectural design
 =========================
