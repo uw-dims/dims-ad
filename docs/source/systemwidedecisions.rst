@@ -28,21 +28,21 @@ System-wide design decisions
           and users (4.3.x of this DID identifies topics to be considered in this
           description). If part or all of this information is given in Interface
           Design Descriptions (IDDs), they may be referenced.
-  
+
         * Design decisions on DIMS behavior in response to each input or
           condition, including actions the DIMS will perform, response times and
           other performance characteristics, description of physical systems
           modeled, selected equations/algorithms/rules, and handling of unallowed
           inputs or conditions.
-  
+
         * Design decisions on how databases/data files will appear to the user
           (4.3.x of this DID identifies topics to be considered in this
           description). If part or all of this information is given in Database
           Design Descriptions (DBDDs), they may be referenced.
-  
+
         * Selected approach to meeting safety, security, and privacy
           requirements.
-  
+
         * Other DIMS-wide design decisions made in response to requirements, such
           as selected approach to providing required flexibility, availability,
           and maintainability.
@@ -103,7 +103,7 @@ systems.
 + The third are the suite of "big data" style open source unstructured data
   storage, log processing, log visualization, and other tools that are part of
   the ELK stack, MozDef, and CIF.
-  
+
 + Additional tools that can be used for visualization can be similarly
   integrated (such as Mal4s), by building them into the system deployment
   infrastructure like any other components used in DIMS. This type of
@@ -319,14 +319,216 @@ list.
 Software Development Methodology
 --------------------------------
 
-As the DIMS system relies upon and integrates multiple existing and
-future open source software components, it is being developed using an
-Agile programming development methodology (as opposed to the classic
-'waterfall' development methodology with its sequential processes.)
-This document, therefore, is a 'living document' that will be updated
-as the project proceeds and as cyclic input/feedback from users and
-testers is received. Sections to be addressed in future releases of
-this document are listed as TBA.
+As the DIMS system relies upon and integrates multiple existing open source
+software components, and code developed by the DIMS developers, the system is
+being developed using an Agile programming development methodology (as opposed
+to the classic 'waterfall' development methodology with its sequential
+processes.) This document, therefore, is a 'living document' that will be
+updated as the project proceeds and as cyclic input/feedback from users and
+testers is received. Sections to be addressed in future releases of this
+document are listed as TBA.
+
+The DIMS project involves coordination of team members in multiple
+locations, multiple time zones, and multiple overlapping areas of
+responsibility. In order to communicate, coordinate, maintain momentum of
+project development, and meet deliverable requirements of the contract
+with the sponsor, all DIMS team members must be able to work asynchronously,
+independently, and be responsible for following task prioritization or
+asking for direction as necessary.
+
+.. _agile:
+
+Use of Agile Development Methodology
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Integration of existing open source tools requires research into
+how the existing tool is designed and how it functions, understanding
+how it processes inputs and outputs, and how it is configured.
+
+The `Agile methodology`_ and `Scrum methodology`_ involve making small
+incremental changes based on simple user stories (short descriptions
+of what a user wants or needs), and making these changes on a short
+time frame (within a "sprint", which is usually on the order of one
+or two weeks.  (See :ref:`dimssr:agiledevelopment`.)
+
+Tasks are prioritized using the `Jira Agile`_ ticketing system, with the
+objective of completion of tasking within a 2-week development iteration
+(a.k.a., *sprint*) cycle. Weekly meetings are used to manage sprints.
+
+Both source code, and system configuration files and installation instructions,
+are maintained using the `Git`_ source code control system using `git-flow`_
+and `hub`_, for eventual open source release on `GitHub`_. This supports use of
+the `Vincent Dreisen branching workflow`_ to allow independent and isolated
+changes to be made, which are then to be tested prior to integration into more
+mainstream "develop" or "master" branches for release.
+
+.. _continuousintegration:
+
+Use of Continuous Integration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The concepts of `Continuous Integration`_ and `DevOps`_ (also known as
+*agile system administration* or *agile operations*) for rapid development,
+testing, and release of a functional system are employed in order to
+build the overall system one component at a time, in a manner that
+can support the requirements specified in :ref:`dimssr:adaptationreqs`
+and :ref:`dimssr:continuousintegration`. By automating the way
+systems are configured, and how DIMS developed software is installed
+on them, not only are incremental changes possible with little effort,
+but multiple instances can be supported. Code that reaches the
+``master`` branch is considered stable and release ready, at which
+point it can be pushed to test/evaluation and/or production systems.
+Development test systems would be fed by less stable branches
+(e.g., the ``develop`` branch.)
+
+Documentation follows the same continuous integration and agile
+methodologies, using the `Sphinx`_ program, which processes
+`ReStructured Text (reST)`_ files (and is supported by the online
+documentation repository, `ReadTheDocs`_.)
+
+.. _containerization:
+
+Use of Containerization
+~~~~~~~~~~~~~~~~~~~~~~~
+
+During the Base year of the DIMS project, the focus was on taking
+as many open source tools as possible, and code developed by
+the DIMS team, and installing it on virtual machines using:
+
++ Ubuntu (versions 10.04, 12.04, and 14.04) and Mac OS X as
+  host operating systems;
+
++ Virtualbox and KVM as hypervisors;
+
++ Packer for turning operating system installation ISOs
+  into Box files for Virtualbox;
+
++ Vagrant for provisioning virtual machines on developers'
+  host operating systems of choice;
+
++ Ansible for compiling code, configuring operating systems
+  and services, installing pre-requisites libraries and
+  tool dependencies, and other required DIMS tasks.
+
+The team ran into a series of endlessly repeating problems
+that made progress painstakingly slow. These included:
+
++ One person could get something running, only to hand it
+  over to someone else to test (who could not run it).
+
++ One team member could compile and install a program
+  (because they had set up their system before hand with
+  the requisite sofware), but another ran into missing
+  dependencies and was blocked, not knowing what to do
+  to get past the block.
+
++ One team member could check in source code, only to
+  find that another team member could not check it out
+  because they had an out-of-date Git client.
+
++ One team member could build a virtual machine with
+  an open source package on it, but another did not know
+  how to replicate the steps in the right order and could
+  not get it to run.
+
++ One team member would research a task, complete coding
+  of Ansible playbooks to install the given software,
+  but nobody else on the team could test it because they
+  did not know the code existed or how to invoke it.
+
++ One team member would code solutions to a problem that
+  prevented widespread deployment of a given capability
+  (such as component tests, status information collection,
+  or event logging), but others on the team were not
+  aware of the need to update their own development
+  environments and things that formerly worked for them
+  would "break".
+
++ Frequently, only one team member was expert in a particular
+  software package or operating system, but nobody else was.
+  This made the person who knew how to do something a blocker
+  in the critical path. If they were not available when someone
+  else was trying to meet a deadline, the block would halt
+  progress.
+
++ Even when things worked right, and complete Vagrant virtual machines
+  could be built and run with specific services running within them,
+  IP addresses had to be configured by hand, and no DNS service
+  existed that knew how to serve those IP addresses from domain names.
+  This made it difficult for the team to know how to link services
+  together, so things only worked when all software was installed
+  in a single virtual machine (assuming that conflicting dependencies
+  for libraries and operating system did not prevent all the software
+  components from running on the same virtual machine.)
+
+The result was what seemed like an endless chain of blockers that
+prevented progress on any front.
+
+:ref:`dimsocd:newsystem` describes the operational concept for a
+new system, the DIMS framework model, which requires a mechanism
+that avoids the problems described above. The best available
+solution to these problems appears to be the use of
+`containers` (also known as `Operating-system-level virtualization`_,
+or `Microservices`_ architecture).
+
+`Docker`_ appears to be the leader in this area, garning a tremendous amount of
+support and energy. Docker is, "an open source project designed to easily
+create lightweight, portable, self-sufficient containers from any application."
+Their motto is "Build, ship, and run any application, anywhere."
+One of the main benefits of the use of containers is getting
+away from "dependency hell" of trying to fit a `least-common-denominator`
+of:
+
++ *operating system* +
++ *OS version* +
++ *specific libraries* +
++ *specific programming languages* +
++ *specific dependant programs* +
++ *specific service configuration settings*
+
+Docker containers are not the perfect solution, by any means. There are
+certain security concerns, issues with linking containers together,
+keeping them up and running in the face of uncaught exceptions,
+etc. (Many of these same problems exist with use of bare-metal or
+virtual machines, so certain challenges remain regardless.)
+The suite of tools for orchestration, shared container components
+used to build higher-level images, distributed configuration and
+service discovery, persistent storage across clustered systems,
+domain name services, logging, and monitoring across a vast number
+of systems, all put Docker in a strong position in terms of open
+source software as opposed to virtual machines and the
+equivalent tools to manage large numbers of virtual machines.
+(The commercial tools supporting these tasks on virtual machines
+are out of the price range of SLTT government entities, let
+alone small- and medium-sized businesses and volunteer
+incident response groups.)
+
+(For information on all of these topics, see the `Containerization,
+Virtualization, "Microservice Architectures"`_ section of the PI's home page.)
+
+
+.. _Containerization, Virtualization, "Microservice Architectures": https://staff.washington.edu/dittrich/home/unix.html#containerization-virtualization-microservice-architectures
+.. _Docker: https://www.docker.com/
+.. _Operating-system-level virtualization: http://en.wikipedia.org/wiki/Operating-system-level_virtualization
+.. _Microservices: https://en.wikipedia.org/wiki/Microservices
+.. _MozDef: http://mozdef.readthedocs.org/en/latest/
+.. _Agile methodology: http://agilemethodology.org
+.. _Scrum methodology: http://scrummethodology.com
+.. _Jira Agile: https://www.atlassian.com/software/jira/agile
+.. _Git: http://git-scm.com
+.. _GitHub: https://github.com
+.. _hub: https://hub.github.com/
+.. _git-flow: http://danielkummer.github.io/git-flow-cheatsheet/
+.. _Vincent Dreisen branching workflow: http://nvie.com/posts/a-successful-git-branching-model/
+.. _Sphinx: http://sphinx-doc.org
+.. _Restructured Text (reST): http://thomas-cokelaer.info/tutorials/sphinx/rest_syntax.html
+.. _ReadTheDocs: https://readthedocs.org/
+.. _LaTeX: http://www.latex-project.org
+.. _Continuous Integration: http://www.thoughtworks.com/continuous-integration
+.. _DevOps: http://theagileadmin.com/what-is-devops/
+.. _FosWiki: http://foswiki.org/
+.. _Domain Name System (DNS): http://en.wikipedia.org/wiki/Domain_Name_System
+.. _General Computer Security Awareness: https://staff.washington.edu/dittrich/home/general.html
 
 .. _opensource:
 
