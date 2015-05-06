@@ -493,4 +493,88 @@ Use of Open Source components
 
 ..
 
+.. _architecturesummary:
+
+Summary of High-Level System Architecture Delineation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+At the beginning of this section in :ref:`background` we saw DIMS
+from the perspective of data flows and core software components.
+
+In this section the focus is on delineating the components that are used to
+build the DIMS system from those that are functional in an operations context.
+Further, it will clarify the difference between the boxes on the left of Figure
+:ref:`DimsSystemOverview` (which have a subset of features that would be used
+by a non-operations investigative entity (e.g., US-CERT, the United States
+Secret Service, the Federal Trade Commission, or a Fusion Center) vs. the gray
+box in the bottom right of Figure :ref:`DimsSystemOverview` that includes the
+full set of realtime event data collection and network flow monitoring features
+that are more operational in nature.
+
+A deployment of the core components of DIMS for a user such as the a
+law enforcement agency, a Fusion Center, etc, is depicted as `DIMS-OPS`
+in Figure :ref:`dimsops`.
+
+.. _dimsops:
+
+.. figure:: images/DIMS-OPS-v1.png
+   :alt: DIMS Operations
+   :width: 30%
+   :align: center
+
+   DIMS Operations
+
+..
+
+Adding in the realtime event data collection elements, known
+as `DIMS-PISCES` is illustrated in Figure :ref:`dimsopspisces`. [#pisces]_
+
+.. _dimsopspisces:
+
+.. figure:: images/DIMS-OPS-PISCES-v1.png
+   :width: 30%
+   :alt: DIMS Operations + PISCES
+   :align: center
+
+   DIMS Operations + PISCES
+
+..
+
+Finally, the DIMS team (or anyone wishing to develop DIMS from the open
+source code base) requires all of the code development, configuration
+management, and continuous integration (or `DevOps`) features necessary
+for development. This is illustrated in Figure :ref:`dimsopspiscesdevops`.
+
+.. _dimsopspiscesdevops:
+
+.. figure:: images/DIMS-OPS-PISCES-DevOps-v1.png
+   :width: 60%
+   :align: center
+
+   DIMS Operations + PISCES + DevOps
+
+..
+
+For a pilot deployment of DIMS for the U.S. Secret Service, a full DIMS-OPS +
+DIMS-PISCES deployment will be instantiated for a select subset of the PRISEM
+participants in the Puget Sound to replicate a group of "victim" sites. Using
+live data, an incident will be investigated and "reported" to a test "U.S.
+Secret Service" DIMS-OPS system. This will validate the concept of reporting
+machine-parsable data to a central site using the Vertical and Lateral
+Information Sharing CSCI components (see :ref:`dimssr:vliscsci`).
+
+.. _ussspilot:
+
+.. figure:: images/USSS-Pilot-Deployment.png
+   :width: 80%
+   :alt: U.S. Secret Service Pilot
+   :align: center
+
+   U.S. Secret Service Pilot
+
+..
+
+.. rubric:: Footnotes
+
+.. [#pisces] The term `PISCES` is the proposed replacement for `PRISEM` moving forward.
 
