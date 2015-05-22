@@ -274,8 +274,8 @@ Software Development Methodology
 As the DIMS system relies upon and integrates multiple existing open source
 software components, and code developed by the DIMS developers, the system is
 being developed using an Agile programming development methodology (as opposed
-to the classic 'waterfall' development methodology with its sequential
-processes.) This document, therefore, is a 'living document' that will be
+to the classic `waterfall` development methodology with its sequential
+processes.) This document, therefore, is a `living document` that will be
 updated as the project proceeds and as cyclic input/feedback from users and
 testers is received. Sections to be addressed in future releases of this
 document are listed as TBA.
@@ -300,19 +300,19 @@ how it processes inputs and outputs, and how it is configured.
 The `Agile methodology`_ and `Scrum methodology`_ involve making small
 incremental changes based on simple user stories (short descriptions
 of what a user wants or needs), and making these changes on a short
-time frame (within a "sprint", which is usually on the order of one
+time frame (within a `sprint`, which is usually on the order of one
 or two weeks.  (See :ref:`dimssr:agiledevelopment`.)
 
 Tasks are prioritized using the `Jira Agile`_ ticketing system, with the
-objective of completion of tasking within a 2-week development iteration
-(a.k.a., *sprint*) cycle. Weekly meetings are used to manage sprints.
+objective of completion of tasking within a 2-week sprint cycle.
+Weekly meetings are used to manage sprints.
 
 Both source code, and system configuration files and installation instructions,
 are maintained using the `Git`_ source code control system using `git-flow`_
 and `hub`_, for eventual open source release on `GitHub`_. This supports use of
 the `Vincent Dreisen branching workflow`_ to allow independent and isolated
 changes to be made, which are then to be tested prior to integration into more
-mainstream "develop" or "master" branches for release.
+mainstream ``develop`` or ``master`` branches for release.
 
 .. _continuousintegration:
 
@@ -347,8 +347,8 @@ During the Base year of the DIMS project, the focus was on taking
 as many open source tools as possible, and code developed by
 the DIMS team, and installing it on virtual machines using:
 
-+ Ubuntu (versions 10.04, 12.04, and 14.04) and Mac OS X as
-  host operating systems;
++ Ubuntu (versions 10.04, 12.04, and 14.04), CentOS 5 and 6,
+  and Mac OS X as host operating systems;
 
 + Virtualbox and KVM as hypervisors;
 
@@ -443,6 +443,21 @@ certain security concerns, issues with linking containers together,
 keeping them up and running in the face of uncaught exceptions,
 etc. (Many of these same problems exist with use of bare-metal or
 virtual machines, so certain challenges remain regardless.)
+Figure :ref:`dockerservices` (from https://coreos.com/using-coreos/)
+illustrates a 3-tiered web application in a clustered containter
+deployment.
+
+.. _dockerservices:
+
+.. figure:: images/run-services-with-docker.png
+   :alt: Run Services with Docker
+   :width: 40%
+   :align: center
+
+   Run Services with Docker
+
+..
+
 The suite of tools for orchestration, shared container components
 used to build higher-level images, distributed configuration and
 service discovery, persistent storage across clustered systems,
@@ -455,7 +470,8 @@ are out of the price range of SLTT government entities, let
 alone small- and medium-sized businesses and volunteer
 incident response groups.)
 
-(For information on all of these topics, see the `Containerization,
+
+(For more information on all of these topics, see the `Containerization,
 Virtualization, "Microservice Architectures"`_ section of the PI's home page.)
 
 
@@ -496,10 +512,13 @@ Use of Open Source components
 .. _architecturesummary:
 
 Summary of High-Level System Architecture Delineation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------------------------------
 
 At the beginning of this section in :ref:`background` we saw DIMS
-from the perspective of data flows and core software components.
+from the perspective of data flows and core software components. A more
+detailed exposition of these components is found in
+:ref:`dimsocd:dimsoperationalconceptdescription`,
+Section :ref:`dimsocd:descriptioncurrentsystem`.
 
 In this section the focus is on delineating the components that are used to
 build the DIMS system from those that are functional in an operations context.
@@ -526,6 +545,20 @@ in Figure :ref:`dimsops`.
 
 ..
 
+.. dimsopscomponents:
+
+.. list-table:: DIMS-OPS Components
+   :widths: 20 20 20
+   :header-rows: 1
+
+   * - Component
+     - CSCI
+     - Contract Section
+   * - ops-trust portal
+     - bar
+     - bif
+
+
 Adding in the realtime event data collection elements, known
 as `DIMS-PISCES` is illustrated in Figure :ref:`dimsopspisces`. [#pisces]_
 
@@ -537,6 +570,21 @@ as `DIMS-PISCES` is illustrated in Figure :ref:`dimsopspisces`. [#pisces]_
    :align: center
 
    DIMS Operations + PISCES
+
+..
+
+.. dimsiscescomponents:
+
+.. list-table:: DIMS-PISCES Components
+   :widths: 20 20 20
+   :header-rows: 1
+
+   * - Component
+     - CSCI
+     - Contract Section
+   * - ...
+     - ...
+     - ...
 
 ..
 
@@ -552,6 +600,21 @@ for development. This is illustrated in Figure :ref:`dimsopspiscesdevops`.
    :align: center
 
    DIMS Operations + PISCES + DevOps
+
+..
+
+.. dimsdevopscomponents:
+
+.. list-table:: DIMS-DEVOPS Components
+   :widths: 20 20 20
+   :header-rows: 1
+
+   * - Component
+     - CSCI
+     - Contract Section
+   * - ...
+     - ...
+     - ...
 
 ..
 

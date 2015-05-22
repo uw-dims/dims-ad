@@ -357,6 +357,31 @@ collection infrastructure.
    
 ..
 
+Section :ref:`containerization` discusses `Docker`_ and its role in
+implementing a `micro-service architecture`. ELK stack components have been
+demonstrated being implemented in containers. (E.g., see `Automating Docker
+Logging: ElasticSearch, Logstash, Kibana, and Logspout`_, by Nathan LeClaire
+and `Scalable Docker Monitoring with Fluentd, Elasticsearch and Kibana 4`_, by
+manu, `Elasticsearch, Weave and Docker`_, by errordeveloper, and the GitHub
+repository of `iantruslove/docker-elasticsearch`_ with a Docker image for
+ElasticSearch using Maestro orchestration.)
+
+`Real-time monitoring of Hadoop clusters`_ describes deploying the ELK stack
+alongside Hadoop cluster nodes to provide a realtime monitoring capability.
+(See also `Apache Hadoop 2.6.0 on Docker`_, by Janos Matyas, for containerizing
+the Hadoop cluster nodes.)
+
+.. _hadoopmonitoring:
+
+.. figure:: images/hadoop-monitoring-arch.png
+   :alt: High-level architecture for monitoring Hadoop with the ELK stack
+   :width: 70%
+   :align: center
+
+   High-level architecture for monitoring Hadoop with the ELK stack
+
+..
+
 
 .. _interfacedesign:
 
@@ -762,6 +787,13 @@ Interface identification and diagrams
 
 .. _Mozilla Defense Platform: https://media.readthedocs.org/pdf/mozdef/latest/mozdef.pdf
 .. _MozDef: https://github.com/jeffbryner/MozDef
+.. _Docker: https://www.docker.com/
+.. _Automating Docker Logging\: ElasticSearch, Logstash, Kibana, and Logspout: http://nathanleclaire.com/blog/2015/04/27/automating-docker-logging-elasticsearch-logstash-kibana-and-logspout/
+.. _Scalable Docker Monitoring with Fluentd, Elasticsearch and Kibana 4: http://blog.snapdragon.cc/2014/11/21/scalable-docker-monitoring-fluentd-elasticsearch-kibana-4/
+.. _Elasticsearch, Weave and Docker: http://weaveblog.com/2015/01/20/elasticsearch-and-weave/
+.. _iantruslove/docker-elasticsearch: https://github.com/iantruslove/docker-elasticsearch
+.. _Real-time monitoring of Hadoop clusters: http://blog.sequenceiq.com/blog/2014/10/07/hadoop-monitoring/
+.. _Apache Hadoop 2.6.0 on Docker: http://blog.sequenceiq.com/blog/2014/12/02/hadoop-2-6-0-docker/
 
 .. rubric:: Footnotes
 
