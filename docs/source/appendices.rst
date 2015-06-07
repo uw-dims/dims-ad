@@ -73,27 +73,38 @@ acting as a `downstream` exchange via the RabbitMQ `Shovel plugin`_.
 
 ..
 
+.. _upstreamenrichment:
+
+Upstream Enrichment
+-------------------
+
+Certain types of information that are related to the site where
+the upstream exchange is located make sense to be included by
+the producer scripts when queueing events at the upstream for
+later transport to the downstream exchange.  These would be
+things like geolocation from an off-line database (e.g., Maxmind),
+and tagging with the SiteID, etc.
+
 .. todo::
 
     Describe how the event logs at an upstream participant site are collected,
     processed, and forwarded to the central backend data store.  These steps
     are:
- 
+
     #. Parsing from Unix ``syslog`` format to JSON.
- 
-    #. Enrichment with site-specific tagging:
- 
+
+    #. Enrichment with site-specific information:
+
         #. Adding participant *SiteID*.
- 
+
         #. Mapping of RFC 1918 addresses to routable (i.e., post-NAT)
            address(es).
- 
-        #. TLP tagging.
- 
+
+        #. TLP tagging(?).
+
     #. Publishing to AMQP upstream exchange for local queueing
        and forwarding to downstream exchange for insertion into
        backend data store.
-
 
     .. note::
 
@@ -122,6 +133,42 @@ acting as a `downstream` exchange via the RabbitMQ `Shovel plugin`_.
 
 ..
 
+.. _downstreamenrichment:
+
+Downstream Enrichment
+---------------------
+
+Other types of data *do not make sense* to add at the upstream, most notably
+data that resides at the central backend data store (e.g, data held in the
+Collective Intelligence Framework (CIF) database, which was described in
+Section :ref:`dimsocd:currentsystem` of the
+:ref:`dimsocd:dimsoperationalconceptdescription`.) In order a producer to tag
+data using information stored remotely, the producer would have to make a
+remote query for the data, then insert it, then queue the event log data.  This
+requires that this added data transit the network twice (once in response to
+the query for it, and again when the event log is transmitted from upstream
+exchange to downstream exchange.)
+
+It makes more sense to insert a consumer on the downstream exchange that does
+this enrichment using locally available data, then index it in the backend data
+store.
+
+.. todo::
+
+    Describe how the event logs are enriched at the downstream collection
+    point before being indexed in the backend data store.
+
+    These steps for enrichment at the downstream collector would include:
+
+    #. Enrichment of security event data with data available in the Collective
+       Intelligence Framework (CIF) database.
+
+    #. Enrichment of DIMS-PISCES system monitoring data with system-specific
+       attributes (e.g., TTL or expiration date).
+
+..
+
+.. _collectorrelated:
 
 Related resources
 ~~~~~~~~~~~~~~~~~
