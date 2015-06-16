@@ -548,15 +548,29 @@ in Figure :ref:`dimsops`.
 .. dimsopscomponents:
 
 .. list-table:: DIMS-OPS Components
-   :widths: 20 20 20
+   :widths: 40 20
    :header-rows: 1
 
    * - Component
      - CSCI
-     - Contract Section
-   * - ops-trust portal
-     - bar
-     - bif
+   * - Ops-trust portal
+     - .
+   * - FosWiki
+     - .
+   * - LDAP Single-Signon
+     - .
+   * - OpenVPN
+     - .
+   * - DIMS Web App
+     - .
+   * - Hadoop (HDFS), Elasticsearch, Redis, MongoDB, PostgreSQL
+     - .
+   * - Tupelo
+     - .
+   * - Anonymization
+     - .
+   * - STIX input/output
+     - .
 
 
 Adding in the realtime event data collection elements, known
@@ -576,15 +590,23 @@ as `DIMS-PISCES` is illustrated in Figure :ref:`dimsopspisces`. [#pisces]_
 .. dimsiscescomponents:
 
 .. list-table:: DIMS-PISCES Components
-   :widths: 20 20 20
+   :widths: 40 20
    :header-rows: 1
 
    * - Component
      - CSCI
-     - Contract Section
-   * - ...
-     - ...
-     - ...
+   * - .
+     - .
+   * - .
+     - .
+   * - .
+     - .
+   * - .
+     - .
+   * - .
+     - .
+   * - .
+     - .
 
 ..
 
@@ -606,15 +628,25 @@ for development. This is illustrated in Figure :ref:`dimsopspiscesdevops`.
 .. dimsdevopscomponents:
 
 .. list-table:: DIMS-DEVOPS Components
-   :widths: 20 20 20
+   :widths: 40 20
    :header-rows: 1
 
    * - Component
      - CSCI
-     - Contract Section
-   * - ...
-     - ...
-     - ...
+   * - ops-trust portal
+     - .
+   * - Git source repository management
+     - .
+   * - Jenkins Continuous Integration
+     - .
+   * - Ansible configuration
+     - .
+   * - Distributed configuration database
+     - .
+   * - Docker repository
+     - .
+   * - Jira ticketing
+     - .
 
 ..
 
