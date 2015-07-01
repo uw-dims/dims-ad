@@ -548,30 +548,31 @@ in Figure :ref:`dimsops`.
 .. dimsopscomponents:
 
 .. list-table:: DIMS-OPS Components
-   :widths: 40 20
+   :widths: 50 50
    :header-rows: 1
 
    * - Component
-     - CSCI
+     - CSCI/Requirement
    * - Ops-trust portal
-     - .
+     - :ref:`dimssr:bdscsci`, :ref:`dimssr:designconstraints`
    * - FosWiki
-     - .
+     - :ref:`dimssr:bdscsci`
    * - LDAP Single-Signon
-     - .
+     - :ref:`dimssr:diutcsci`, :ref:`dimssr:networkaccesscontrols`
    * - OpenVPN
-     - .
+     - :ref:`dimssr:diutcsci`, :ref:`dimssr:networkaccesscontrols`
    * - DIMS Web App
-     - .
-   * - Hadoop (HDFS), Elasticsearch, Redis, MongoDB, PostgreSQL
-     - .
+     - :ref:`dimssr:dwacsci`
+   * - Hadoop (HDFS), Elasticsearch, etc.
+     - :ref:`dimssr:bdscsci`
    * - Tupelo
-     - .
+     - :ref:`dimssr:diutcsci`
    * - Anonymization
-     - .
+     - :ref:`dimssr:diutcsci`
    * - STIX input/output
-     - .
+     - :ref:`dimssr:vliscsci`
 
+..
 
 Adding in the realtime event data collection elements, known
 as `DIMS-PISCES` is illustrated in Figure :ref:`dimsopspisces`. [#pisces]_
@@ -590,23 +591,23 @@ as `DIMS-PISCES` is illustrated in Figure :ref:`dimsopspisces`. [#pisces]_
 .. dimsiscescomponents:
 
 .. list-table:: DIMS-PISCES Components
-   :widths: 40 20
+   :widths: 50 50
    :header-rows: 1
 
    * - Component
-     - CSCI
-   * - .
-     - .
-   * - .
-     - .
-   * - .
-     - .
-   * - .
-     - .
-   * - .
-     - .
-   * - .
-     - .
+     - CSCI/Requirement
+   * - Event Data Collection
+     - TBA
+   * - Alerting
+     - TBA
+   * - Cross-organizational Correlation
+     - TBA
+   * - TBA
+     - TBA
+   * - TBA
+     - TBA
+   * - TBA
+     - TBA
 
 ..
 
@@ -628,25 +629,25 @@ for development. This is illustrated in Figure :ref:`dimsopspiscesdevops`.
 .. dimsdevopscomponents:
 
 .. list-table:: DIMS-DEVOPS Components
-   :widths: 40 20
+   :widths: 50 50
    :header-rows: 1
 
    * - Component
-     - CSCI
-   * - ops-trust portal
-     - .
+     - CSCI/Requirement
+   * - Ops-trust portal
+     - :ref:`dimssr:bdscsci`, :ref:`dimssr:designconstraints`
    * - Git source repository management
-     - .
+     - :ref:`dimssr:designconstraints`
    * - Jenkins Continuous Integration
-     - .
+     - :ref:`dimssr:designconstraints`
    * - Ansible configuration
-     - .
+     - :ref:`dimssr:designconstraints`
    * - Distributed configuration database
-     - .
+     - :ref:`dimssr:designconstraints`
    * - Docker repository
-     - .
+     - :ref:`dimssr:designconstraints`
    * - Jira ticketing
-     - .
+     - :ref:`dimssr:designconstraints`
 
 ..
 
