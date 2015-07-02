@@ -17,7 +17,10 @@ Figure :ref:`PRISEMInitialDeploymentAndFlows`.
 
 The data flow used in the more recent MozDef system was described in Section
 :ref:`conceptofexecution`. MozDef uses Python scripts for enrichment of
-incoming event logs, optionally received via AMQP (using RabbitMQ).
+incoming event logs, optionally received via AMQP (using RabbitMQ) (see
+`MozDef Concept of Operations`_).
+
+.. _MozDef Concept of Operations: http://mozdef.readthedocs.org/en/latest/introduction.html#concept-of-operations
 
 .. _proposeddimspisces:
 
