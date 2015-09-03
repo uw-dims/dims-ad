@@ -414,7 +414,7 @@ that made progress painstakingly slow. These included:
   components from running on the same virtual machine.)
 
 The result was what seemed like an endless chain of blockers that
-prevented progress on any front.
+introduced friction throughout the entire process.
 
 :ref:`dimsocd:newsystem` describes the operational concept for a
 new system, the DIMS framework model, which requires a mechanism
@@ -423,7 +423,7 @@ solution to these problems appears to be the use of
 `containers` (also known as `Operating-system-level virtualization`_,
 or `Microservices`_ architecture).
 
-`Docker`_ appears to be the leader in this area, garning a tremendous amount of
+`Docker`_ is seen as the leading technology in this area, garning a tremendous amount of
 support and energy. Docker is, "an open source project designed to easily
 create lightweight, portable, self-sufficient containers from any application."
 Their motto is "Build, ship, and run any application, anywhere."
@@ -470,10 +470,14 @@ are out of the price range of SLTT government entities, let
 alone small- and medium-sized businesses and volunteer
 incident response groups.)
 
+.. note::
 
-(For more information on all of these topics, see the `Containerization,
-Virtualization, "Microservice Architectures"`_ section of the PI's home page.)
+   For more information on all of these topics, see the
+   `Containerization, Virtualization, "Microservice Architectures"`_ section
+   of the PI's home page and the document
+   :ref:`dimsdockerfiles:usingdockerindims`.
 
+..
 
 .. _Containerization, Virtualization, "Microservice Architectures": https://staff.washington.edu/dittrich/home/unix.html#containerization-virtualization-microservice-architectures
 .. _Docker: https://www.docker.com/
@@ -591,23 +595,25 @@ as `DIMS-PISCES` is illustrated in Figure :ref:`dimsopspisces`. [#pisces]_
 .. dimsiscescomponents:
 
 .. list-table:: DIMS-PISCES Components
-   :widths: 50 50
+   :widths: 40 60
    :header-rows: 1
 
    * - Component
      - CSCI/Requirement
-   * - Event Data Collection
-     - TBA
+   * - Distributed Security Event Data Collection
+     - :ref:`dimssr:bdscsci`
    * - Alerting
-     - TBA
+     - :ref:`dimssr:diutcsci`,
+       :ref:`dimssr:dwacsci`
    * - Cross-organizational Correlation
-     - TBA
-   * - TBA
-     - TBA
-   * - TBA
-     - TBA
-   * - TBA
-     - TBA
+     - :ref:`dimssr:diutcsci`,
+       :ref:`dimssr:dwacsci`
+   * - Customized User Documentation
+     - :ref:`dimssr:adaptationreqs`
+   * - Custom Configuration and Automated Deployment
+     - :ref:`dimssr:adaptationreqs`,
+       :ref:`dimssr:automatedprovisioning`,
+       :ref:`dimssr:continuousintegration`
 
 ..
 
@@ -635,7 +641,8 @@ for development. This is illustrated in Figure :ref:`dimsopspiscesdevops`.
    * - Component
      - CSCI/Requirement
    * - Ops-trust portal
-     - :ref:`dimssr:bdscsci`, :ref:`dimssr:designconstraints`
+     - :ref:`dimssr:bdscsci`,
+       :ref:`dimssr:designconstraints`
    * - Git source repository management
      - :ref:`dimssr:designconstraints`
    * - Jenkins Continuous Integration
@@ -643,9 +650,11 @@ for development. This is illustrated in Figure :ref:`dimsopspiscesdevops`.
    * - Ansible configuration
      - :ref:`dimssr:designconstraints`
    * - Distributed configuration database
-     - :ref:`dimssr:designconstraints`
+     - :ref:`dimssr:bdscsci`,
+       :ref:`dimssr:designconstraints`
    * - Docker repository
-     - :ref:`dimssr:designconstraints`
+     - :ref:`dimssr:bdscsci`,
+       :ref:`dimssr:designconstraints`
    * - Jira ticketing
      - :ref:`dimssr:designconstraints`
 
@@ -657,7 +666,8 @@ participants in the Puget Sound to replicate a group of "victim" sites. Using
 live data, an incident will be investigated and "reported" to a test "U.S.
 Secret Service" DIMS-OPS system. This will validate the concept of reporting
 machine-parsable data to a central site using the Vertical and Lateral
-Information Sharing CSCI components (see :ref:`dimssr:vliscsci`).
+Information Sharing CSCI components (see :ref:`dimssr:vliscsci` and
+:ref:`dimstp:dimstestplan`).
 
 .. _ussspilot:
 
