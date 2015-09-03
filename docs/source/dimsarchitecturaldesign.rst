@@ -46,6 +46,11 @@ user via the modified Ops-Trust portal.
 
 ..
 
+.. _dimscomponents:
+
+System Software Architecture
+----------------------------
+
 The DIMS system will conform with the hardware/software separation
 used by the Ops-Trust and PRISEM systems, which pre-date the DIMS
 project. In both of these projects, some separation of services across
@@ -57,24 +62,6 @@ much as possible by combining similar services in order to minimize
 the total number of physical and/or virtual machines in use. For
 example, if there are three domain name servers, they can be combined
 into one server that handles multiple domains.
-
-.. _dimscomponents:
-
-System Software Architecture
-----------------------------
-
-The DIMS system will conform with the hardware/software separation
-used by the Ops- Trust and PRISEM systems, which pre-date the DIMS
-project. In both of these projects, some separation of services across
-physical and/or virtual machines is done for various reasons of
-performance, scalability, speed, ease of administration, conformance
-with operating system version dependencies, etc. DIMS components will
-be separate (where appropriate) for similar reasons, and integrated as
-much as possible by combining similar services in order to minimize
-the total number of physical and/or virtual machines in use.  For
-example, if there are three domain name servers, they can be combined
-into one server that handles multiple domains.
-
 
 SIEM event correlation server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -104,6 +91,7 @@ AMQP broker
 
 The PRISEM system uses a virtual machine running RabbitMQ for AMQP
 broker services.
+
 
 
 Collective Intelligence Framework (CIF) server
@@ -265,8 +253,8 @@ processing event data. They are nearly all looking at the same type of
 architecture to handle the high data volumes and flow rates associated with
 large, high-bandwidth networks.
 
-A common combination of tools used to process and index large volumes of event
-logs is the combination of *Elasticsearch*, *Logstash*, and *Kibana*, or the
+A common combination of open source tools used to process and index large volumes of event
+logs is *Elasticsearch*, *Logstash*, and *Kibana*, known as the
 "ELK stack" for short.  The developers of the ELK stack refer to it [#ES]_ as
 "an end-to-end stack that delivers actionable insights in real-time from almost
 any type of structured and unstructured data source." Elasticsearch provides
