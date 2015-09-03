@@ -355,5 +355,7 @@ intersphinx_cache_limit = -1   # days to keep the cached inventories (0 == forev
 intersphinx_mapping = {
         'dimsocd': ("{}/dims-ocd".format(os.environ['DOCSURL']), None),
         'dimsad': ("{}/dims-ad".format(os.environ['DOCSURL']), None),
-        'dimssr': ("{}/dims-sr".format(os.environ['DOCSURL']), None)
+        'dimssr': ("{}/dims-sr".format(os.environ['DOCSURL']), None),
+        'dimstp': ("{}/dims-tp".format(os.environ['DOCSURL']), None),
+        'dimsdockerfiles': ("{}/dims-dockerfiles".format(os.environ['DOCSURL']), None)
 }
