@@ -137,6 +137,8 @@ control, single- signon, etc., include:
    (IDDs). Software units that are databases, or that are used to access or
    manipulate databases, may be described here or in Database Design Descriptions (DBDDs).
 
+.. _internalcommunication:
+
 Internal Communications Detailed Design
 ---------------------------------------
 
