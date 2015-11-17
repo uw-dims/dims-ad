@@ -562,9 +562,9 @@ in Figure :ref:`dimsops`.
    * - FosWiki
      - :ref:`dimssr:bdscsci`
    * - LDAP Single-Signon
-     - :ref:`dimssr:diutcsci`, :ref:`dimssr:networkaccesscontrols`
+     - :ref:`dimssr:diutcsci`, :ref:`dimssr:networkAccessControls`
    * - OpenVPN
-     - :ref:`dimssr:diutcsci`, :ref:`dimssr:networkaccesscontrols`
+     - :ref:`dimssr:diutcsci`, :ref:`dimssr:networkAccessControls`
    * - DIMS Web App
      - :ref:`dimssr:dwacsci`
    * - Hadoop (HDFS), Elasticsearch, etc.
