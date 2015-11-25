@@ -43,14 +43,16 @@ systems.
   perform behavioral detection of malicious activity from network flow data and
   support forensic analysis of historic data to respond and recover from
   attacks that evade detective mechanisms. This system collects and processes
-  security related events and network flow data and supports a collective
-  approach to responding and recovering from security events.
+  tens of millions of security related events (and network flow records, if
+  desired) and supports a collective approach to responding and recovering from
+  security events.
 
 + The second system is the Ops-Trust portal system, used by a community of
   several hundred computer security professionals with operational and research
   roles in industry, government, and academia. This system is primarily
   designed to facilitate trust group maintenance and communication to deal with
-  emerging threats and events of international scope.
+  emerging threats and events of international scope. (It is now in its
+  second incarnation, as the *Trident* system).
 
 + The third are the suite of "big data" style open source unstructured data
   storage, log processing, log visualization, and other tools that are part of
@@ -195,8 +197,15 @@ participants, with the primary PRISEM systems residing behind a
 vendor-supported firewall, with command line utilities and AMQP access
 provided via an OpenVPN server for secure access. The DIMS dashboard
 will front-end this portal and support additional capabilities that
-are available on the PRISEM back-end via the AMQP broker (See Figure
-TODO-26 and Figure TODO-27).
+are available on the PRISEM back-end via the AMQP broker.
+
+.. TODO(dittrich): Figure out what "Figure TODO-26 and TODO-27" means.
+.. todo::
+
+    Figure out that this refered to: "(See Figure
+    TODO-26 and Figure TODO-27)."
+
+..
 
 .. _PRISEM-Architecture:
 
