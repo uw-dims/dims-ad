@@ -8,10 +8,20 @@ DIMS detailed design
 Hardware Detailed Design
 ------------------------
 
+.. TODO(dittrich): Fill in this section.
+
+.. todo::
+
+    Pull and/or reference material from the internal document
+    :ref:`dimsasbuilt:dimsasbuilt`.
+
+..
+
+
 .. _PRISEMHardwareLayoutDiagram:
 
 PRISEM Hardware Layout Diagram
-------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Figure :ref:`PRISEMHardwareLayoutDiagram` shows the physical hardware
 configuration for PRISEM system components in the server rack located
