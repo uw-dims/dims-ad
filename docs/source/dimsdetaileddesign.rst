@@ -241,21 +241,22 @@ re-write) code base at a logical level. Both DIMS and Trident have architectural
 split their back end data stores from the front end user interfaces (each having
 a command line interface and a web application graphical user interface.)
 
-DIMS components that need to communicate to the Trident backend user database
-can either use the Trident RESTful interface in the same way as the Trident
-CLI (known as ``tcli``, pronounced "tickly"), or they can use the PRISEM remote
-data query mechanism to front-end ``tcli``. The former is likely the simplest and
-most robust mechanism for web application GUI-to-backend data flows.
-
 .. _DIMSTrident:
 
 .. figure:: images/DIMS-Trident-v1.png
-   :width: 70%
-   :align: center
+   :figwidth: 50%
+   :align: right
 
    DIMS and Trident Component Interfaces
 
 ..
+
+DIMS components that need to communicate to the Trident backend user database
+can either use the Trident RESTful interface in the same way as the Trident
+CLI (known as ``tcli``, pronounced "tickly"), or they can use the PRISEM remote
+data query mechanism to front-end ``tcli``. (See Figure :ref:`DIMSTridentStack`.)
+The former is likely the simplest and
+most robust mechanism for web application GUI-to-backend data flows.
 
 
 .. TODO(dittrich): Commenting out all of the scaffolding for now to clean up the rendered doc

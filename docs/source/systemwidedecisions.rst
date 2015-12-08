@@ -105,14 +105,28 @@ automated data feeds of `reputation` data and IOCs/Observables coming
 from analytic and research groups; low-frequency, low-volume, manually
 triggered bundles of IOCs/Observables, Course of Action information,
 and/or high-level SITREPs for specific
-incident-level up to campaign-level activity. The DIMS software,
-layered on top of the Ops-Trust portal system, will facilitate
+incident-level up to campaign-level activity.
+
+.. _DIMSTridentStack:
+
+.. figure:: images/DIMS-Trident-stack-v1.png
+   :figwidth: 40%
+   :align: right
+
+   DIMS and Trident Component Stack
+
+..
+
+The DIMS software,
+layered on top of the Ops-Trust portal system as illustrated in
+Figure :ref:`DIMSTridentStack`, will facilitate
 production of these reports and transmission/reception of structure
 data files and facilitate automated processing of the structure data
 files to pre-process data for an analyst to consume when ready, rather
 than forcing the analyst to do a lot of work manipulating files,
 processing their contents, and manually entering data into report
-generation front ends in web based portals.
+generation front ends in web based portals. (See also Figure
+:ref:`DIMSTrident`.)
 
 Figure :ref:`PRISEMInitialDeploymentAndFlows` depicts the high-level
 data flow relationships for the Security Information Event Management
