@@ -21,13 +21,13 @@ increase in the capacity to respond.
 .. resource-limited, yet critical to providing services to the
 .. general public who are their consituents.
 
-Figure :ref:`DimsSystemOverview` depicts a high-level diagram of the dataflows
+Figure :ref:`dimsSystemOverview` depicts a high-level diagram of the dataflows
 between DIMS and related system.
 
-.. _DimsSystemOverview:
+.. _dimsSystemOverview:
 
 .. figure:: images/Overview-DIMS-system.png
-   :width: 70%
+   :figwidth: 70 %
    :align: center
 
    Overview of DIMS System
@@ -107,11 +107,11 @@ triggered bundles of IOCs/Observables, Course of Action information,
 and/or high-level SITREPs for specific
 incident-level up to campaign-level activity.
 
-.. _DIMSTridentStack:
+.. _dimsTridentStack:
 
 .. figure:: images/DIMS-Trident-stack-v1.png
-   :figwidth: 40%
-   :align: right
+   :figwidth: 40 %
+   :align: center
 
    DIMS and Trident Component Stack
 
@@ -119,14 +119,14 @@ incident-level up to campaign-level activity.
 
 The DIMS software,
 layered on top of the Ops-Trust portal system as illustrated in
-Figure :ref:`DIMSTridentStack`, will facilitate
+Figure :ref:`dimsTridentStack`, will facilitate
 production of these reports and transmission/reception of structure
 data files and facilitate automated processing of the structure data
 files to pre-process data for an analyst to consume when ready, rather
 than forcing the analyst to do a lot of work manipulating files,
 processing their contents, and manually entering data into report
 generation front ends in web based portals. (See also Figure
-:ref:`DIMSTrident`.)
+:ref:`dimsTrident`.)
 
 Figure :ref:`PRISEMInitialDeploymentAndFlows` depicts the high-level
 data flow relationships for the Security Information Event Management
@@ -550,10 +550,10 @@ Section :ref:`dimsocd:descriptioncurrentsystem`.
 In this section the focus is on delineating the components that are used to
 build the DIMS system from those that are functional in an operations context.
 Further, it will clarify the difference between the boxes on the left of Figure
-:ref:`DimsSystemOverview` (which have a subset of features that would be used
+:ref:`dimsSystemOverview` (which have a subset of features that would be used
 by a non-operations investigative entity (e.g., US-CERT, the United States
 Secret Service, the Federal Trade Commission, or a Fusion Center) vs. the gray
-box in the bottom right of Figure :ref:`DimsSystemOverview` that includes the
+box in the bottom right of Figure :ref:`dimsSystemOverview` that includes the
 full set of realtime event data collection and network flow monitoring features
 that are more operational in nature.
 
