@@ -361,6 +361,47 @@ methodologies, using the `Sphinx`_ program, which processes
 `ReStructured Text (reST)`_ files (and is supported by the online
 documentation repository, `ReadTheDocs`_.)
 
+.. _distributedconfigmanagement:
+
+Use of Distributed Configuration Management
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+At the initiation of the DIMS project, the program Ansible was
+chosen for distributed system configuration and DIMS service
+deployment. Use of Ansible in DIMS is described in Section
+:ref:`ansibleplaybooks:ansibleintro` of
+:ref:`ansibleplaybooks:ansibleplaybooks`.
+
+.. NOTE: This same image is used in $GIT/ansible-playbooks. Change it
+..       here, change it there (and vice-versa)
+
+.. _configurationtaxonomy:
+
+.. figure:: images/Taxonomy-v1.png
+   :alt: Configuration Description Taxonomy
+   :width: 80%
+   :align: center
+
+   Configuration Description Taxonomy
+
+..
+
+Figure :ref:`configurationtaxonomy` illustrates the taxonomy of inheritence
+levels, following a left-to-right order of application of variables using
+global, ``group_vars`` and ``host_vars`` files (potentially augmented by
+playbook-level ``vars`` files for specific services.)
+
+.. attention::
+
+    Setting variables in Ansible is quite complicated and should be studied and
+    understood well by anyone attempting to construct playbooks or configure
+    hosts and services. The ability to gain insight into how variables are set
+    at runtime is crucial. The :ref:`ansibleplaybooks:ansibleplaybooks`
+    documentation covers this topic.
+
+..
+
+
 .. _containerization:
 
 Use of Containerization
