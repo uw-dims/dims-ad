@@ -1,8 +1,10 @@
 .. DIMS Architecture Design documentation master file.
 
-========================
-DIMS Architecture Design
-========================
+.. _dimsarchitecturedesign:
+
+====================================
+DIMS Architecture Design v |release|
+====================================
 
 .. toctree::
    :numbered:
@@ -15,20 +17,12 @@ DIMS Architecture Design
    dimsdetaileddesign
    requirementstraceability
    notes
+   license
    appendices
+   tobeintegrated
 
 Contact
 ~~~~~~~
 
 .. sectionauthor:: Dave Dittrich <dittrich @ u.washington.edu>
 .. sectionauthor:: Stuart Maclean <stuart @ apl.washington.edu>
-
-License
-~~~~~~~
-
-.. include:: <isonum.txt>
-
-Copyright |copy| 2014, 2015 University of Washington. All rights reserved.
-
-.. include:: license.txt
-   :literal:

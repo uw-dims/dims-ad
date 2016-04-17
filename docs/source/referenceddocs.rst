@@ -1,21 +1,24 @@
-.. referenceddocs:
+.. _referenceddocs:
 
-====================
 Referenced documents
 ====================
 
-.. note:: TBD
+#. :ref:`dimssr:dimssystemrequirements`
 
-   This section shall list the number, title, revision, and date of all
-   documents referenced in this document. This section shall also identify the
-   source for all documents not available through normal Government stocking
-   activities.
+#. :ref:`dimsocd:dimsoperationalconceptdescription`
+
+#. :ref:`dimsdockerfiles:usingdockerindims`
+
+#. :ref:`dimstp:dimstestplan`
+
+#. HSHQDC-13-C-B0013, "From Local to Gobal Awareness: A Distributed Incident Management System," Draft contract, Section C - Statement of Work (marked up version)
+
+#. MIL-STD-498, Military Standard Software Development and Documentation,
+   AMSC No. N7069, Dec. 1994.
 
 #. D\. Dittrich. PRISEM Analyst’s Handbook, December 2013.
 
 #. D\. Dittrich. PRISEM System Administration Handbook, December 2013.
-
-#. D\. Dittrich. System Requirements and Concept of Operations for From Local to Global Awareness: A Distributed Incident Management Ssystem (DIMS), March 2014.
 
 #. W\. Gragido. Understanding Indicators of Compromise (IOC) Part I, October 2012. http://blogs.rsa.com/will-gragido/understanding-indicators-of-compromise-ioc-part-i/
 
