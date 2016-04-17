@@ -53,14 +53,14 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'DIMS Architecture Design'
-copyright = u'2014, 2015 University of Washington'
+copyright = u'2014-2016 University of Washington'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = '2.0'
+version = '2.4.18'
 # The full version, including alpha/beta/rc tags.
 release = '2.4.18'
 
@@ -203,9 +203,11 @@ latex_elements = {
 # https://github.com/rtfd/readthedocs.org/issues/416
 #
 'preamble': "".join((
+    '\usepackage{pifont}',                # To get Dingbats
     '\DeclareUnicodeCharacter{00A0}{ }',  # NO-BREAK SPACE
     '\DeclareUnicodeCharacter{251C}{+}',  # BOX DRAWINGS LIGHT VERTICAL AND RIGHT
     '\DeclareUnicodeCharacter{2514}{+}',  # BOX DRAWINGS LIGHT UP AND RIGHT
+    '\DeclareUnicodeCharacter{25CF}{\ding{108}}',  # Dingbat 108 (black circle)
 )),
 }
 
