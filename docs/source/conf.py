@@ -400,4 +400,3 @@ else:
             'dimstp': ("{}/dims-tp".format(os.environ['DOCSURL']), None),
             'dimsjds': ("{}/dims-ocd".format(os.environ['DOCSURL']), None),
     }
-}
