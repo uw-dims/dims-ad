@@ -75,24 +75,34 @@ only IPv4 is supported for network connectivity.
 Software Detailed Design
 ------------------------
 
-Features that are required to support data sharing, role-based access
-control, single- signon, etc., include:
+The DIMS platform is made up of several open source sub-systems.
+
+* A Dashboard web application (written using AngularJS) for workflow
+  related operations. It provides a graphical user interface for
+  control, with ReST style HTTP and Unix socket interfaces
+  to backend services.
+
+* A web application server (written using Node.js) that in Javascript)
+  with the following interfaces:
+
+  * HTTP - communicates with client
+  * AMQP - communicates with AMQP server
+  * Socket - communicates with client
+  * Redis - communicates with redis database
+  * Postgres - communicates with PostgreSQL
 
 * An OpenID authentication and LDAP directory service that is used by
-  all DIMS components to extend a single login mechanism (centered on
-  the user attributes in accounts in the Ops-Trust portal system).
+  DIMS components to provide a single-signon login mechanism.
 
-* Use of encryption keys for users and groups (or other high-level
-  organizational units) to encrypt data to be transferred between
-  systems, to timestamp and sign files, and to maintain "chain of
-  custody" for digital data.
+* A RabbitMQ (AMQP) message bus for supporting remote procedure
+  call services, and message brokering for things like chat and
+  event logging.
 
-* Management of data using abstract high-level organizational units that
-  supports trust group operations, maintaining information relationships
-  in campaign or investigation groupings over time, and allowing users
-  to track incidents and campaign level activity over time. As users
-  generate data, reports, query results, etc., the ability to tag this
-  data to keep it organized should easily be at hand.
+All of these open source components are installed and configured
+using Ansible from ad-hoc control hosts (e.g., developer laptops),
+and via a Jenkins continuous integration server by manual, or
+event-triggered, jobs.
+
 
 .. _internalcommunication:
 
