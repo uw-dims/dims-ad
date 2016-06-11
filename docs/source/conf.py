@@ -14,6 +14,16 @@
 
 import sys
 import os
+import shlex
+from sphinx import __version__
+
+# ReadTheDocs configuration setting:
+
+on_rtd = os.environ.get('READTHEDOCS') == "True"
+if on_rtd:
+    html_theme = 'default'
+else:
+    html_theme = 'sphinx_rtd_theme'
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -31,13 +41,11 @@ import os
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
-    'sphinx.ext.todo',
     'sphinx.ext.intersphinx',
+    'sphinx.ext.todo',
     'sphinx.ext.graphviz',
     'sphinx.ext.ifconfig',
 ]
-
-todo_include_todos = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -102,6 +110,12 @@ pygments_style = 'sphinx'
 # If true, keep warnings as "system message" paragraphs in the built documents.
 #keep_warnings = False
 
+# If true, `todo` and `todoList` produce output, else they produce nothing.
+
+if not on_rtd and os.environ.get('INCLUDETODOS') == "True":
+    todo_include_todos = True
+else:
+    todo_include_todos = False
 
 # -- Options for HTML output ----------------------------------------------
 
@@ -133,9 +147,10 @@ html_logo = 'UW-logo.png'
 # pixels large.
 html_favicon = 'UW-logo-32x32.ico'
 
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
+# Add any paths that contain custom static files (such as style sheets)
+# here, relative to this directory. They are copied after the builtin
+# static files, so a file named "default.css" will overwrite the builtin
+# "default.css".
 html_static_path = ['_static']
 
 # Add any extra paths that contain custom files (such as robots.txt or
@@ -173,7 +188,8 @@ html_static_path = ['_static']
 # If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
 #html_show_sphinx = True
 
-# If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
+# If true, "(C) Copyright ..." is shown in the HTML footer.
+# Default is True.
 #html_show_copyright = True
 
 # If true, an OpenSearch description file will be output, and all pages will
@@ -191,32 +207,38 @@ htmlhelp_basename = 'DIMSArchitectureDesigndoc'
 # -- Options for LaTeX output ---------------------------------------------
 
 latex_elements = {
-# The paper size ('letterpaper' or 'a4paper').
-#'papersize': 'letterpaper',
+    # The paper size ('letterpaper' or 'a4paper').
+    #'papersize': 'letterpaper',
 
-# The font size ('10pt', '11pt' or '12pt').
-#'pointsize': '10pt',
+    # The font size ('10pt', '11pt' or '12pt').
+    #'pointsize': '10pt',
 
-# Additional stuff for the LaTeX preamble.
-#
-# The following comes from
-# https://github.com/rtfd/readthedocs.org/issues/416
-#
-'preamble': "".join((
-    '\usepackage{pifont}',                # To get Dingbats
-    '\DeclareUnicodeCharacter{00A0}{ }',  # NO-BREAK SPACE
-    '\DeclareUnicodeCharacter{251C}{+}',  # BOX DRAWINGS LIGHT VERTICAL AND RIGHT
-    '\DeclareUnicodeCharacter{2514}{+}',  # BOX DRAWINGS LIGHT UP AND RIGHT
-    '\DeclareUnicodeCharacter{25CF}{\ding{108}}',  # Dingbat 108 (black circle)
-)),
+    # Additional stuff for the LaTeX preamble.
+    #
+    # The following comes from
+    # https://github.com/rtfd/readthedocs.org/issues/416
+    # and http://www.utf8-chartable.de/unicode-utf8-table.pl?start=9472&names=-
+    #
+    'preamble': "".join((
+        '\usepackage{pifont}',                # To get Dingbats
+        '\DeclareUnicodeCharacter{00A0}{ }',  # NO-BREAK SPACE
+        '\DeclareUnicodeCharacter{2014}{\dash}', # LONG DASH
+        '\DeclareUnicodeCharacter{251C}{+}',  # BOX DRAWINGS LIGHT VERTICAL AND RIGHT
+        '\DeclareUnicodeCharacter{2514}{+}',  # BOX DRAWINGS LIGHT UP AND RIGHT
+        '\DeclareUnicodeCharacter{1F37A}{ }', # Beer emoji (just turn into space for now)
+        '\DeclareUnicodeCharacter{2588}{\textblock}',  # SOLID TEXT BLOCK
+        '\DeclareUnicodeCharacter{25CF}{\ding{108}}',  # Dingbat 108 (black circle)
+    )),
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'DIMSArchitectureDesign.tex', u'DIMS Architecture Design Documentation',
-   u'David Dittrich, Stuart Maclean', 'manual'),
+  ('index',
+   'DIMSArchitectureDesign.tex', u'DIMS Architecture Design Documentation',
+   u'David Dittrich, Stuart Maclean',
+   'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -245,8 +267,11 @@ latex_logo = 'UW-logo.png'
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'dimsarchitecturedesign', u'DIMS Architecture Design Documentation',
-     [u'David Dittrich, Stuart Maclean'], 1)
+    ('index',
+     'dimsarchitecturedesign',
+     u'DIMS Architecture Design Documentation',
+     [u'David Dittrich, Stuart Maclean'],
+     1)
 ]
 
 # If true, show URL addresses after external links.
@@ -259,9 +284,13 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'DIMSArchitectureDesign', u'DIMS Architecture Design Documentation',
-   u'David Dittrich, Stuart Maclean', 'DIMSArchitectureDesign', 'One line description of project.',
-   'Miscellaneous'),
+    ('index',
+     'DIMSArchitectureDesign',
+     u'DIMS Architecture Design Documentation',
+     u'David Dittrich, Stuart Maclean',
+     'DIMSArchitectureDesign',
+     'DIMS Architecture Design',
+     'Miscellaneous'),
 ]
 
 # Documents to append as an appendix to all manuals.
@@ -276,6 +305,8 @@ texinfo_documents = [
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
 
+git_branch = os.environ.get('GITBRANCH', "develop")
+git_tag = os.environ.get('GITTAG', "latest")
 
 # -- Options for Epub output ----------------------------------------------
 
@@ -349,18 +380,23 @@ epub_exclude_files = ['search.html']
 os.environ['GITBRANCH'] = "develop"
 
 if os.environ.get('DOCSURL') is None:
-    #os.environ['DOCSURL'] = "file://{}".format(os.environ.get('GIT'))
-    os.environ['DOCSURL'] = "http://u12-dev-svr-1.prisem.washington.edu:8080/docs/{}/html".format(
-        os.environ['GITBRANCH'])
+    if not on_rtd:
+        os.environ['DOCSURL'] = "http://demo.prisem.washington.edu:8080/docs/{}/html".format(git_branch)
 
 intersphinx_cache_limit = -1   # days to keep the cached inventories (0 == forever)
-intersphinx_mapping = {
-        'prisem': ("{}/prisem".format(os.environ['DOCSURL']), None),
-        'ansibleplaybooks': ("{}/ansible-playbooks".format(os.environ['DOCSURL']), None),
-        'dimsasbuilt': ("{}/dims-asbuilt".format(os.environ['DOCSURL']), None),
-        'dimsocd': ("{}/dims-ocd".format(os.environ['DOCSURL']), None),
-        'dimsad': ("{}/dims-ad".format(os.environ['DOCSURL']), None),
-        'dimssr': ("{}/dims-sr".format(os.environ['DOCSURL']), None),
-        'dimstp': ("{}/dims-tp".format(os.environ['DOCSURL']), None),
-        'dimsdockerfiles': ("{}/dims-dockerfiles".format(os.environ['DOCSURL']), None)
+if on_rtd:
+    intersphinx_mapping = {
+            'dimsasbuilt': ("https://dims-asbuilt.readthedocs.io/en/{0}".format(git_tag), None),
+            'dimsocd': ("https://dims-ocd.readthecods.io/en/{0}".format(git_tag), None),
+            'dimsjds': ("https://dims-jds.readthedocs.io/en/{0}".format(git_tag), None),
+            'dimssr': ("https://dims-sr.readthedocs.io/en/{0}".format(git_tag), , None),
+            'dimstp': ("https://dims-tp.readthedocs.io/en/{0}".format(git_tag), , None),
+else:
+    intersphinx_mapping = {
+            'dimsasbuilt': ("{}/dims-asbuilt".format(os.environ['DOCSURL']), None),
+            'dimsocd': ("{}/dims-ocd".format(os.environ['DOCSURL']), None),
+            'dimsjds': ("{}/dims-jds".format(os.environ['DOCSURL']), None),
+            'dimstp': ("{}/dims-tp".format(os.environ['DOCSURL']), None),
+            'dimsjds': ("{}/dims-ocd".format(os.environ['DOCSURL']), None),
+    }
 }
