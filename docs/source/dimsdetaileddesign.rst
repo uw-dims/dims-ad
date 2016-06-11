@@ -84,8 +84,8 @@ control, single- signon, etc., include:
 
 * Use of encryption keys for users and groups (or other high-level
   organizational units) to encrypt data to be transferred between
-  systems, to timestamp and sign files, and to maintain “chain of
-  custody” for digital data.
+  systems, to timestamp and sign files, and to maintain "chain of
+  custody" for digital data.
 
 * Management of data using abstract high-level organizational units that
   supports trust group operations, maintaining information relationships
@@ -93,21 +93,6 @@ control, single- signon, etc., include:
   to track incidents and campaign level activity over time. As users
   generate data, reports, query results, etc., the ability to tag this
   data to keep it organized should easily be at hand.
-
-.. TODO(dittrich): Commenting out all of the scaffolding for now to clean up the rendered doc
-
-.. .. todo::
-..
-..      This section shall be divided into the following paragraphs to describe each
-..      software unit of the CSCI. If part of all of the design depends upon system
-..      states or modes, this dependency shall be indicated. If design information
-..      falls into more than one paragraph, it may be presented once and referenced
-..      from the other paragraphs. Design conventions needed to understand the design
-..      shall be presented or referenced. Interface characteristics of software units
-..      may be described here, in Section 4, or in Interface Design Descriptions
-..      (IDDs). Software units that are databases, or that are used to access or
-..      manipulate databases, may be described here or in Database Design Descriptions (DBDDs).
-.. ..
 
 .. _internalcommunication:
 
