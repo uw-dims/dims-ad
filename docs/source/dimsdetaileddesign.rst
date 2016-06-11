@@ -177,7 +177,7 @@ services. These are:
   identification/anonymization/extraction, statistics, match/non-match
   identification, and other functions, using the ``ipgrep`` script. This
   service is called as part of the ``crosscor`` service in order to
-  identify friend or foe.
+  *identify friend or foe*.
 
 * RPC service ``cifbulk`` – This service front-ends the Sphinx database
   accelerator, which provides a read-only snapshot of the CIF database
@@ -186,41 +186,20 @@ services. These are:
   concatenating the results (which are JSON by design) into a JSON
   array.
 
-  .. note::
-
-     The description of ``cifbulk`` is now out of date. We are no longer
-     using CIF v0.1 and Sphinx data accelerator. We need to upgrade to
-     release v2 of CIF as soon as possible.
-
-  ..
-
-
-* RPC service ``lmsearch`` – This service front-ends the Log Matrix
-  historic event log database, allowing historic queries for specific
-  time periods. The results are returned as a JSON structure
-
-  .. note::
-
-     The Log Matrix system is being phased out and DIMS will not be
-     using the ``lmsearch`` service. A replacement based on Elasticsearch
-     along the lines of how MozDef works is the planned alternative.
-
-  ..
-
 * RPC service ``crosscor`` – This service performs cross-organizational
   correlation on search results obtained from the ``rwfind``, ``lmsearch``,
   and ``cifbulk`` services.
 
 * Watchlist generation – Currently, a scheduled script produces
   watchlist files from CIF feeds and distributes them to systems that
-  use the watchlists via rsync over SSH tunnels. These will be replaced,
+  use the watchlists via ``rsync`` over SSH tunnels. These will be replaced,
   eventually, with publish/subscribe services via AMQP.
 
 * Daily reports from the Botnets system – Currently, a scheduled script
   generates daily reports that summarize the detected activity by the
   Botnets system. This text report will be enriched with context
   provided by the ``cifbulk`` service, the ``crosscor`` service, and the
-  identify friend or foe mechanism. This will be a model for a suite of
+  *identify friend or foe* mechanism. This will be a model for a suite of
   DIMS scheduled reports.
 
 Figure :ref:`dimsTrident` depicts the communication flows between components
