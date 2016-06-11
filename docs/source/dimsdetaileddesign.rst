@@ -17,56 +17,43 @@ Hardware Detailed Design
 
 ..
 
-
-.. _PRISEMHardwareLayoutDiagram:
-
-PRISEM Hardware Layout Diagram
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Figure :ref:`PRISEMHardwareLayoutDiagram` shows the physical hardware
-configuration for PRISEM system components in the server rack located
-in the UW Tower IT data center. Green boxes are those used for PRISEM
-(and now for some DIMS) related systems, while white and gray boxes
-are either unused or occupied by other resources. Some of the physical
-hardware (e.g., the systems labeled "IBM" and "Eclipse") are obsolete
-and are being replaced by virtual machines to be housed in newly added
-hardware located in slots 7+8. (The VLAN switch labeled "CoS" will
-also be replaced in the near future with the D-Link VLAN switch below
-it.) Hardware supporting the DIMS project has not yet been purchased,
-though space has been reserved for it in the same rack to facilitate
-high-speed network access behind the PRISEM firewall and OpenVPN
-servers. (See other Figures for PRISEM + DIMS Architecture
-descriptions).
-
 .. _prisemhardwarelayout:
 
-.. figure:: images/PRISEM-hardware-layout-diagram.png
-   :width: 70%
-   :align: center
+.. figure:: images/hardware-layout-diagram.png
+   :width: 95%
+   :figwidth: 50%
+   :align: right
 
-   System Hardware Architecture
+   System Hardware Rack Layout
 
 ..
 
-The principal PRISEM hardware consists of Dell PowerEdge servers. Two
-PowerEdge 1950 (pink.seattle.gov and floyd.prisem.washington.edu) are
-used for log collection, NetFlow processing, and the CIF database. Two
-Dell R720 (``zion.prisem.washington.edu`` and ``money.prisem.washington.edu``)
-servers are used for the Log Matrix Threat Center and Log Center
-servers. Both zion and money are replacements for the original Dell
+Figure :ref:`PRISEMHardwareLayoutDiagram` shows the physical hardware
+configuration for PRISEM system components in the server rack located
+in the UW Tower IT data center. Green boxes are those that were used
+for the PRISEM Project and for DIMS system development, while white and gray boxes
+are either unused or occupied by other resources. Some of the initial
+physical hardware that became unstable or obsolete was replaced
+was replaced by virtual machines.
+
+The principal PRISEM hardware consisted of Dell PowerEdge servers. One
+PowerEdge 1950 server (``floyd``) was used for a CIF database server, and two
+Dell R720 servers (``zion`` and ``money``)
+servers were used for the Log Matrix Threat Center and Log Center
+servers. Both ``zion`` and ``money`` are replacements for the original Dell
 R710 servers purchased at the start of the project in 2008. Virtual
 machines are run on a Dell PowerEdge R715 server, with 128GB RAM,
 2x12-Core 1.8GHz AMD Opteron processors, and 12 – 1TB drives in a RAID
 5 array.
 
-Physical networking is provided by 1 GigE switches, some configured to
-support virtual LAN (VLAN) isolation. (One is a D-Link xStack Managed
+Physical networking is provided by multple managed switches, some
+configured to support virtual LAN (VLAN) isolation. One is a D-Link xStack Managed
 24-Port Gigabit L2+ 1/10-GigE switch, another a D-Link DXS-3227 1-GigE
-managed switch). One VLAN provides an isolated network for
+managed switch. One VLAN provides an isolated network for
 inter-system communication behind a vendor-supported stateful firewall
 and OpenVPN server for remote access. Another VLAN provides
 internet-routable connections in front of the firewall. At present,
-only IPv4 is supported for network connectivity
+only IPv4 is supported for network connectivity.
 
 .. TODO(dittrich): Clean this section up.
 
@@ -82,99 +69,34 @@ only IPv4 is supported for network connectivity
 Software Detailed Design
 ------------------------
 
-There are several services available within the PRISEM architecture as
-Remote Procedure Call (RPC) services, with some data distribution and
-feedback mechanisms in the form of publish/subscribe fanout
-services. These are:
+The DIMS platform is made up of several open source sub-systems.
 
-* RPC service ``rwfind`` – This service provides search capability to
-  stored network flow records kept in SiLK tools format. It returns the
-  results in text report format for human consumption, or in structured
-  JSON format for simplified processing by programs.
+* A Dashboard web application (written using AngularJS) for workflow
+  related operations. It provides a graphical user interface for
+  control, with ReST style HTTP and Unix socket interfaces
+  to backend services.
 
-* RPC service ``anon`` – This service provides IP address and DNS name
-  identification/anonymization/extraction, statistics, match/non-match
-  identification, and other functions, using the ``ipgrep`` script. This
-  service is called as part of the ``crosscor`` service in order to
-  identify friend or foe.
+* A web application server (written using Node.js) that in Javascript)
+  with the following interfaces:
 
-* RPC service ``cifbulk`` – This service front-ends the Sphinx database
-  accelerator, which provides a read-only snapshot of the CIF database
-  for a 10:1 speed increase for queries. It takes as input a list of
-  items to search for, and iterates over the list of items it is passed
-  concatenating the results (which are JSON by design) into a JSON
-  array.
-
-  .. note::
-
-     The description of ``cifbulk`` is now out of date. We are no longer
-     using CIF v0.1 and Sphinx data accelerator. We need to upgrade to
-     release v2 of CIF as soon as possible.
-
-  ..
-
-
-* RPC service ``lmsearch`` – This service front-ends the Log Matrix
-  historic event log database, allowing historic queries for specific
-  time periods. The results are returned as a JSON structure
-
-  .. note::
-
-     The Log Matrix system is being phased out and DIMS will not be
-     using the ``lmsearch`` service. A replacement based on Elasticsearch
-     along the lines of how MozDef works is the planned alternative.
-
-  ..
-
-* RPC service ``crosscor`` – This service performs cross-organizational
-  correlation on search results obtained from the ``rwfind``, ``lmsearch``,
-  and ``cifbulk`` services.
-
-* Watchlist generation – Currently, a scheduled script produces
-  watchlist files from CIF feeds and distributes them to systems that
-  use the watchlists via rsync over SSH tunnels. These will be replaced,
-  eventually, with publish/subscribe services via AMQP.
-
-* Daily reports from the Botnets system – Currently, a scheduled script
-  generates daily reports that summarize the detected activity by the
-  Botnets system. This text report will be enriched with context
-  provided by the ``cifbulk`` service, the ``crosscor`` service, and the
-  identify friend or foe mechanism. This will be a model for a suite of
-  DIMS scheduled reports.
-
-Features that are required to support data sharing, role-based access
-control, single- signon, etc., include:
+  * HTTP - communicates with client
+  * AMQP - communicates with AMQP server
+  * Socket - communicates with client
+  * Redis - communicates with redis database
+  * Postgres - communicates with PostgreSQL
 
 * An OpenID authentication and LDAP directory service that is used by
-  all DIMS components to extend a single login mechanism (centered on
-  the user attributes in accounts in the Ops-Trust portal system).
+  DIMS components to provide a single-signon login mechanism.
 
-* Use of encryption keys for users and groups (or other high-level
-  organizational units) to encrypt data to be transferred between
-  systems, to timestamp and sign files, and to maintain “chain of
-  custody” for digital data.
+* A RabbitMQ (AMQP) message bus for supporting remote procedure
+  call services, and message brokering for things like chat and
+  event logging.
 
-* Management of data using abstract high-level organizational units that
-  supports trust group operations, maintaining information relationships
-  in campaign or investigation groupings over time, and allowing users
-  to track incidents and campaign level activity over time. As users
-  generate data, reports, query results, etc., the ability to tag this
-  data to keep it organized should easily be at hand.
+All of these open source components are installed and configured
+using Ansible from ad-hoc control hosts (e.g., developer laptops),
+and via a Jenkins continuous integration server by manual, or
+event-triggered, jobs.
 
-.. TODO(dittrich): Commenting out all of the scaffolding for now to clean up the rendered doc
-
-.. .. todo::
-..
-..      This section shall be divided into the following paragraphs to describe each
-..      software unit of the CSCI. If part of all of the design depends upon system
-..      states or modes, this dependency shall be indicated. If design information
-..      falls into more than one paragraph, it may be presented once and referenced
-..      from the other paragraphs. Design conventions needed to understand the design
-..      shall be presented or referenced. Interface characteristics of software units
-..      may be described here, in Section 4, or in Interface Design Descriptions
-..      (IDDs). Software units that are databases, or that are used to access or
-..      manipulate databases, may be described here or in Database Design Descriptions (DBDDs).
-.. ..
 
 .. _internalcommunication:
 
@@ -235,6 +157,45 @@ results.  (The details are described in the
 
 ..
 
+There are several services available within the PRISEM architecture as
+Remote Procedure Call (RPC) services, with some data distribution and
+feedback mechanisms in the form of publish/subscribe fanout
+services. These are:
+
+* RPC service ``rwfind`` – This service provides search capability to
+  stored network flow records kept in SiLK tools format. It returns the
+  results in text report format for human consumption, or in structured
+  JSON format for simplified processing by programs.
+
+* RPC service ``anon`` – This service provides IP address and DNS name
+  identification/anonymization/extraction, statistics, match/non-match
+  identification, and other functions, using the ``ipgrep`` script. This
+  service is called as part of the ``crosscor`` service in order to
+  *identify friend or foe*.
+
+* RPC service ``cifbulk`` – This service front-ends the Sphinx database
+  accelerator, which provides a read-only snapshot of the CIF database
+  for a 10:1 speed increase for queries. It takes as input a list of
+  items to search for, and iterates over the list of items it is passed
+  concatenating the results (which are JSON by design) into a JSON
+  array.
+
+* RPC service ``crosscor`` – This service performs cross-organizational
+  correlation on search results obtained from the ``rwfind``, ``lmsearch``,
+  and ``cifbulk`` services.
+
+* Watchlist generation – Currently, a scheduled script produces
+  watchlist files from CIF feeds and distributes them to systems that
+  use the watchlists via ``rsync`` over SSH tunnels. These will be replaced,
+  eventually, with publish/subscribe services via AMQP.
+
+* Daily reports from the Botnets system – Currently, a scheduled script
+  generates daily reports that summarize the detected activity by the
+  Botnets system. This text report will be enriched with context
+  provided by the ``cifbulk`` service, the ``crosscor`` service, and the
+  *identify friend or foe* mechanism. This will be a model for a suite of
+  DIMS scheduled reports.
+
 Figure :ref:`dimsTrident` depicts the communication flows between components
 within the DIMS code base, and those within the Trident (ops-trust portal
 re-write) code base at a logical level. Both DIMS and Trident have architecturally
@@ -258,65 +219,166 @@ data query mechanism to front-end ``tcli``. (See Figure :ref:`dimsTridentStack`.
 The former is likely the simplest and
 most robust mechanism for web application GUI-to-backend data flows.
 
+The PRISEM system userd an obsolete (past end-of-life) commercial SEIM
+product that collected logs from participating sites, and forwarded them
+to a central storage and processing system. This is described in
+the :ref:`dimsocd:dimsoperationalconceptdescription`, Section
+:ref:`dimsocd:prisemcapabilities`, and depicted in this document in
+Figure :ref:`PRISEMInitialDeploymentAndFlows`.
 
-.. TODO(dittrich): Commenting out all of the scaffolding for now to clean up the rendered doc
+The data flow used in the more modern *MozDef* system was described in Section
+:ref:`conceptofexecution`. MozDef uses Python scripts for enrichment of
+incoming event logs, optionally received via AMQP (using RabbitMQ) (see
+`MozDef Concept of Operations`_).
 
-.. (Project-unique identifier of a software unit, or designator of a group of software units)
-.. ------------------------------------------------------------------------------------------
+.. _MozDef Concept of Operations: http://mozdef.readthedocs.org/en/latest/introduction.html#concept-of-operations
+
+To replace this distributed log collection system with an open source
+alternative, the features of RabbitMQ known as `Federated Queues`_ and
+`Distributed RabbitMQ brokers`_ (specifically, the `Shovel plugin`_),
+implemented in Docker containers like other DIMS components, can be
+used. This architecture is depicted in Figure :ref:`proposedcollector`.
+
+.. _Federated Queues: https://www.rabbitmq.com/federated-queues.html
+.. _Distributed RabbitMQ brokers: https://www.rabbitmq.com/distributed.html
+.. _Shovel plugin: https://www.rabbitmq.com/shovel.html
+.. _proposedcollector:
+
+.. figure:: images/DIMS_PISCES_Collector_Node-v1.png
+   :width: 90%
+   :alt: Proposed DIMS-PISCES Collector Architecture
+   :align: center
+   :name: Proposed DIMS-PISCES Collector Architecture
+
+   Proposed DIMS-PISCES Collector Architecture
+
 ..
-.. .. todo::
+
+The mechanisms for implementing this distributed collection archicture using
+RabbitMQ are described in:
+
++ `Alvaro Videla - Building a Distributed Data Ingestion System with RabbitMQ`_, YouTube, Jul 16, 2014
++ `Distributed log aggregation with RabbitMQ Federation`_, by Alvaro Videla, December 17, 2013
++ `Routing Topologies for Performance and Scalability with RabbitMQ`_, by Helena Edelson, April 1, 2011
+
+.. _Alvaro Videla - Building a Distributed Data Ingestion System with RabbitMQ: https://youtu.be/EUfSgYU_SFk
+.. _Routing Topologies for Performance and Scalability with RabbitMQ: http://spring.io/blog/2011/04/01/routing-topologies-for-performance-and-scalability-with-rabbitmq/
+.. _Distributed log aggregation with RabbitMQ Federation: http://jaxenter.com/distributed-log-aggregation-with-rabbitmq-federation-107287.html
+
+As described in `Distributed log aggregation with RabbitMQ Federation`_, the relationship
+between participant sites with the DIMS-PISCES collector is one of `upstream`
+exchanges, which will feed the central DIMS-PISCES backend data store
+acting as a `downstream` exchange via the RabbitMQ `Shovel plugin`_.
+
+.. _upstreamdownstream:
+
+.. figure:: images/alvaro-1.png
+   :width: 50%
+   :alt: Relationship between Upstream and Downstream Exchanges
+   :align: center
+   :name: Relationship between Upstream and Downstream Exchanges
+
+   Relationship between Upstream and Downstream Exchanges
+
 ..
-..    This paragraph shall identify a software unit by project-unique identifier and
-..    shall describe the unit. The description shall include the following
-..    information, as applicable. Alternatively, this paragraph may designate a group
-..    of software units and identify and describe the software units in
-..    subparagraphs. Software units that contain other software units may reference
-..    the descriptions of those units rather than repeating information.
+
+Certain types of information that are related to the site where
+the upstream exchange is located make sense to be included by
+the producer scripts when queueing events at the upstream for
+later transport to the downstream exchange.  These would be
+things like geolocation from an off-line database (e.g., Maxmind),
+and tagging with the SiteID, etc.
+
+.. todo::
+
+    Describe how the event logs at an upstream participant site are collected,
+    processed, and forwarded to the central backend data store.  These steps
+    are:
+
+    #. Parsing from Unix ``syslog`` format to JSON.
+
+    #. Enrichment with site-specific information:
+
+        #. Adding participant *SiteID*.
+
+        #. Mapping of RFC 1918 addresses to routable (i.e., post-NAT)
+           address(es).
+
+        #. TLP tagging(?).
+
+    #. Publishing to AMQP upstream exchange for local queueing
+       and forwarding to downstream exchange for insertion into
+       backend data store.
+
+    .. note::
+
+       Logs for the DIMS-PISCES system processes and security systems should
+       themselves be enriched with *SiteID* and identified as being DIMS-PISCES
+       related to separate them from other security event logs.  This allows
+       for monitoring of the health of the DIMS-PISCES system itself.  These
+       events are otherwise processed identically to security events to
+       simplify the design of the system.
+
+    ..
+
 ..
-..        * Unit design decisions, if any, such as algorithms to be used, if not previously selected
+
+.. todo::
+
+    .. attention::
+
+        Tuning of RabbitMQ queues should take into account the number of events
+        received per collector per day, times the number of days of network
+        outage that would be tolerable, in order to avoid losing events. If we
+        can determine these numbers from the existing PRISEM system, or derive
+        it from historical log data, that would help with tuning.
+
+    ..
+
 ..
-..        * Any constraints, limitations, or unusual features in the design of the software unit
+
+Other types of data *do not make sense* to add at the upstream, most notably
+data that resides at the central backend data store (e.g, data held in the
+Collective Intelligence Framework (CIF) database, which was described in
+Section :ref:`dimsocd:currentsystem` of the
+:ref:`dimsocd:dimsoperationalconceptdescription`.) In order a producer to tag
+data using information stored remotely, the producer would have to make a
+remote query for the data, then insert it, then queue the event log data.  This
+requires that this added data transit the network twice (once in response to
+the query for it, and again when the event log is transmitted from upstream
+exchange to downstream exchange.)
+
+It makes more sense to insert a consumer on the downstream exchange that does
+this enrichment using locally available data, then index it in the backend data
+store.
+
+.. todo::
+
+    Describe how the event logs are enriched at the downstream collection
+    point before being indexed in the backend data store.
+
+    These steps for enrichment at the downstream collector would include:
+
+    #. Enrichment of security event data with data available in the Collective
+       Intelligence Framework (CIF) database.
+
+    #. Enrichment of DIMS-PISCES system monitoring data with system-specific
+       attributes (e.g., TTL or expiration date).
+
 ..
-..        * The programming language to be used and rationale for its use if other than the specified CSCI language
-..
-..        * If the software unit consists of or contains procedural commands (such as
-.. 	 menu selections in a database management system (DBMS) for defining forms
-.. 	 and reports, on-line DBMS queries for database access and manipulation,
-.. 	 input to a graphical user interface (GUI) builder for automated code
-.. 	 generation, commands to the operating system, or shell scripts), a list
-.. 	 of the procedural commands and reference to user manuals or other
-.. 	 documents that explain them.
-..
-..        * If the software unit contains, receives, or outputs data, a description
-.. 	 of its inputs, outputs, and other data elements and data element
-.. 	 assemblies, as applicable. Paragraph 4.3.x of this DID provides a list of
-.. 	 topics to be covered, as applicable. Data local to the software unit
-.. 	 shall be described separately from data input to or output from the
-.. 	 software unit. If the software unit is a database, a corresponding
-.. 	 Database Design Description (DBDD) shall be referenced; interface
-.. 	 characteristics may be provided here or by referencing section 4 or the
-.. 	 corresponding Interface Design Description(s).
-..
-..        * If the software unit contains logic, the logic to be used by the software unit, including, as applicable:
-..
-..
-.. 	   * Conditions in effect within the software unit when its execution is initiated
-..
-.. 	   * Conditions under which control is passed to other software units
-..
-.. 	   * Response and response time to each input, including data conversion, renaming, and data transfer operations
-..
-.. 	   * Sequence of operations and dynamically controlled sequencing during the software unit's operation, including:
-..
-.. 	       * The method for sequence control
-..
-.. 	       * The logic and input conditions of that method, such as timing variations, priority assignments
-..
-.. 	       * Data transfer in and out of memory
-..
-.. 	       * The sensing of discrete input signals, and timing relationships between interrupt operations within the software unit
-..
-..
-..        * Exception and error handling
-..
-..
+
+Other web pages that provide alternative methods of collecting log
+events in Docker containers include the following:
+
+    + `Automating Docker Logging: ElasticSearch, Logstash, Kibana, and Logspout`_, by Nathan LeClaire, Apr 27, 2015
+    + `Scalable Docker Monitoring with Fluentd, Elasticsearch and Kibana 4`_, by manu, November 21, 2014
+    + `syslog logging driver for Docker`_, by Mark Wolfe, May 3, 2015
+    + `Real-time monitoring of Hadoop clusters`_, by Attila Kanto, October 7, 2014
+
+
+
+.. _Automating Docker Logging\: ElasticSearch, Logstash, Kibana, and Logspout: http://nathanleclaire.com/blog/2015/04/27/automating-docker-logging-elasticsearch-logstash-kibana-and-logspout/
+.. _Scalable Docker Monitoring with Fluentd, Elasticsearch and Kibana 4: http://blog.snapdragon.cc/2014/11/21/scalable-docker-monitoring-fluentd-elasticsearch-kibana-4/
+.. _syslog logging driver for Docker: http://www.wolfe.id.au/2015/05/03/syslog-logging-driver-for-docker/
+.. _Real-time monitoring of Hadoop clusters: http://blog.sequenceiq.com/blog/2014/10/07/hadoop-monitoring/
+

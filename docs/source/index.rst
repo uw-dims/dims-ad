@@ -18,8 +18,6 @@ DIMS Architecture Design v |release|
    requirementstraceability
    notes
    license
-   appendices
-   tobeintegrated
 
 Contact
 ~~~~~~~
