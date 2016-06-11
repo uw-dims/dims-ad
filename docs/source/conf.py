@@ -389,8 +389,8 @@ if on_rtd:
             'dimsasbuilt': ("https://dims-asbuilt.readthedocs.io/en/{0}".format(git_tag), None),
             'dimsocd': ("https://dims-ocd.readthecods.io/en/{0}".format(git_tag), None),
             'dimsjds': ("https://dims-jds.readthedocs.io/en/{0}".format(git_tag), None),
-            'dimssr': ("https://dims-sr.readthedocs.io/en/{0}".format(git_tag), , None),
-            'dimstp': ("https://dims-tp.readthedocs.io/en/{0}".format(git_tag), , None),
+            'dimssr': ("https://dims-sr.readthedocs.io/en/{0}".format(git_tag), None),
+            'dimstp': ("https://dims-tp.readthedocs.io/en/{0}".format(git_tag), None),
 else:
     intersphinx_mapping = {
             'dimsasbuilt': ("{}/dims-asbuilt".format(os.environ['DOCSURL']), None),
