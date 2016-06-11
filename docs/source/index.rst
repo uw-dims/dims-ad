@@ -19,7 +19,6 @@ DIMS Architecture Design v |release|
    notes
    license
    appendices
-   tobeintegrated
 
 Contact
 ~~~~~~~
