@@ -14,7 +14,7 @@ Distributed Incident Management System (DIMS) architecture. Its
 purpose is to provide the reader with an overview of the major system
 components of the existing Public Regional Information Security Event
 Management (PRISEM) system, the Operational Security Trust (Ops-Trust)
-portal system, and the components of the DIMS 'dashboard' front-end
+portal system (now *Trident*), and the components of the DIMS *dashboard* front-end
 and data processing back end that integrate these two existing
 systems.
 
@@ -28,8 +28,8 @@ The scope of this document is limited to description of the
 architectural elements, data types (and their sources, volumes, and
 retention periods), data flows, user interfaces, etc. It is assumed
 the reader is familiar with the underlying motivations for the system
-as described in the Concept of Operations and Functional Requirements
-document.
+as described in the :ref:`dimsocd:dimsoperationalconceptdescription`
+and :ref:`dimssr:dimssystemrequirements` documents.
 
 .. _documentoverview:
 
