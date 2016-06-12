@@ -92,6 +92,8 @@ The DIMS platform is made up of several open source sub-systems.
   call services, and message brokering for things like chat and
   event logging.
 
+* A Collective Intelligence Framework database server.
+
 All of these open source components are installed and configured
 using Ansible from ad-hoc control hosts (e.g., developer laptops),
 and via a Jenkins continuous integration server by manual, or
