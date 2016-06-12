@@ -19,7 +19,7 @@ Hardware Detailed Design
 
 .. _prisemhardwarelayout:
 
-.. figure:: images/hardware-layout-diagram.png
+.. figure:: images/hardware_layout_diagram.png
    :width: 95%
    :figwidth: 50%
    :align: right
