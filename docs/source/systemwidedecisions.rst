@@ -213,14 +213,6 @@ provided via an OpenVPN server for secure access. The DIMS dashboard
 will front-end this portal and support additional capabilities that
 are available on the PRISEM back-end via the AMQP broker.
 
-.. TODO(dittrich): Figure out what "Figure TODO-26 and TODO-27" means.
-.. todo::
-
-    Figure out that this refered to: "(See Figure
-    TODO-26 and Figure TODO-27)."
-
-..
-
 .. _PRISEM-Architecture:
 
 .. figure:: images/prisem-system-architecture-v1.png
