@@ -377,7 +377,7 @@ deployment. Use of Ansible in DIMS is described in Section
 
 .. _configurationtaxonomy:
 
-.. figure:: images/Taxonomy-v1.png
+.. figure:: images/Taxonomy.png
    :alt: Configuration Description Taxonomy
    :width: 80%
    :align: center
