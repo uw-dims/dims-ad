@@ -376,6 +376,51 @@ events in Docker containers include the following:
     + `Real-time monitoring of Hadoop clusters`_, by Attila Kanto, October 7, 2014
 
 
+.. _externalcommunication:
+
+External Communications Detailed Design
+---------------------------------------
+
+Figure :ref:`dimsvpnvlan1` shows a conceptual view of remote access
+to an internal Virtual LAN (VLAN) via an OpenVPN tunnel. Each of
+the hosts at the top of the diagram (a remote system, such as a
+data collector node, in the upper left, and two developer
+laptops at the upper right.)
+
+.. _dimsvpnvlan1:
+
+.. figure:: images/dims-vpn-vlan1.png
+   :width: 85%
+   :align: center
+
+   Conceptual Diagram of Remote VPN Access
+
+..
+
+Remote OpenVPN clients connect to the OpenVPN server and a tunnel
+interface (``tun0``) is created for each host on the subnet
+``10.86.86.0/24``. The OpenVPN server provides Network Address
+Translation (NAT) services to these devices to its internal
+interface on the internal virtual LAN (``VLAN1``) using
+the ``10.142.29.0/24`` network block. Bare-metal and virtual
+machine servers sharing this VLAN are thus directly accessible
+behind the firewall.
+
+.. note::
+
+    Not depicted in Figure :ref:`dimsvpnvlan1`are the specific routable
+    IP addresses that each of the tunnel clients on the top of the
+    diagram, nor the OpenVPn server itself, are using. The OpenVPN
+    server is shown as splitting the two boxed virtual networks to indicate its
+    role in providing remote access that connects the two virtual networks by
+    way of a tunnel using the network address range ``10.86.86.0/24`` in this
+    case.  To include the Internet-routable IP addresses, while being more
+    precise, complicates the diagram.  These laptops have two interfaces (one
+    wired, one wireless) that can be used for Internet access required to
+    connect to the OpenVPN server via a public IP address.
+
+..
+
 
 .. _Automating Docker Logging\: ElasticSearch, Logstash, Kibana, and Logspout: http://nathanleclaire.com/blog/2015/04/27/automating-docker-logging-elasticsearch-logstash-kibana-and-logspout/
 .. _Scalable Docker Monitoring with Fluentd, Elasticsearch and Kibana 4: http://blog.snapdragon.cc/2014/11/21/scalable-docker-monitoring-fluentd-elasticsearch-kibana-4/
