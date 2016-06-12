@@ -31,6 +31,23 @@ the reader is familiar with the underlying motivations for the system
 as described in the :ref:`dimsocd:dimsoperationalconceptdescription`
 and :ref:`dimssr:dimssystemrequirements` documents.
 
+.. attention::
+
+    This document was originally written in the months after the
+    initial start of period of performance of the DIMS project
+    contract, which was September 13, 2013. Things have changed
+    over the Base Period, Option Period, and two extensions.
+    This, and all related DIMS documents, were originally written
+    as *forward-looking* documents using future tense. This, and
+    all related project documents, are undergoing updates
+    to reflect changes that have occured (including switching
+    to past tense and renaming as necessary) on a best-effort
+    basis.  Keep this in mind while reading this document, and
+    feel free to report any errors you encounter by filing
+    a bug report or issuing a pull request.
+
+..
+
 .. _documentoverview:
 
 Document overview
