@@ -423,6 +423,28 @@ behind the firewall.
 
 ..
 
+.. note::
+
+    To facilitate development and testing of components during the development
+    phase of the DIMS project, multiple OpenVPN tunnels were used to provide
+    relatively unrestricted remote access to internal DIMS systems until the
+    platform stabilized and tighter access control rules applied. The team did
+    not have the staff resources to start out with tight access controls and be
+    able to diagnose problems that could be caused by either service
+    misconfiguration, network routing misconfiguration, DNS misconfiguration,
+    or access control misconfiguration. Thus a more open architecture was used
+    to lessen friction during development across multiple timezones and
+    multiple sites, with many team members also using mobile devices.
+
+    In practice, this kind of remote VPN access is only required for
+    development activities that are not easily supported by either SSH tunnels,
+    or SSL connections to AMQP or other specific services. For example, Ansible
+    uses SSH, so configuration management and CI/CD functions do not require a
+    full OpenVPN tunnel. Containerized microservices using Docker networking
+    can use SSL for tunneling, providing their own equivalent of OpenVPN
+    tunnels.
+
+..
 
 .. _Automating Docker Logging\: ElasticSearch, Logstash, Kibana, and Logspout: http://nathanleclaire.com/blog/2015/04/27/automating-docker-logging-elasticsearch-logstash-kibana-and-logspout/
 .. _Scalable Docker Monitoring with Fluentd, Elasticsearch and Kibana 4: http://blog.snapdragon.cc/2014/11/21/scalable-docker-monitoring-fluentd-elasticsearch-kibana-4/
