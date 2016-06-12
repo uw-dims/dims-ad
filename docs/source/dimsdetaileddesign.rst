@@ -410,7 +410,7 @@ behind the firewall.
 
 .. note::
 
-    Not depicted in Figure :ref:`dimsvpnvlan1`are the specific routable
+    Not depicted in Figure :ref:`dimsvpnvlan1` are the specific routable
     IP addresses that each of the tunnel clients on the top of the
     diagram, nor the OpenVPn server itself, are using. The OpenVPN
     server is shown as splitting the two boxed virtual networks to indicate its
