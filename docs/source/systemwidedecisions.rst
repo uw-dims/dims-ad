@@ -562,7 +562,6 @@ incident response groups.)
 .. _LaTeX: http://www.latex-project.org
 .. _Continuous Integration: http://www.thoughtworks.com/continuous-integration
 .. _DevOps: http://theagileadmin.com/what-is-devops/
-.. _FosWiki: http://foswiki.org/
 .. _Domain Name System (DNS): http://en.wikipedia.org/wiki/Domain_Name_System
 .. _General Computer Security Awareness: https://staff.washington.edu/dittrich/home/general.html
 
@@ -621,10 +620,8 @@ in Figure :ref:`dimsops`.
 
    * - Component
      - CSCI/Requirement
-   * - Ops-trust portal
+   * - Trident portal and wiki
      - :ref:`dimssr:bdscsci`, :ref:`dimssr:designconstraints`
-   * - FosWiki
-     - :ref:`dimssr:bdscsci`
    * - LDAP Single-Signon
      - :ref:`dimssr:diutcsci`, :ref:`dimssr:networkAccessControls`
    * - OpenVPN
