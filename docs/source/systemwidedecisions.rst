@@ -118,7 +118,7 @@ incident-level up to campaign-level activity.
 ..
 
 The DIMS software,
-layered on top of the Ops-Trust portal system as illustrated in
+layered on top of the Trident portal system as illustrated in
 Figure :ref:`dimsTridentStack`, will facilitate
 production of these reports and transmission/reception of structure
 data files and facilitate automated processing of the structure data
@@ -231,10 +231,7 @@ provide single-signon capability. All of these services are provided
 via four separate virtual machines, co-resident in a single 1U server
 that is backed up off-site. The instance depicted in
 :ref:`OpsTrustArchitectureDiagram` is hosted on Ops-Trust hardware. A
-development instance will be set up at the UW for DIMS development,
-and potentially multiple local test instances will be set up for
-PRISEM users (and possibly also Agora members, currently running in
-the multiple hundreds of individuals) to beta-test DIMS features.
+development instance was set up at the UW for DIMS development.
 
 .. _OpsTrustArchitectureDiagram:
 
@@ -614,14 +611,14 @@ in Figure :ref:`dimsops`.
      - CSCI/Requirement
    * - Trident portal and wiki
      - :ref:`dimssr:bdscsci`, :ref:`dimssr:designconstraints`
-   * - LDAP Single-Signon
-     - :ref:`dimssr:diutcsci`, :ref:`dimssr:networkAccessControls`
-   * - OpenVPN
-     - :ref:`dimssr:diutcsci`, :ref:`dimssr:networkAccessControls`
    * - DIMS Web App
      - :ref:`dimssr:dwacsci`
-   * - Hadoop (HDFS), Elasticsearch, etc.
+   * - LDAP Single-Signon
+     - :ref:`dimssr:diutcsci`, :ref:`dimssr:networkAccessControls`
+   * - Redis, Hadoop (HDFS), Elasticsearch, etc.
      - :ref:`dimssr:bdscsci`
+   * - OpenVPN
+     - :ref:`dimssr:diutcsci`, :ref:`dimssr:networkAccessControls`
    * - Tupelo
      - :ref:`dimssr:diutcsci`
    * - Anonymization
@@ -693,7 +690,7 @@ for development. This is illustrated in Figure :ref:`dimsopspiscesdevops`.
 
    * - Component
      - CSCI/Requirement
-   * - Ops-trust portal
+   * - Trident portal and wiki
      - :ref:`dimssr:bdscsci`,
        :ref:`dimssr:designconstraints`
    * - Git source repository management
