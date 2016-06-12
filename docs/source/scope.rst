@@ -12,7 +12,7 @@ This Architecture Design document (version |release|) describes
 the proposed high-level design of the
 Distributed Incident Management System (DIMS) architecture. Its
 purpose is to provide the reader with an overview of the major system
-components of the existing Public Regional Information Security Event
+components of the former Public Regional Information Security Event
 Management (PRISEM) system, the Operational Security Trust (Ops-Trust)
 portal system (now *Trident*), and the components of the DIMS *dashboard* front-end
 and data processing back end that integrate these two existing
