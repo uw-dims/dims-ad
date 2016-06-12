@@ -595,7 +595,7 @@ in Figure :ref:`dimsops`.
 
 .. _dimsops:
 
-.. figure:: images/DIMS-OPS-v1.png
+.. figure:: images/DIMS-OPS.png
    :alt: DIMS Operations
    :width: 30%
    :align: center
@@ -636,7 +636,7 @@ as `DIMS-PISCES` is illustrated in Figure :ref:`dimsopspisces`. [#pisces]_
 
 .. _dimsopspisces:
 
-.. figure:: images/DIMS-OPS-PISCES-v1.png
+.. figure:: images/DIMS-OPS-PISCES.png
    :width: 30%
    :alt: DIMS Operations + PISCES
    :align: center
@@ -677,7 +677,7 @@ for development. This is illustrated in Figure :ref:`dimsopspiscesdevops`.
 
 .. _dimsopspiscesdevops:
 
-.. figure:: images/DIMS-OPS-PISCES-DevOps-v1.png
+.. figure:: images/DIMS-OPS-PISCES-DevOps.png
    :width: 60%
    :align: center
 
