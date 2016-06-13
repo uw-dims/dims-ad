@@ -105,35 +105,9 @@ event-triggered, jobs.
 Internal Communications Detailed Design
 ---------------------------------------
 
-Figure :ref:`MessageBus` shows the general flow of commands and logged
-events from clients and services used in the PRISEM system for
-inter-process communication between system components. In this
-example, there are three general RPC services named *A*, *B*, and *C*.
-Calls from remote clients *A* (color blue) and *B* (color black) are
-processed by one of n instances of multiprocessing service daemons on
-the same hardware as the AMQP broker (by multiple processes or virtual
-machines). Client *C* in this diagram (color green) is also a remote
-client, as is the RPC service *C*. (The AMQP broker and RPC mechanism
-allows these programs to run anywhere we want.) Also depicted in this
-diagram is an event feedback loop (color red). All clients and
-services log significant events such as process startup, process end,
-time taken to process RPC calls, or even more fine-grained debugging
-output to assist developers. These events logs are published to a
-fanout exchange, which distributes the events to any subscribers who
-wish to consume them.
-
-.. _MessageBus:
-
-.. figure:: images/rabbitmq-bus-architecture.png
-   :width: 70%
-   :align: center
-
-   AMQP Messaging Bus Architecture
-
-..
-
-Figure :ref:`PRISEMAMQP` shows a different perspective on the
-central AMQP bus. Red boxes depict the command line clients,
+Figure :ref:`PRISEMAMQP` shows a more detailed perspective on the
+central AMQP bus than that in Section :ref:`MessageBus`.
+Red boxes depict the command line clients,
 client applications, and "service" daemons that front-end
 accces to data stores (the gray boxes with solid Blue lines
 on top and bottom) and other command line programs (the
@@ -221,7 +195,7 @@ data query mechanism to front-end ``tcli``. (See Figure :ref:`dimsTridentStack`.
 The former is likely the simplest and
 most robust mechanism for web application GUI-to-backend data flows.
 
-The PRISEM system userd an obsolete (past end-of-life) commercial SEIM
+The PRISEM system used an obsolete (past end-of-life) commercial SEIM
 product that collected logs from participating sites, and forwarded them
 to a central storage and processing system. This is described in
 the :ref:`dimsocd:dimsoperationalconceptdescription`, Section

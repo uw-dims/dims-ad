@@ -142,12 +142,13 @@ Internal Communications Architecture
 
 ..
 
-The DIMS system will be built on top of the legacy PRISEM
-system. PRISEM has interfaces to some of its services that integrate
+The DIMS system was designed to overlay on top of the legacy PRISEM
+system and other open source security tools. PRISEM had interfaces
+to some of its services that integrated
 an instance of the Collective Intelligence Framework (CIF) database
 for IP-based reputation watchlists and historic attacker context, an
 archive of historic event logs, and remotely stored network flow data
-in SiLK format. The logical architecture that integrates these systems
+in SiLK format. The logical architecture that integrated these systems
 is a combination of message bus (using AMQP), SSH tunneled file and/or
 command line access, or HTTPS web interfaces and RESTful API.
 
@@ -224,6 +225,33 @@ command line access, or HTTPS web interfaces and RESTful API.
 
         * Identify the program library in which the software that implements each
           software unit is to be placed
+
+..
+
+Figure :ref:`MessageBus` shows the general flow of commands and logged
+events from clients and services used in the PRISEM system for
+inter-process communication between system components. In this
+example, there are three general RPC services named *A*, *B*, and *C*.
+Calls from remote clients *A* (color blue) and *B* (color black) are
+processed by one of n instances of multiprocessing service daemons on
+the same hardware as the AMQP broker (by multiple processes or virtual
+machines). Client *C* in this diagram (color green) is also a remote
+client, as is the RPC service *C*. (The AMQP broker and RPC mechanism
+allows these programs to run anywhere we want.) Also depicted in this
+diagram is an event feedback loop (color red). All clients and
+services log significant events such as process startup, process end,
+time taken to process RPC calls, or even more fine-grained debugging
+output to assist developers. These events logs are published to a
+fanout exchange, which distributes the events to any subscribers who
+wish to consume them.
+
+.. _MessageBus:
+
+.. figure:: images/rabbitmq-bus-architecture.png
+   :width: 70%
+   :align: center
+
+   AMQP Messaging Bus Architecture
 
 ..
 
