@@ -16,18 +16,28 @@ DIMS architectural design
 ..
 
 Figure :ref:`DIMSSystemArchitecture` illustrates the combined systems
-of the PRISEM project, the Ops-Trust portal, and the DIMS back end. As
-much as possible, the DIMS architecture will be overlaid on top of, or
+of the PRISEM project, the Trident portal (formerly the *Ops-Trust portal*),
+and the DIMS back end. As
+much as possible, the DIMS architecture was built to be overlaid on top of, or
 merged into, similar components from these existing systems. For
 example, it is not necessary to run three DNS servers for each
 project, when one can handle multiple systems and possibly even
 multiple domains. These can thus be collapsed into one server for
-DNS. The same is true for LDAP and OpenID authentication (Ops-Trust
-and DIMS are both designed to use these services) and there is only
+DNS. The same is true for LDAP and OpenID authentication (the
+Trident portal and DIMS are both designed to use these services) and there is only
 need for one AMQP message bus server, one mail server, and one
 database for security data. All access will be centralized through the
 OpenVPN server, with certificates and encryption keys provided to the
-user via the modified Ops-Trust portal.
+user via the Trident portal.
+
+.. note::
+
+   This document was originally written prior to the Ops-Trust portal being
+   renamed *Trident*. The name *Ops-Trust portal* may still exist throughout
+   this, and related DIMS documents. An effort has been made to cross-reference
+   the new portal name where possible.
+
+..
 
 .. _DIMSSystemArchitecture:
 
@@ -39,29 +49,19 @@ user via the modified Ops-Trust portal.
 
 ..
 
-.. todo::
-
-   Moved hardware layout from here. May need some transition
-   text here.
-
-..
-
 .. _dimscomponents:
 
 System Software Architecture
 ----------------------------
 
-The DIMS system will conform with the hardware/software separation
-used by the Ops-Trust and PRISEM systems, which pre-date the DIMS
+The DIMS system conforms with the hardware/software separation
+used by the Trident and PRISEM systems, which pre-date the DIMS
 project. In both of these projects, some separation of services across
-physical and/or virtual machines is done for various reasons of
-performance, scalability, speed, ease of administration, conformance
-with operating system version dependencies, etc. DIMS components will
-be separate (where appropriate) for similar reasons, and integrated as
-much as possible by combining similar services in order to minimize
-the total number of physical and/or virtual machines in use. For
-example, if there are three domain name servers, they can be combined
-into one server that handles multiple domains.
+physical and/or virtual machines was done for various reasons of
+security, performance, scalability, ease of administration, conformance
+with operating system version dependencies, etc.
+
+
 
 SIEM event correlation server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -128,6 +128,157 @@ access to the MySQL databases used by Log Matrix. (The vendor
 maintains their own Cisco managed VPN/firewall for access from their
 internal network).
 
+
+DIMS components are separated (as appropriate) for similar reasons, and
+integrated as much as possible by combining similar services in order to
+minimize the total number of physical and/or virtual machines in use. For
+example, if there are three domain name servers, they can be combined into one
+server that handles multiple domains.
+
+The following Figures help illustrate the concepts of system implementation of
+the service components in relationship to physical ("bare-metal") hardware.
+
+Of course the simplest design is to take a hardware system, install a single
+operating system on it, and install every piece of software into that single
+server.  For the reasons listed above, this is not a viable or practical
+solution, since the component pieces were never designed to work this way. The
+level of effort required to debug, patch, document, and attempt to get the
+original authors to accept the code changes into their code base (to avoid
+adding a maintence cost for maintaining your locally patched fork as new
+versions of the original software are released) is not sustainable.
+
+Figure :ref:`VM-Architecture` shows the next simplest design, which is to
+host multiple virtual machines on a single server.  The *Host* is shown at the
+bottom, comprised of a highly-provisioned server, a base operating system and a
+virtual machine hypervisor. Each virtual machine *Guest* is then created and
+installed with its own combination of base operating system, libraries and
+binaries, and application software. The result is a single physical
+computer with a total of six servers (4 Ubuntu Linux, 1 Red Hat Enterprise
+Linux, and 1 Debian Linux) that must be configured, patched, and maintained
+separately. There is also a higher overhead for processing and memory,
+due to the hypervisor hardware virtualization layer.
+
+.. _VM-Architecture:
+
+.. figure:: images/VM-Architecture.png
+   :width: 70%
+   :align: center
+
+   Pure Virtual Machine Architecture
+
+..
+
+Figure :ref:`Container-Architecture` shows an alternative to virtual
+machines, which is the use of pure *containerization* of all services. In this
+architectural model, the Docker Engine replaces the hypervisor as part of the
+Host layer. On top of this are *Containers* formed from images that combine the
+foundational operating system bits, libraries, binaries, and application
+software as in Figure :ref:`VM-Architecture`, except there is no
+virtualization of hardware taking place. Instead, container images hold the
+file system contents that are then executed in isolated process spaces that
+function similarly to virtual machines (though simpler, as they only provide a
+service oriented function, rather than a fully-functional operating system into
+which you log in to like a "normal" virtual machine or bare-metal operating
+system.) One of the principle advantages to this architectural model is the
+separation of content in each container, allowing just the specific base
+operating system, binaries and libraries, and application code for each open
+source security tool to be set up exactly as the producer supports
+with no risk of that breaking other tools that are part of the larger
+system.
+
+.. _Container-Architecture:
+
+.. figure:: images/Container-Architecture.png
+   :width: 70%
+   :align: center
+
+   Pure Container Architecture
+
+..
+
+Of course is it much more complicated than this in real life. Requirements
+for scalability and redundancy drive towards use of multiple bare-metal
+servers. This leads to two more architectural models to add to the mix.
+
+The first is to clusterize the containerized model we just saw.
+Figure :ref:`Clusterized-Containers-Architecture` depicts a two-node
+CoreOS cluster. A program ``etcd`` is used as a distributed key/value
+store that facilitates managing the distribution and management of
+containers across the two server nodes. *App2* and *App3*, in this
+case, have multiple instances running (2x App2 and 3x App3, in
+this case), both split across the two cluster members.  This allows
+one of the two cluster servers to be taken off-line without
+disrupting the services provided by App2 and App3.
+
+.. _Clusterized-Containers-Architecture:
+
+.. figure:: images/Clusterized-Containers-Architecture.png
+   :width: 70%
+   :align: center
+
+   Clusterized Container Architecture
+
+..
+
+The final architectual model is combination of the earlier models.  Figure
+:ref:`Hybrid-Architecture` depicts a *Hybrid* combination of bare metal,
+virtual machines, and containers within virtual machines. (Because containers
+are so light-weight, you can run containers in both the Host and Guests,
+containers within containers, or combinations nested within each other!)
+
+The hybrid model can be accomplished by adding virtualized CoreOS nodes
+in the form of VM Guests along side other VM Guests in one server (as
+shown in Figure :ref:`Hybrid-Architecture`), or splitting pure virtual
+machines and pure-containerization across multiple servers (as shown
+in Figure :ref:`VMs-Containers-Architecture`).
+
+.. _Hybrid-Architecture:
+
+.. figure:: images/Hybrid-Architecture.png
+   :width: 70%
+   :align: center
+
+   Hybrid VM+Container Architecture
+
+..
+
+.. _VMs-Containers-Architecture:
+
+.. figure:: images/VMs-Containers-Architecture.png
+   :width: 70%
+   :align: center
+
+   Multi-server Hybrid Architecture
+
+..
+
+A primary advantage of this architectual model is the ability to use the
+separation of virtual machine Guests to leverage operating systems like CoreOS
+(that are designed for clusterized containerization support) along side
+multiple different base operating systems in other virtual machine Guests,
+within a single hardware server. This allows movement of services as
+necessary to address performance issues that may be discovered over
+time as the system scales up.
+
+.. note::
+
+   The architecture currently being used for DIMS development uses the
+   Hybrid model, with a three-node CoreOS cluster on bare-metal servers,
+   with a fourth server supporting virtual machine Guests.
+
+   Work is underway to replicate the entire system using a single-server Hybrid
+   deployment as shown in Figure :ref:`Hybrid-Architecture` as the prototype
+   for the U.S. Secret Service ECTF deployment.
+
+   The ECTF deployment is being planned to be done with two servers with
+   a subset of DIMS components (primarily focusing on the Trident portal.)
+   One server will be used to provide a stable "production" service platform,
+   while the second server can be used for staging new releases, testing,
+   supporting migration to other data center facilities, or as a fallback in
+   case the first system is damaged.
+
+..
+
 Internal Communications Architecture
 ------------------------------------
 
@@ -151,82 +302,6 @@ archive of historic event logs, and remotely stored network flow data
 in SiLK format. The logical architecture that integrated these systems
 is a combination of message bus (using AMQP), SSH tunneled file and/or
 command line access, or HTTPS web interfaces and RESTful API.
-
-.. todo::
-
-    This paragraph shall:
-
-        * Identify the software units that make up the DIMS. Each software unit
-          shall be assigned a project-unique identifier.
-
-          .. note::
-
-              A software unit is an element in the design of a DIMS; for
-              example, a major subdivision of a DIMS, a component of that
-              subdivision, a class, object, module, function, routine, or
-              database. Software units may occur at different levels of a
-              hierarchy and may consist of other software units. Software units
-              in the design may or may not have a one-to-one relationship with
-              the code and data entities (routines, procedures, databases, data
-              files, etc.) that implement them or with the computer files
-              containing those entities. A database may be treated as a DIMS or
-              as a software unit. The SDD may refer to software units by any
-              name(s) consistent with the design methodology being used.
-
-          ..
-
-        * Show the static (such as "consists of") relationship(s) of the software
-          units. Multiple relationships may be presented, depending on the
-          selected software design methodology (for example, in an
-          object-oriented design, this paragraph may present the class and object
-          structures as well as the module and process architectures of the
-          DIMS).
-
-        * State the purpose of each software unit and identify the DIMS
-          requirements and DIMS-wide design decisions allocated to it.
-          (Alternatively, the allocation of requirements may be provided in 6.a.)
-
-        * Identify each software unit's development status/type (such as new
-          development, existing design or software to be reused as is, existing
-          design or software to be reengineered, software to be developed for
-          reuse, software planned for Build N, etc.) For existing design or
-          software, the description shall provide identifying information, such
-          as name, version, documentation references, library, etc.
-
-        * Describe the DIMS's (and as applicable, each software unit's) planned
-          utilization of computer hardware resources (such as processor capacity,
-          memory capacity, input/output device capacity, auxiliary storage
-          capacity, and communications/network equipment capacity). The
-          description shall cover all computer hardware resources included in
-          resource utilization requirements for the DIMS, in system-level
-          resource allocations affecting the DIMS, and in resource utilization
-          measurement planning in the Software Development Plan. If all
-          utilization data for a given computer hardware resource are presented
-          in a single location, such as in one SDD, this paragraph may reference
-          that source. Included for each computer hardware resource shall be:
-
-            * The DIMS requirements or system-level resource allocations being
-              satisfied
-
-            * The assumptions and conditions on which the utilization data are
-              based (for example, typical usage, worst-case usage, assumption of
-              certain events)
-
-            * Any special considerations affecting the utilization (such as use
-              of virtual memory, overlays, or multiprocessors or the impacts of
-              operating system overhead, library software, or other
-              implementation overhead)
-
-            * The units of measure used (such as percentage of processor
-              capacity, cycles per second, bytes of memory, kilobytes per second)
-
-            * The level(s) at which the estimates or measures will be made (such
-              as software unit, DIMS, or executable program)
-
-        * Identify the program library in which the software that implements each
-          software unit is to be placed
-
-..
 
 Figure :ref:`MessageBus` shows the general flow of commands and logged
 events from clients and services used in the PRISEM system for
@@ -252,6 +327,37 @@ wish to consume them.
    :align: center
 
    AMQP Messaging Bus Architecture
+
+..
+
+
+Figure :ref:`dims-vpn-vlan1` depicts a high-level view of remote access
+from developer laptops (on the right) or servers at a remote site (on
+the left) using an OpenVPN tunnel that is routed via Network Address Translation
+to a non-public VLAN. This simplistic diagram does not show specific
+routable IP addresses of the remote systems, though it does show the
+tunnel IP address assigned by OpenVPN in relation to the OpenVPN
+server, and the difference between the network address ranges used by
+hosts on VLAN1 vs. the OpenVPN tunnel.
+
+.. note::
+
+    In reality, there are multiple non-private network address ranges and VLANs
+    in use by Virtual Machine hypervisors, Docker containers, and physical
+    switch VLANs. This is described in the "DIMS As-Built" document and we
+    are in the process of simplifying the highly-complicated networking
+    implementation that resulted from building on top of the legacy PRISEM
+    platform that goes back to the project's initiation in 2008.
+
+..
+
+.. _dims-vpn-vlan1:
+
+.. figure:: images/dims-vpn-vlan1.png
+   :width: 70%
+   :align: center
+
+   Remote access via OpenVPN to VLAN1
 
 ..
 
