@@ -314,7 +314,7 @@ git_tag = os.environ.get('GITTAG', "latest")
 epub_title = u'DIMS Architecture Design'
 epub_author = u'David Dittrich, Stuart Maclean'
 epub_publisher = u'University of Washington'
-epub_copyright = u'2014, 2015 University of Washington'
+epub_copyright = u'2014, 2016 University of Washington'
 
 # The basename for the epub file. It defaults to the project name.
 #epub_basename = u'DIMS Architecture Design'
