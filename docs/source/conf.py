@@ -373,8 +373,6 @@ epub_exclude_files = ['search.html']
 # If false, no index is generated.
 #epub_use_index = True
 
-os.environ['GITBRANCH'] = "develop"
-
 if os.environ.get('DOCSURL') is None:
     if not on_rtd:
         os.environ['DOCSURL'] = "http://demo.prisem.washington.edu:8080/docs/{}/html".format(git_branch)
@@ -383,7 +381,7 @@ intersphinx_cache_limit = -1   # days to keep the cached inventories (0 == forev
 if on_rtd:
     intersphinx_mapping = {
             'dimsasbuilt': ("https://dims-asbuilt.readthedocs.io/en/{0}".format(git_tag), None),
-            'dimsocd': ("https://dims-ocd.readthecods.io/en/{0}".format(git_tag), None),
+            'dimsocd': ("https://dims-ocd.readthedocs.io/en/{0}".format(git_tag), None),
             'dimsjds': ("https://dims-jds.readthedocs.io/en/{0}".format(git_tag), None),
             'dimssr': ("https://dims-sr.readthedocs.io/en/{0}".format(git_tag), None),
             'dimstp': ("https://dims-tp.readthedocs.io/en/{0}".format(git_tag), None),
