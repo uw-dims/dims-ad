@@ -118,7 +118,7 @@ incident-level up to campaign-level activity.
 ..
 
 The DIMS software,
-layered on top of the Ops-Trust portal system as illustrated in
+layered on top of the Trident portal system as illustrated in
 Figure :ref:`dimsTridentStack`, will facilitate
 production of these reports and transmission/reception of structure
 data files and facilitate automated processing of the structure data
@@ -213,14 +213,6 @@ provided via an OpenVPN server for secure access. The DIMS dashboard
 will front-end this portal and support additional capabilities that
 are available on the PRISEM back-end via the AMQP broker.
 
-.. TODO(dittrich): Figure out what "Figure TODO-26 and TODO-27" means.
-.. todo::
-
-    Figure out that this refered to: "(See Figure
-    TODO-26 and Figure TODO-27)."
-
-..
-
 .. _PRISEM-Architecture:
 
 .. figure:: images/prisem-system-architecture-v1.png
@@ -239,10 +231,7 @@ provide single-signon capability. All of these services are provided
 via four separate virtual machines, co-resident in a single 1U server
 that is backed up off-site. The instance depicted in
 :ref:`OpsTrustArchitectureDiagram` is hosted on Ops-Trust hardware. A
-development instance will be set up at the UW for DIMS development,
-and potentially multiple local test instances will be set up for
-PRISEM users (and possibly also Agora members, currently running in
-the multiple hundreds of individuals) to beta-test DIMS features.
+development instance was set up at the UW for DIMS development.
 
 .. _OpsTrustArchitectureDiagram:
 
@@ -377,7 +366,7 @@ deployment. Use of Ansible in DIMS is described in Section
 
 .. _configurationtaxonomy:
 
-.. figure:: images/Taxonomy-v1.png
+.. figure:: images/Taxonomy.png
    :alt: Configuration Description Taxonomy
    :width: 80%
    :align: center
@@ -562,7 +551,6 @@ incident response groups.)
 .. _LaTeX: http://www.latex-project.org
 .. _Continuous Integration: http://www.thoughtworks.com/continuous-integration
 .. _DevOps: http://theagileadmin.com/what-is-devops/
-.. _FosWiki: http://foswiki.org/
 .. _Domain Name System (DNS): http://en.wikipedia.org/wiki/Domain_Name_System
 .. _General Computer Security Awareness: https://staff.washington.edu/dittrich/home/general.html
 
@@ -604,7 +592,7 @@ in Figure :ref:`dimsops`.
 
 .. _dimsops:
 
-.. figure:: images/DIMS-OPS-v1.png
+.. figure:: images/DIMS-OPS.png
    :alt: DIMS Operations
    :width: 30%
    :align: center
@@ -621,18 +609,16 @@ in Figure :ref:`dimsops`.
 
    * - Component
      - CSCI/Requirement
-   * - Ops-trust portal
+   * - Trident portal and wiki
      - :ref:`dimssr:bdscsci`, :ref:`dimssr:designconstraints`
-   * - FosWiki
-     - :ref:`dimssr:bdscsci`
-   * - LDAP Single-Signon
-     - :ref:`dimssr:diutcsci`, :ref:`dimssr:networkAccessControls`
-   * - OpenVPN
-     - :ref:`dimssr:diutcsci`, :ref:`dimssr:networkAccessControls`
    * - DIMS Web App
      - :ref:`dimssr:dwacsci`
-   * - Hadoop (HDFS), Elasticsearch, etc.
+   * - LDAP Single-Signon
+     - :ref:`dimssr:diutcsci`, :ref:`dimssr:networkAccessControls`
+   * - Redis, Hadoop (HDFS), Elasticsearch, etc.
      - :ref:`dimssr:bdscsci`
+   * - OpenVPN
+     - :ref:`dimssr:diutcsci`, :ref:`dimssr:networkAccessControls`
    * - Tupelo
      - :ref:`dimssr:diutcsci`
    * - Anonymization
@@ -647,7 +633,7 @@ as `DIMS-PISCES` is illustrated in Figure :ref:`dimsopspisces`. [#pisces]_
 
 .. _dimsopspisces:
 
-.. figure:: images/DIMS-OPS-PISCES-v1.png
+.. figure:: images/DIMS-OPS-PISCES.png
    :width: 30%
    :alt: DIMS Operations + PISCES
    :align: center
@@ -688,7 +674,7 @@ for development. This is illustrated in Figure :ref:`dimsopspiscesdevops`.
 
 .. _dimsopspiscesdevops:
 
-.. figure:: images/DIMS-OPS-PISCES-DevOps-v1.png
+.. figure:: images/DIMS-OPS-PISCES-DevOps.png
    :width: 60%
    :align: center
 
@@ -704,7 +690,7 @@ for development. This is illustrated in Figure :ref:`dimsopspiscesdevops`.
 
    * - Component
      - CSCI/Requirement
-   * - Ops-trust portal
+   * - Trident portal and wiki
      - :ref:`dimssr:bdscsci`,
        :ref:`dimssr:designconstraints`
    * - Git source repository management

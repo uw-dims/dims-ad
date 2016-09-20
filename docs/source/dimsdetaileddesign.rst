@@ -19,7 +19,7 @@ Hardware Detailed Design
 
 .. _prisemhardwarelayout:
 
-.. figure:: images/hardware-layout-diagram.png
+.. figure:: images/hardware_layout_diagram.png
    :width: 95%
    :figwidth: 50%
    :align: right
@@ -92,6 +92,8 @@ The DIMS platform is made up of several open source sub-systems.
   call services, and message brokering for things like chat and
   event logging.
 
+* A Collective Intelligence Framework database server.
+
 All of these open source components are installed and configured
 using Ansible from ad-hoc control hosts (e.g., developer laptops),
 and via a Jenkins continuous integration server by manual, or
@@ -103,35 +105,9 @@ event-triggered, jobs.
 Internal Communications Detailed Design
 ---------------------------------------
 
-Figure :ref:`MessageBus` shows the general flow of commands and logged
-events from clients and services used in the PRISEM system for
-inter-process communication between system components. In this
-example, there are three general RPC services named *A*, *B*, and *C*.
-Calls from remote clients *A* (color blue) and *B* (color black) are
-processed by one of n instances of multiprocessing service daemons on
-the same hardware as the AMQP broker (by multiple processes or virtual
-machines). Client *C* in this diagram (color green) is also a remote
-client, as is the RPC service *C*. (The AMQP broker and RPC mechanism
-allows these programs to run anywhere we want.) Also depicted in this
-diagram is an event feedback loop (color red). All clients and
-services log significant events such as process startup, process end,
-time taken to process RPC calls, or even more fine-grained debugging
-output to assist developers. These events logs are published to a
-fanout exchange, which distributes the events to any subscribers who
-wish to consume them.
-
-.. _MessageBus:
-
-.. figure:: images/rabbitmq-bus-architecture.png
-   :width: 70%
-   :align: center
-
-   AMQP Messaging Bus Architecture
-
-..
-
-Figure :ref:`PRISEMAMQP` shows a different perspective on the
-central AMQP bus. Red boxes depict the command line clients,
+Figure :ref:`PRISEMAMQP` shows a more detailed perspective on the
+central AMQP bus than that in Section :ref:`MessageBus`.
+Red boxes depict the command line clients,
 client applications, and "service" daemons that front-end
 accces to data stores (the gray boxes with solid Blue lines
 on top and bottom) and other command line programs (the
@@ -219,7 +195,7 @@ data query mechanism to front-end ``tcli``. (See Figure :ref:`dimsTridentStack`.
 The former is likely the simplest and
 most robust mechanism for web application GUI-to-backend data flows.
 
-The PRISEM system userd an obsolete (past end-of-life) commercial SEIM
+The PRISEM system used an obsolete (past end-of-life) commercial SEIM
 product that collected logs from participating sites, and forwarded them
 to a central storage and processing system. This is described in
 the :ref:`dimsocd:dimsoperationalconceptdescription`, Section
@@ -376,6 +352,73 @@ events in Docker containers include the following:
     + `Real-time monitoring of Hadoop clusters`_, by Attila Kanto, October 7, 2014
 
 
+.. _externalcommunication:
+
+External Communications Detailed Design
+---------------------------------------
+
+Figure :ref:`dimsvpnvlan1` shows a conceptual view of remote access
+to an internal Virtual LAN (VLAN) via an OpenVPN tunnel. Each of
+the hosts at the top of the diagram (a remote system, such as a
+data collector node, in the upper left, and two developer
+laptops at the upper right.)
+
+.. _dimsvpnvlan1:
+
+.. figure:: images/dims-vpn-vlan1.png
+   :width: 85%
+   :align: center
+
+   Conceptual Diagram of Remote VPN Access
+
+..
+
+Remote OpenVPN clients connect to the OpenVPN server and a tunnel
+interface (``tun0``) is created for each host on the subnet
+``10.86.86.0/24``. The OpenVPN server provides Network Address
+Translation (NAT) services to these devices to its internal
+interface on the internal virtual LAN (``VLAN1``) using
+the ``10.142.29.0/24`` network block. Bare-metal and virtual
+machine servers sharing this VLAN are thus directly accessible
+behind the firewall.
+
+.. note::
+
+    Not depicted in Figure :ref:`dimsvpnvlan1` are the specific routable
+    IP addresses that each of the tunnel clients on the top of the
+    diagram, nor the OpenVPn server itself, are using. The OpenVPN
+    server is shown as splitting the two boxed virtual networks to indicate its
+    role in providing remote access that connects the two virtual networks by
+    way of a tunnel using the network address range ``10.86.86.0/24`` in this
+    case.  To include the Internet-routable IP addresses, while being more
+    precise, complicates the diagram.  These laptops have two interfaces (one
+    wired, one wireless) that can be used for Internet access required to
+    connect to the OpenVPN server via a public IP address.
+
+..
+
+.. note::
+
+    To facilitate development and testing of components during the development
+    phase of the DIMS project, multiple OpenVPN tunnels were used to provide
+    relatively unrestricted remote access to internal DIMS systems until the
+    platform stabilized and tighter access control rules applied. The team did
+    not have the staff resources to start out with tight access controls and be
+    able to diagnose problems that could be caused by either service
+    misconfiguration, network routing misconfiguration, DNS misconfiguration,
+    or access control misconfiguration. Thus a more open architecture was used
+    to lessen friction during development across multiple timezones and
+    multiple sites, with many team members also using mobile devices.
+
+    In practice, this kind of remote VPN access is only required for
+    development activities that are not easily supported by either SSH tunnels,
+    or SSL connections to AMQP or other specific services. For example, Ansible
+    uses SSH, so configuration management and CI/CD functions do not require a
+    full OpenVPN tunnel. Containerized microservices using Docker networking
+    can use SSL for tunneling, providing their own equivalent of OpenVPN
+    tunnels.
+
+..
 
 .. _Automating Docker Logging\: ElasticSearch, Logstash, Kibana, and Logspout: http://nathanleclaire.com/blog/2015/04/27/automating-docker-logging-elasticsearch-logstash-kibana-and-logspout/
 .. _Scalable Docker Monitoring with Fluentd, Elasticsearch and Kibana 4: http://blog.snapdragon.cc/2014/11/21/scalable-docker-monitoring-fluentd-elasticsearch-kibana-4/
